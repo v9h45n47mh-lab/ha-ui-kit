@@ -1,6 +1,6 @@
 # Übernahme in die Integrationen
 
-Stand: 10.11.2026. Der Baukasten 1.2.2 ist im Repository verfügbar. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
+Stand: 10.11.2026. Der Baukasten 1.3.0 ist im Repository verfügbar. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
 
 | Integration | UI-Baukasten | Stand |
 | --- | --- | --- |
@@ -9,7 +9,7 @@ Stand: 10.11.2026. Der Baukasten 1.2.2 ist im Repository verfügbar. Die untenst
 | Essensplaner | 1.2.1 | Veröffentlicht in [1.4.1](https://github.com/v9h45n47mh-lab/essensplaner-ha/releases/tag/v1.4.1); ausschließlich unverändertes UI_CSS, keine lokalen CSS-/Inline-Überschreibungen; gemeinsame Navigation, Kalender, Auswahlfelder, Buttons, Listen und Dialoge. Desktop/Mobil (1100/375/390/430 px), helle/dunkle Themes und Referenzvergleich mit bis zu 24 Bausteinen / 527 berechneten Werten geprüft; DOM-, Berechtigungs- und Prüfsummentests bestanden |
 | Einkaufszettel | – | Umstellung ausstehend |
 | Haushalt / Hausarbeiten Manager | 1.2.1 | Veröffentlicht in [0.3.4](https://github.com/v9h45n47mh-lab/hausarbeiten-manager/releases/tag/v0.3.4); ausschließlich gemeinsame UI_CSS und Komponenten für Navigation, Tagesgruppen, Aufgaben, Erledigungscheckboxen, Auswahlfelder, Wiederholungseditor, Buttons und Dialoge; 53 Backendtests sowie DOM-/Live-Sync-Tests bestanden; Chromium bei 1100/430/390/375/320 px hell/dunkel, exakte Kit-Geometrie, Rollenansichten, Dialoge und Live-Sync erfolgreich; Desktop-/Mobil-Screenshots beider Themes gesichtet; HA-Testfixture, keine laufende HA-Instanz |
-| Gartenarbeit | – | Umstellung ausstehend |
+| Gartenarbeit | 1.2.1 | Veröffentlicht in [1.2.1](https://github.com/v9h45n47mh-lab/gartenarbeit-manager/releases/tag/v1.2.1); ausschließlich UI_CSS, gemeinsame Formulare, Listen und Fotos; Kontokacheln aus 1.3.0 werden im nächsten eigenen Gartenarbeit-Release übernommen |
 | Spülmaschine | 1.2.1 | Veröffentlicht in [0.4.3](https://github.com/v9h45n47mh-lab/spuelmaschine-verlauf/releases/tag/v0.4.3); ausschließlich gemeinsame UI_CSS, Navigation, Zeilen, Monatsgruppen/Zähler und Statistik; 27 Backendtests und DOM-Tests bestanden; Chromium bei 1100/430/390/375/320 px hell/dunkel, exakte Kit-Geometrie, Rollenansichten und erhaltene Klappzustände erfolgreich; Desktop-/Mobil-Screenshots beider Themes gesichtet; HA-Testfixture, keine laufende HA-Instanz |
 | Family Access Manager | 1.2.1 | Veröffentlicht als [0.2.0-Prüfversion](https://github.com/v9h45n47mh-lab/family-access-manager/releases/tag/v0.2.0); unveränderte lokal gebundene Komponenten und ausschließlich UI_CSS für Kopf, Navigation, Benutzer-/Berechtigungszeilen, Auswahlfelder, Schalter, Buttons und Dialoge; kein Kalender vorhanden; Backend-Berechtigungslogik unverändert. 39 HA-Tests, 12 aktuelle Core-Prüfungen, fünf DOM-Prüfungen und 40 Chromium-Varianten bei 1100/430/390/375/320 px hell/dunkel bestanden; berechnete Stile direkt mit Originalkomponenten verglichen, Desktop-/Mobil-Screenshots beider Themes gesichtet; Browser mit HA-Client-Fixture, separater echter HA-Core-Test, kein produktiver Nabu-Casa-Test |
 

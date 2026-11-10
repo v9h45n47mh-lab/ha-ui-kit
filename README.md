@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.2.2**, visuelle Hauptvorlage: **Shutter Manager 1.4.0**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.3.0**, visuelle Hauptvorlage: **Shutter Manager 1.4.0**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -15,6 +15,7 @@ Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, komp
 - Durchsuchbare Einzel-/Mehrfachauswahl, gesperrte Einträge, Bereiche, Checkboxen, Wochentage, Zahlen mit Schnellwerten, Textbereiche, Links und gruppierte Dropdowns.
 - Prozent-/Positionsregler, unveränderte Werte, Kelvinregler und Farbrad mit Maus-, Touch- und Tastaturbedienung.
 - Zeitfenster, Saison ohne Jahreszahl, Datumsbereiche und Wiederholung mit monatlichen Mustern und abwechselnden Personen.
+- Quadratische Kontokacheln: `accountTile` / `accountTiles`, zwei gleich breite Spalten auch mobil, Name oben links und großer mittiger Wert.
 - Programmgruppen, Programm-/Aktionszeilen, Aktionseditoren, Messwerte, Status, Zähler, Verlauf, Monatsgruppen und Statistiktabellen.
 - Wochenkalender, Datumsnavigation, Tagesaufgaben, Erledigungscheckboxen, Sprachwahl, Sicherungsimport/-export, Hilfeseiten und Panel-Kopfbereich.
 - Hinweise, Formularfehler, Leer-/Ladezustände, Bestätigungsdialoge und Gartenarbeits-Fotos mit lokaler Verkleinerung, Vorschau und Großansicht; optionale Wisch-/Aktualisierungsgesten.
@@ -33,10 +34,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Versionsdateien nach `frontend/family-ui/1.2.2/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Versionsdateien nach `frontend/family-ui/1.3.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.2.2/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.3.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).

@@ -117,3 +117,12 @@ Ein Rollback stellt die alte Integrationsversion samt Import und Lock-Datei wied
 `programRow` richtet Programmnamen und Metadaten (Wochentage, Zeiten) bei 28 px Einzug aus. Der gemeinsame 8-px-Abstand zum 20-px-Aufklapppfeil genügt; der allgemeine zusätzliche Icon-Text-Abstand wird für den Programmtitel aufgehoben. Andere Buttons behalten ihren bisherigen Symbolabstand. Die Korrektur gilt für Desktop und Mobil, auch bei umbrochenen Namen.
 
 Die neue feste Version mit `vendor.mjs` übernehmen und den lokalen Import auf `family-ui/1.2.2/family-ui.js` ändern. Anwendungen mit `programRow` benötigen keine eigene CSS-Korrektur. Funktionen, Ereignisse und gespeicherte Daten bleiben gleich.
+
+## Kontokacheln ab 1.3.0
+
+```js
+import {accountTile,accountTiles} from "./family-ui/1.3.0/family-ui.js";
+const accounts=accountTiles({content:accountTile({id:"account-max",label:"Maximilian",value:25,unit:"min",status:"Guthaben",state:"success"})});
+```
+
+Das feste Raster liefert zwei halbe Breiten, auch mobil. Keine lokale CSS-Kopie ergänzen. Konten, Einheiten, Vorzeichenbedeutung, Detailtexte und Berechtigungen bleiben in der Anwendung.

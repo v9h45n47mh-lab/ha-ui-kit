@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 – 2026-11-10
+
+- Gemeinsame `accountTile`- und `accountTiles`-Komponenten ergänzt: quadratische Kontokacheln, Name oben links und großer, mittig ausgerichteter Kontostand mit Einheit und Status.
+- Das Raster zeigt immer zwei gleich breite Kacheln nebeneinander, auch auf Mobilgeräten. Eine einzelne eigene Kachel belegt ebenfalls eine halbe Zeile.
+- HA-Themefarben, semantische Kontozustände, optionale Hinweise, zugängliche Detailbeschreibung und escaped Textwerte. Keine Kontoberechnung, HA-Aufrufe oder Berechtigungslogik im Kit.
+- Galerie sowie Unit- und Browserprüfungen für 1100/430/390/375/320 px, helle/dunkle Themes, quadratische Geometrie, halbe Breite, Zentrierung, lange Namen und Einzelkonten ergänzt.
+
 ## 1.2.2 – 2026-11-10
 
 - Programmnamen und Zusatztexte beginnen jetzt bündig bei 28 px Einzug. Der doppelte 6-px-Iconabstand am Programmtitel entfällt zentral.

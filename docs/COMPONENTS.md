@@ -124,3 +124,12 @@ Aktionen liefern `{action,data,element,originalEvent}` sowie abhängig vom Objek
 ## Übernahme in Anwendungen
 
 Die bisherigen APIs sind weiterhin verfügbar. Eine neue Versionsbindung allein ersetzt keine individuellen Formulare oder Listen: Integrationen müssen die entsprechenden Renderfunktionen verwenden und Ereignisse mit ihrer vorhandenen Logik verbinden. Der Auftrag erweitert ausschließlich den zentralen Baukasten. Bereits veröffentlichte Integrationsstände bleiben in [ADOPTION.md](ADOPTION.md) dokumentiert.
+
+## Kontokacheln ab 1.3.0
+
+| Objekt | API | Herkunft |
+| --- | --- | --- |
+| Quadratische Kontokachel | `accountTile({id,label,value,unit,status,state,description,details})` | Ausdrückliche neue Gartenarbeit-Vorgabe vom 10.11.2026 |
+| Zwei gleich breite Kacheln pro Zeile | `accountTiles({content,label})` | Gartenarbeit; auch mobil zweispaltig |
+
+`state` erlaubt `neutral`, `active`, `success`, `warning`, `error`. Der Host liefert alle Texte und Werte; das Kit rechnet keine Konten und sendet keine Dienste. `description` ist ein optionaler sichtbarer Hinweis, `details` eine vollständige zugängliche Beschreibung und ein Tooltip. `content` enthält vertrauenswürdiges Markup aus `accountTile`. Alle Textparameter werden escaped. Eine einzelne Kachel bleibt halbbreit.

@@ -104,6 +104,16 @@ export function statusBadge({label,state='neutral',icon:iconName}) {
   return `<span class="fui-status-tag ${state}">${iconName?icon(iconName):''}${escapeHtml(label)}</span>`;
 }
 export function counter(value,label='') { return `<small class="fui-counter"${label?` aria-label="${escapeHtml(label)}"`:''}>${escapeHtml(value)}</small>`; }
+/** Static account summary. Values, units, status and permissions belong to the host. */
+export function accountTile({id,label,value,unit='',status='',state='neutral',description='',details=''}) {
+  objectId(id);
+  if(!['neutral','active','success','warning','error'].includes(state))throw new TypeError('Unknown account state');
+  return `<article class="fui-account-tile ${state}" id="${escapeHtml(id)}" aria-labelledby="${escapeHtml(id)}-label"${details?` aria-describedby="${escapeHtml(id)}-details" title="${escapeHtml(details)}"`:''}><h4 class="fui-account-label" id="${escapeHtml(id)}-label" title="${escapeHtml(label)}">${escapeHtml(label)}</h4><div class="fui-account-balance"><strong class="fui-account-value">${escapeHtml(value)}</strong><span class="fui-account-unit">${escapeHtml([unit,status].filter(Boolean).join(' '))}</span></div>${description?`<p class="fui-account-description">${escapeHtml(description)}</p>`:''}${details?`<span class="visually-hidden" id="${escapeHtml(id)}-details">${escapeHtml(details)}</span>`:''}</article>`;
+}
+/** Always two equal columns, including mobile and single-account views. */
+export function accountTiles({content,label='Zeitkonten'}) {
+  return `<div class="fui-account-tiles" role="group" aria-label="${escapeHtml(label)}">${content}</div>`;
+}
 export function historyList({entries,emptyLabel='Noch keine Einträge vorhanden.'}) {
   if(!entries.length)return emptyState(emptyLabel);
   return `<div class="daily-history" role="list">${entries.map(entry=>{

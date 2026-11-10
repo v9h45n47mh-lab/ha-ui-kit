@@ -1,3 +1,9 @@
+# Prüfstand 1.3.0
+
+- `account-tiles.test.mjs`: Datenvertrag, Status, sichere Texte und IDs, zugängliche Detailtexte.
+- `account-tiles.cjs`: zwei halbe Breiten, quadratische Geometrie, Namensposition und zentrierter großer Wert bei 1100/430/390/375/320 px, hell/dunkel; Einzelkonto, lange Namen und Überlauf.
+- Bestehende Core-, Objekt-, Galerie-, Programm- und Referenzprüfungen laufen weiter. Veröffentlichung erst nach erfolgreichem Workflow.
+
 # Prüfstand 1.2.2
 
 - Build, alle 16 Unit-Tests und Integritätsprüfung erfolgreich.

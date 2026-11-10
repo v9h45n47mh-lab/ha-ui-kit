@@ -1,4 +1,13 @@
 /* Geometry follows the source priority documented in COMPONENTS.md. */
+.fui-account-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fui-account-tile{aspect-ratio:1/1;min-width:0;min-height:0;position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:4px;padding:16px;border:1px solid var(--divider-color,#e0e0e0);border-radius:var(--ha-card-border-radius,12px);background:var(--ha-card-background,var(--card-background-color,#fff));overflow:hidden}
+.fui-account-label{font-size:13px;font-weight:500;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.fui-account-balance{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--primary-text-color,#212121)}
+.fui-account-value{max-width:100%;font-size:clamp(28px,7vw,48px);font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.fui-account-unit{font-size:12px;line-height:1.5}
+.fui-account-description{font-size:11px;line-height:1.35;color:var(--secondary-text-color,#727272);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.fui-account-tile.active .fui-account-balance{color:var(--primary-color,#03a9f4)}.fui-account-tile.success .fui-account-balance{color:var(--success-color,#2e7d32)}.fui-account-tile.warning .fui-account-balance{color:var(--warning-color,#f9a825)}.fui-account-tile.error .fui-account-balance{color:var(--error-color,#db4437)}
+@media(max-width:600px){.fui-account-tiles{gap:12px}.fui-account-tile{padding:12px}}
 fieldset{border:0;padding:0;margin:0;min-width:0}legend,.field-label{font-size:12px;color:var(--secondary-text-color,#727272);margin-bottom:6px}
 .field-error,.modal-save-error{color:var(--error-color,#db4437);font-size:13px;line-height:1.5}.fui-presets{margin-top:8px}.field-unit{align-self:flex-end}
 .check{display:flex;align-items:center;gap:8px;font-size:13px;min-height:32px}.check input{margin:0;flex-shrink:0}.fui-checks{display:flex;gap:8px 16px;flex-wrap:wrap}.fui-check-group{margin:8px 0}

@@ -103,5 +103,12 @@
       "gitBlob": "894f3bfa42e6fb6fbb26904fdf8ecee89f95a71e",
       "inspectedAt": "2026-11-10"
     }
-  ]
+  ],
+  "accountTiles": {
+    "introducedIn": "1.3.0",
+    "source": "Explicit Gartenarbeit account-tile request, 2026-11-10",
+    "repository": "https://github.com/v9h45n47mh-lab/gartenarbeit-manager",
+    "geometry": "Two equal columns at every viewport; square tiles; upper-left name; large centred account value",
+    "businessLogic": "Host provides values, units, status and permissions; no account calculation or HA calls"
+  }
 }
