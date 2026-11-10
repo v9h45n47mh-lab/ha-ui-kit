@@ -7,7 +7,8 @@ Stand 10.11.2026:
 - `npm run check`: generierte Dateien und Prüfsummen stimmen mit den Quellen überein.
 - JavaScript-Syntax der Quellen, Beispielkarte, Vorschau und Browserprüfungen geprüft.
 - Vorlage: SVGs und Layoutwerte aus dem aktuellen Shutter Manager 1.4.0, Quellidentität siehe `docs/PROVENANCE.json`.
-- Browserprüfungen für Mobil-/Desktopansichten, Themes, Dialoge und den direkten Vorlagenvergleich sind vorbereitet. **In dieser Arbeitsumgebung nicht ausgeführt:** Chromium lässt sich hier nicht starten, der separate Vorschau-Browser erreicht den lokalen Webserver nicht. Eine visuelle Freigabe steht daher aus.
-- GitHub-Actions-Workflow ist vorbereitet. Ein Repository und ein öffentlicher Release sind noch nicht angelegt.
+- Browserprüfungen laufen über GitHub Actions mit Mobil-/Desktopansichten, Themes, Dialogen und direktem Vergleich zur fest gebundenen Shutter-Manager-Vorlage. Ergebnisse und Vergleichsbilder stehen im Workflow `Validate UI Kit`.
+- Öffentliches Repository: https://github.com/v9h45n47mh-lab/ha-ui-kit
+- Ein separater Release-Tag wurde noch nicht angelegt.
 
-`preview.html` ist die vollständig lokale, interaktive Vorschau. Nach Veröffentlichung kann der bereitliegende Workflow die Browserprüfungen ausführen und Vergleichsbilder erzeugen. Bestehende HA-Integrationen wurden mit diesem Paket nicht umgestellt.
+`preview.html` ist die vollständig lokale, interaktive Vorschau. Bestehende HA-Integrationen wurden mit diesem Baukasten nicht umgestellt.
