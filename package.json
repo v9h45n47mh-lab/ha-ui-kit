@@ -12,7 +12,7 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.cjs && node tests/gallery.cjs && node tests/program-rows.cjs && node tests/account-tiles.cjs"
+    "test:browser": "node tests/browser.cjs && node tests/account-tiles.cjs && node tests/gallery.cjs && node tests/program-rows.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

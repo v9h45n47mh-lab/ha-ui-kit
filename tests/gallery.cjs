@@ -14,7 +14,8 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
  try{
   await page.goto(url);const gallery=page.locator('family-ui-gallery');await gallery.locator('#recurrence .recurrence-hint').waitFor();
   const last=()=>gallery.evaluate(el=>el.events.at(-1));
-  assert.equal(await gallery.locator('.gallery-block').count(),15,'Every catalogue section renders');
+  assert.equal(await gallery.locator('.gallery-block').count(),16,'Every catalogue section renders');
+  assert.equal(await gallery.locator('#accounts .fui-account-tile').count(),2,'Shared account tiles appear in the catalogue');
   assert.equal(await gallery.getByRole('button',{name:'+ Programm',exact:true}).textContent(),'+ Programm');
   assert.equal(await gallery.getByRole('button',{name:'Hausarbeit',exact:true}).locator('svg').count(),1);
   assert.equal(await gallery.getByRole('button',{name:'Speichern …',exact:true}).isEnabled(),false);
