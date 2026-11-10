@@ -1,8 +1,10 @@
 # Prüfstand 1.2.2
 
-- Build, Unit-Tests und Integritätsprüfung werden für die neue feste Version ausgeführt.
-- `tests/program-rows.cjs` misst die tatsächlichen linken Textkanten: Programmname und Metadaten müssen bei kurzen und mehrzeiligen Namen bündig sein. Allgemeine Symbolbuttons behalten ihren Abstand.
-- Geprüfte Ansichten: 320/390/1100 px, helle/dunkle Themes. Die bisherigen drei Browsersuiten bleiben verpflichtend; Veröffentlichung erfolgt nach erfolgreichem Workflow.
+- Build, alle 16 Unit-Tests und Integritätsprüfung erfolgreich.
+- Alle drei Browsersuiten erfolgreich in [GitHub Actions, Lauf 42875656692](https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/42875656692), Commit `a10971e3120bd36a71069aa9d6d962bc23ce796b`.
+- `tests/program-rows.cjs` misst die tatsächlichen linken Textkanten: Programmname und Metadaten sind bei kurzen und mehrzeiligen Namen bündig bei 28 px. Allgemeine Symbolbuttons behalten 6 px Abstand.
+- Geprüfte Ansichten: 320/390/1100 px, helle/dunkle Themes. Screenshots für Desktop, Handy und mehrzeilige Namen visuell geprüft. Keine Überläufe; Tastaturbedienung und barrierefreie Schalterbeschriftungen bleiben erhalten.
+- Der Veröffentlichungsworkflow prüft den Stand erneut und erzeugt Release-Notizen aus dem passenden Changelog-Abschnitt.
 
 # Prüfstand 1.2.1
 
