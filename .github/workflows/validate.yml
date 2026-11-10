@@ -1,0 +1,29 @@
+name: Validate UI Kit
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - name: Fetch pinned Shutter Manager visual reference
+        run: |
+          curl --fail --location --output /tmp/shutter-reference.js https://raw.githubusercontent.com/v9h45n47mh-lab/shutter-manager/c5214c5edce79104330875db173343b66b502908/custom_components/rollladenplaner/frontend/shutter-manager-card.js
+          test "$(git hash-object /tmp/shutter-reference.js)" = dc661b6dca0fbb40a0e57ed6f13f2c887ee3648f
+      - run: npm run test:browser
+        env:
+          SHUTTER_REFERENCE: /tmp/shutter-reference.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-screenshots
+          path: test-results/

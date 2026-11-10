@@ -1,0 +1,36 @@
+{
+  "repository": "https://github.com/v9h45n47mh-lab/shutter-manager",
+  "version": "1.4.0",
+  "commit": "c5214c5edce79104330875db173343b66b502908",
+  "path": "custom_components/rollladenplaner/frontend/shutter-manager-card.js",
+  "gitBlob": "dc661b6dca0fbb40a0e57ed6f13f2c887ee3648f",
+  "license": "MIT",
+  "copiedIcons": [
+    "sunrise",
+    "sunset",
+    "lock",
+    "unlock",
+    "temperature",
+    "illuminance",
+    "schedule",
+    "sensors",
+    "success",
+    "failure",
+    "trash",
+    "move",
+    "copy",
+    "edit",
+    "unknown",
+    "settings",
+    "help"
+  ],
+  "addedIcons": [
+    "chevron",
+    "add",
+    "close",
+    "save",
+    "up",
+    "down"
+  ],
+  "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included."
+}

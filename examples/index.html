@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HA UI Kit – Shutter Manager Layout</title>
+<style>
+  :root{font-family:Arial,sans-serif;--primary-color:#03a9f4;--primary-text-color:#212121;--secondary-text-color:#727272;--card-background-color:#fff;--divider-color:#e0e0e0;background:#f5f5f5;color:var(--primary-text-color)}
+  body{max-width:1000px;margin:auto;padding:24px}header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}h1{font-size:21px;font-weight:500;margin:0 0 6px}header p{font-size:13px;margin:0;color:var(--secondary-text-color)}header button{font:inherit;border:1px solid var(--divider-color);border-radius:20px;padding:8px 14px;background:var(--card-background-color);color:var(--primary-text-color);white-space:nowrap;cursor:pointer}
+  :root.dark{--primary-color:#03a9f4;--primary-text-color:#e1e1e1;--secondary-text-color:#9b9b9b;--card-background-color:#1c1c1c;--divider-color:#383838;--secondary-background-color:#282828;--input-fill-color:#282828;background:#111}
+  @media(max-width:600px){body{padding:12px}header{gap:8px}h1{font-size:18px}}
+</style>
+<header><div><h1>HA UI Kit</h1><p>Gemeinsames Layout nach Shutter Manager 1.4.0</p></div><button type="button" id="theme" aria-pressed="false">Dunkles Theme</button></header>
+<family-ui-example-card></family-ui-example-card>
+<script type="module" src="./family-ui-example-card.js"></script>
+<script type="module">
+  document.querySelector('#theme').addEventListener('click',event=>{
+    const dark=document.documentElement.classList.toggle('dark');
+    event.target.setAttribute('aria-pressed',String(dark));
+    event.target.textContent=dark?'Helles Theme':'Dunkles Theme';
+  });
+</script>
+</html>
