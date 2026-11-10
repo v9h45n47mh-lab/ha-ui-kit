@@ -1,6 +1,6 @@
 # Übernahme in die Integrationen
 
-Stand: 10.11.2026. Der Baukasten 1.2.1 ist im Repository verfügbar. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
+Stand: 10.11.2026. Der Baukasten 1.2.2 ist im Repository verfügbar. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
 
 | Integration | UI-Baukasten | Stand |
 | --- | --- | --- |

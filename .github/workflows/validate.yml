@@ -49,5 +49,12 @@ jobs:
           RELEASE_COMMIT: ${{ github.sha }}
         run: |
           version="$(node -p "JSON.parse(require('fs').readFileSync('package.json')).version")"
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const {version}=JSON.parse(fs.readFileSync('package.json','utf8'));
+          const section=fs.readFileSync('CHANGELOG.md','utf8').split(/^## /m).find(part=>part.startsWith(version+' '));
+          if(!section)throw new Error('Missing release notes for '+version);
+          fs.writeFileSync('/tmp/ha-ui-kit-release-notes.md',section.split('\n').slice(1).join('\n').trim()+'\n');
+          JS
           python -m zipfile -c "../HA-UI-Kit-${version}.zip" dist LICENSE
-          gh release create "v${version}" --repo v9h45n47mh-lab/ha-ui-kit --target "$RELEASE_COMMIT" --title "HA UI Kit ${version}" --notes "Fix shared program switches on mobile: hide repeated visible names while retaining accessible labels. Add the shared iconOnly toggle variant. Desktop/mobile and light/dark checks passed." "../HA-UI-Kit-${version}.zip"
+          gh release create "v${version}" --repo v9h45n47mh-lab/ha-ui-kit --target "$RELEASE_COMMIT" --title "HA UI Kit ${version}" --notes-file /tmp/ha-ui-kit-release-notes.md "../HA-UI-Kit-${version}.zip"

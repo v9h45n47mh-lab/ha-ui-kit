@@ -1,3 +1,9 @@
+# Prüfstand 1.2.2
+
+- Build, Unit-Tests und Integritätsprüfung werden für die neue feste Version ausgeführt.
+- `tests/program-rows.cjs` misst die tatsächlichen linken Textkanten: Programmname und Metadaten müssen bei kurzen und mehrzeiligen Namen bündig sein. Allgemeine Symbolbuttons behalten ihren Abstand.
+- Geprüfte Ansichten: 320/390/1100 px, helle/dunkle Themes. Die bisherigen drei Browsersuiten bleiben verpflichtend; Veröffentlichung erfolgt nach erfolgreichem Workflow.
+
 # Prüfstand 1.2.1
 
 Die bestehenden Unit- und Browserprüfungen werden um `tests/program-rows.cjs` ergänzt: lange Programmnamen bei 320/390/1100 px, hell/dunkel, keine wiederholten sichtbaren Schalternamen, erhaltene ARIA-Beschriftung und Tastaturereignisse. Veröffentlichung nur nach erfolgreichem Validate-Workflow.

@@ -1,4 +1,4 @@
-# Gemeinsamer Layoutstandard 1.2.1
+# Gemeinsamer Layoutstandard 1.2.2
 
 Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
 
@@ -20,6 +20,7 @@ Für zusätzliche Objekte gilt die Quellenpriorität **Shutter → Light → Ess
 | Buttons | HA-Rundung, ersatzweise 20 px; Standardinnenabstand `9px 14px` |
 | + Programm | `programAddButton()`; Textplus wie im Shutter Manager, kein separates SVG; 13 px, Primärbutton |
 | + Hausarbeit | `button({label:'Hausarbeit',icon:'add',…})`; transparenter Textbutton mit Plus-SVG in HA-Akzentfarbe |
+| Programmtext und Zusatztext | Beide beginnen 28 px rechts vom linken Programmrand: 20 px Aufklapppfeil + 8 px Abstand. Der Programmname erhält keinen zusätzlichen Icon-Text-Abstand. Gilt auch mobil und bei mehrzeiligen Namen. |
 | Sortierpfeile | `programOrderButtons()`; Textzeichen ↑ / ↓ wie im Shutter Manager; 18 px, Buttons 30 × 34 px, Padding 4 px, Abstand 0; HA-Akzentfarbe, standardmäßig Hellblau `#03a9f4`; deaktiviert mit 45 % Deckkraft |
 | Eingaben | 4 px Rundung, Innenabstand `11px 10px`; HA-Text-, Eingabe- und Trennfarben |
 | Dialoge | Maximal 800 px breit; native Modalität, Escape, Fokusbegrenzung und Fokuswiederherstellung; mobil maximal 96 dvh |

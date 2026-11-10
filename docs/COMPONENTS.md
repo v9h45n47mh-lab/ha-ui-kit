@@ -1,4 +1,4 @@
-# Bausteinkatalog 1.2.0
+# Bausteinkatalog 1.2.2
 
 Die Galerie `gallery.html` zeigt alle Objektfamilien interaktiv und ohne Server; `examples/gallery.html` verwendet dasselbe Modul wie eine Integration. Das kompakte Programmbeispiel bleibt in `preview.html` verfügbar.
 
@@ -63,7 +63,7 @@ Bei Überschneidungen gibt es einen gemeinsamen Standard. Funktional notwendige 
 Alle Renderfunktionen liefern HTML. Ein `id` muss im ShadowRoot eindeutig sein und darf keine Leerzeichen enthalten. Texte, Werte, Optionen und Datenattribute werden escaped. `content`, `actions`, `trailing`, `actionContent` sowie Inhalte einer Tagesgruppe sind **vertrauenswürdiges HTML aus dem Anwendungscode**. Entitätsnamen und Benutzertexte nicht ungeprüft dort interpolieren.
 
 ```js
-import {UI_CSS,programAddButton,button,combobox,bindUI} from './family-ui/1.2.0/family-ui.js';
+import {UI_CSS,programAddButton,button,combobox,bindUI} from './family-ui/1.2.2/family-ui.js';
 
 root.innerHTML = `<style>${UI_CSS}</style>
   ${programAddButton()}

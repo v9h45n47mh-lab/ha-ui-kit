@@ -2,14 +2,14 @@
 
 ## Dateien und Auslieferung
 
-`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.2.1/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
+`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.2.2/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
 
 Die JS-Datei enthält CSS und SVGs bereits vollständig. Die zusätzliche CSS-Datei muss nicht extra geladen werden. Es werden weder npm-Pakete noch weitere HA-Integrationen auf dem HA-System benötigt.
 
 ## Minimale Karte
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.2.1/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.2.2/family-ui.js';
 
 class ExampleCard extends HTMLElement {
   constructor() {
@@ -111,3 +111,9 @@ Ein Rollback stellt die alte Integrationsversion samt Import und Lock-Datei wied
 ## Schalter ohne sichtbaren Doppeltext ab 1.2.1
 
 `toggle({label, action, iconOnly:true})` zeigt nur den Schalter. Die Beschriftung bleibt als `aria-label` für assistive Technik erhalten. `programRow` verwendet diese Variante automatisch; normale beschriftete Schalter bleiben unverändert.
+
+## Bündige Programmtexte ab 1.2.2
+
+`programRow` richtet Programmnamen und Metadaten (Wochentage, Zeiten) bei 28 px Einzug aus. Der gemeinsame 8-px-Abstand zum 20-px-Aufklapppfeil genügt; der allgemeine zusätzliche Icon-Text-Abstand wird für den Programmtitel aufgehoben. Andere Buttons behalten ihren bisherigen Symbolabstand. Die Korrektur gilt für Desktop und Mobil, auch bei umbrochenen Namen.
+
+Die neue feste Version mit `vendor.mjs` übernehmen und den lokalen Import auf `family-ui/1.2.2/family-ui.js` ändern. Anwendungen mit `programRow` benötigen keine eigene CSS-Korrektur. Funktionen, Ereignisse und gespeicherte Daten bleiben gleich.

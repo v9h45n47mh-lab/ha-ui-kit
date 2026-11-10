@@ -1,6 +1,6 @@
 {
   "name": "@v9h45n47mh-lab/ha-ui-kit",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "type": "module",
   "description": "Gemeinsamer lokaler UI-Baukasten f\u00fcr Home-Assistant-Karten nach Shutter Manager 1.4.0",

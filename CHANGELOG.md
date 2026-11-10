@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2 – 2026-11-10
+
+- Programmnamen und Zusatztexte beginnen jetzt bündig bei 28 px Einzug. Der doppelte 6-px-Iconabstand am Programmtitel entfällt zentral.
+- Allgemeine Buttons behalten ihren Symbolabstand; Schriftgrößen, Bedienelemente und Ereignisse bleiben gleich.
+- Browserprüfungen messen die Textausrichtung mit kurzen und langen Namen bei 320/390/1100 px in hellen und dunklen Themes.
+
 ## 1.2.1 – 2026-11-10
 
 - Programmzeilen verwenden Schalter ohne sichtbaren doppelten Programmnamen. Die barrierefreie Beschriftung bleibt erhalten.
