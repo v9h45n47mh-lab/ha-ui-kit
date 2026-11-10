@@ -84,7 +84,7 @@ export function programGroup({id,title,count,content='',expanded=true}) {
 }
 export function programRow({id,title,meta=[],enabled=true,expanded=false,content='',actions='',index=0,count=1,editable=true,sortable=true,copyable=true,disabled=false}) {
   objectId(id);const data={program:id};
-  const tools=(editable&&sortable?programOrderButtons({programId:id,index,count,disabled}):'')+toggle({label:title+' aktiv',action:'program-enabled',checked:enabled,disabled,data})+(editable&&copyable?iconButton({icon:'copy',label:'Programm kopieren',action:'copy-program',data,disabled,desktopOnly:true}):'')+(editable?iconButton({icon:'edit',label:'Programm bearbeiten',action:'edit-program',data,disabled}):'')+actions;
+  const tools=(editable&&sortable?programOrderButtons({programId:id,index,count,disabled}):'')+toggle({label:title+' aktiv',action:'program-enabled',checked:enabled,disabled,data,iconOnly:true})+(editable&&copyable?iconButton({icon:'copy',label:'Programm kopieren',action:'copy-program',data,disabled,desktopOnly:true}):'')+(editable?iconButton({icon:'edit',label:'Programm bearbeiten',action:'edit-program',data,disabled}):'')+actions;
   return `<section class="program${enabled?'':' muted'}"><div class="program-head"><div class="program-heading"><button type="button" class="program-title" data-ui="collapse" aria-expanded="${expanded}" aria-controls="${escapeHtml(id)}-content">${icon('chevron',{expanded})}<span>${escapeHtml(title)}</span></button><div class="tags">${meta.map(t=>`<span>${escapeHtml(t)}</span>`).join('')}</div></div><div class="toolbar">${tools}</div></div><div id="${escapeHtml(id)}-content"${expanded?'':' hidden'}>${content}</div></section>`;
 }
 export function actionRow({title,description='',detail='',actions='',enabled=true}) {

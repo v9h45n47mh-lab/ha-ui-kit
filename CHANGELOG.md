@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 – 2026-11-10
+
+- Programmzeilen verwenden Schalter ohne sichtbaren doppelten Programmnamen. Die barrierefreie Beschriftung bleibt erhalten.
+- `toggle({iconOnly:true})` ergänzt diese gemeinsame Variante auch für Aktionen und andere bereits beschriftete Zeilen.
+- Lange Namen, 320/390/1100 px, helle/dunkle Themes, Tastatur und Schalterereignisse werden gesondert geprüft.
+
 ## 1.2.0 – 2026-11-10
 
 - Den Katalog um sämtliche beim Repositoryvergleich ermittelten Objektfamilien erweitert. Herkunft nach der vorgegebenen Priorität Shutter, Light, Essensplaner, Haushalt, Spülmaschine, Access Manager dokumentiert; einzigartige Fotoobjekte aus Gartenarbeit ergänzt.

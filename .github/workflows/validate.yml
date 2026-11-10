@@ -27,3 +27,27 @@ jobs:
         with:
           name: ui-screenshots
           path: test-results/
+
+  publish:
+    if: ${{ github.repository == 'v9h45n47mh-lab/ha-ui-kit' && github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[publish-ui-kit]') }}
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run check
+      - name: Publish verified UI Kit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          version="$(node -p "JSON.parse(require('fs').readFileSync('package.json')).version")"
+          python -m zipfile -c "../HA-UI-Kit-${version}.zip" dist LICENSE
+          gh release create "v${version}" --repo v9h45n47mh-lab/ha-ui-kit --target "$RELEASE_COMMIT" --title "HA UI Kit ${version}" --notes "Fix shared program switches on mobile: hide repeated visible names while retaining accessible labels. Add the shared iconOnly toggle variant. Desktop/mobile and light/dark checks passed." "../HA-UI-Kit-${version}.zip"

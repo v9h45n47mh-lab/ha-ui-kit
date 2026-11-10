@@ -2,14 +2,14 @@
 
 ## Dateien und Auslieferung
 
-`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.2.0/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
+`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.2.1/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
 
 Die JS-Datei enthält CSS und SVGs bereits vollständig. Die zusätzliche CSS-Datei muss nicht extra geladen werden. Es werden weder npm-Pakete noch weitere HA-Integrationen auf dem HA-System benötigt.
 
 ## Minimale Karte
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.2.0/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.2.1/family-ui.js';
 
 class ExampleCard extends HTMLElement {
   constructor() {
@@ -82,7 +82,7 @@ programOrderButtons({programId:program.id,index,count:group.programs.length});
 
 Bei der Übernahme vorhandene „+ Programm“-Buttons und Sortierpfeile durch diese Funktionen ersetzen. Nur ein Update des Modulimports ersetzt individuell programmiertes Markup noch nicht.
 
-## Zusätzliche Objekte ab 1.2.0
+## Zusätzliche Objekte ab 1.2.1
 
 [COMPONENTS.md](COMPONENTS.md) enthält die vollständige Zuordnung von Exporten, Vorlagen, Parametern und Ereignissen. `gallery.html` zeigt alle Objektfamilien; `examples/gallery.js` enthält ihre gemeinsame Verwendung. `bindUI` aktiviert auch die neuen Bedienelemente. `bindObjects` ist nur für Hosts gedacht, die die allgemeinen Buttons separat behandeln; beide nicht gleichzeitig an denselben Root binden.
 
@@ -107,3 +107,7 @@ Sicherungen liefern geparstes JSON, noch kein geprüftes oder gespeichertes Inte
 6. Integration eigenständig veröffentlichen und `ADOPTION.md` mit der tatsächlich übernommenen Version aktualisieren.
 
 Ein Rollback stellt die alte Integrationsversion samt Import und Lock-Datei wieder her. Alle benötigten Dateien liegen lokal bei der Integration.
+
+## Schalter ohne sichtbaren Doppeltext ab 1.2.1
+
+`toggle({label, action, iconOnly:true})` zeigt nur den Schalter. Die Beschriftung bleibt als `aria-label` für assistive Technik erhalten. `programRow` verwendet diese Variante automatisch; normale beschriftete Schalter bleiben unverändert.

@@ -1,4 +1,4 @@
-# Gemeinsamer Layoutstandard 1.2.0
+# Gemeinsamer Layoutstandard 1.2.1
 
 Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
 

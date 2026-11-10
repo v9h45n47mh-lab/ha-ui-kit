@@ -46,8 +46,8 @@ export function navigation({label, items, active, settings = true, help = true, 
   return `<div class="card-top"><nav aria-label="${escapeHtml(label)}">${items.map(item => navButton(item, item.icon ? 'icon-tab' : '')).join('')}</nav>${help ? navButton({id:'help', label:helpLabel, icon:'help'}, 'settings-button') : ''}${settings ? navButton({id:'settings', label:settingsLabel, icon:'settings'}, 'settings-button') : ''}</div>`;
 }
 
-export function toggle({label, action, checked = false, disabled = false, data = {}}) {
-  return `<button type="button" class="toggle${checked ? ' on' : ''}" role="switch" aria-checked="${Boolean(checked)}" aria-label="${escapeHtml(label)}"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span>${escapeHtml(label)}</span></button>`;
+export function toggle({label, action, checked = false, disabled = false, data = {}, iconOnly = false}) {
+  return `<button type="button" class="toggle${checked ? ' on' : ''}${iconOnly ? ' icon-only' : ''}" role="switch" aria-checked="${Boolean(checked)}" aria-label="${escapeHtml(label)}"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span>${escapeHtml(label)}</span></button>`;
 }
 
 export function filterButton({label, action, selected = false, data = {}}) {

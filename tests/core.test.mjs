@@ -4,7 +4,7 @@ import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {escapeHtml, icon, iconButton, section, row, navigation, field, programAddButton, programOrderButtons, UI_VERSION} from '../dist/family-ui.js';
+import {escapeHtml, icon, iconButton, section, row, navigation, field, programAddButton, programOrderButtons, toggle, programRow, UI_VERSION} from '../dist/family-ui.js';
 
 test('untrusted labels, values and attributes cannot inject markup',()=>{
   const value='\"><img src=x onerror=alert(1)> & \'quoted\'';
@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.2.0');
+  assert.equal(UI_VERSION,'1.2.1');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -58,9 +58,17 @@ test('vendored release is pinned and altered files are detected',async()=>{
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.2.0/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.2.0/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.2.1/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.2.1/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}
+});
+
+test('icon-only toggles preserve accessible labels and program rows use the shared variant',()=>{
+  const label='Langes Programm aktiv';
+  assert.match(toggle({label,action:'toggle',iconOnly:true}),/class="toggle icon-only"/);
+  assert.match(toggle({label,action:'toggle',iconOnly:true}),/aria-label="Langes Programm aktiv"/);
+  assert.ok(!toggle({label,action:'toggle'}).includes('icon-only'));
+  assert.match(programRow({id:'long',title:'Langes Programm'}),/class="toggle on icon-only"/);
 });

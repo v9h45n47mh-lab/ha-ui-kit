@@ -1,3 +1,7 @@
+# Prüfstand 1.2.1
+
+Die bestehenden Unit- und Browserprüfungen werden um `tests/program-rows.cjs` ergänzt: lange Programmnamen bei 320/390/1100 px, hell/dunkel, keine wiederholten sichtbaren Schalternamen, erhaltene ARIA-Beschriftung und Tastaturereignisse. Veröffentlichung nur nach erfolgreichem Validate-Workflow.
+
 # Prüfstand 1.2.0
 
 Stand 10.11.2026:
