@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 – 2026-11-10
+
+- Kontostände liegen unabhängig von optionalen Hinweisen auf derselben horizontalen Mittellinie. Name, Wert und Fußhinweis überlappen sich auch bei 320 px nicht.
+- Optionale Hinweise stehen einzeilig am unteren Rand; der vollständige Text bleibt zugänglich.
+- Browserprüfungen bestätigen tatsächliche helle/dunkle Themefarben und die identische Zentrierung beider Kacheln mit und ohne Hinweis.
+
 ## 1.3.0 – 2026-11-10
 
 - Gemeinsame `accountTile`- und `accountTiles`-Komponenten ergänzt: quadratische Kontokacheln, Name oben links und großer, mittig ausgerichteter Kontostand mit Einheit und Status.

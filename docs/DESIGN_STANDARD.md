@@ -1,4 +1,4 @@
-# Gemeinsamer Layoutstandard 1.3.0
+# Gemeinsamer Layoutstandard 1.3.1
 
 Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
 
@@ -45,3 +45,5 @@ Die kompakte Darstellung ist bewusst an die Vorlage angelehnt. Dialoge verwenden
 ## Kontokacheln ab 1.3.0
 
 `accountTiles` verwendet immer zwei gleich breite Spalten, auch bei 320 px und bei nur einem sichtbaren Konto. `accountTile` ist quadratisch; der Name steht oben links, der Zahlenwert groß und mittig mit Einheit/Status darunter. Standardabstand und Innenabstand betragen 16 px, bis 600 px jeweils 12 px. Der Host bestimmt Wert und Bedeutung; das Kit stellt nur die angegebenen semantischen Zustände dar. Optionale Details sind als vollständiger Tooltip und zugängliche Beschreibung verfügbar. Keine lokale Gestaltungskopie pro Integration.
+
+Ab 1.3.1 wird die Wertgruppe unabhängig von Hinweistexten exakt in der Kachelmitte ausgerichtet. Beide Kontostände stehen auf derselben Linie. Ein optionaler Fußhinweis ist einzeilig mit Ellipse, vollständigem Tooltip und unverändert zugänglichem Text.

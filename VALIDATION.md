@@ -1,3 +1,7 @@
+# Prüfstand 1.3.1
+
+Die Kontokachel-Prüfung misst zusätzlich die identische Mittellinie mit/ohne Hinweis und bestätigt per berechneter Hintergrundfarbe, dass das gewählte helle/dunkle Theme tatsächlich aktiv ist.
+
 # Prüfstand 1.3.0
 
 - `account-tiles.test.mjs`: Datenvertrag, Status, sichere Texte und IDs, zugängliche Detailtexte.
