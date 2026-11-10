@@ -1,15 +1,13 @@
-# Prüfstand 1.1.0
+# Prüfstand 1.2.0
 
 Stand 10.11.2026:
 
-- `npm run build`: erfolgreich.
-- `npm test`: 4 Prüfungen bestanden (Escaping, Symbol-/Navigationsvertrag, neue Programmbausteine mit Grenzzuständen, Versionsbindung einschließlich Erkennen veränderter Dateien).
+- `npm run build`: erfolgreich; Modul, CSS, Manifest, kompakte Vorschau und vollständige Galerie erzeugt.
+- `npm test`: 15 Prüfungen bestanden; Escaping, APIs, Versionsbindung, Geräteauswahl, Wochentage, Felder, Reglergrenzen, Saison, Kalender, Farbwerte, Wiederholungen, JSON-Import und Fotogrenzen.
 - `npm run check`: generierte Dateien und Prüfsummen stimmen mit den Quellen überein.
-- JavaScript-Syntax der Quellen, Beispielkarte, Vorschau und Browserprüfungen geprüft.
-- Vorlage: SVGs und Layoutwerte aus dem aktuellen Shutter Manager 1.4.0, Quellidentität siehe `docs/PROVENANCE.json`.
-- Browserprüfungen laufen über GitHub Actions mit Mobil-/Desktopansichten, Themes, Dialogen und direktem Vergleich zur fest gebundenen Shutter-Manager-Vorlage. Ergebnisse und Vergleichsbilder stehen im Workflow `Validate UI Kit`.
-- Ab 1.1.0: Sortierung und Tastaturauslösung, deaktivierte Gruppengrenzen, hellblaue Pfeile in beiden Themes, mobiles Ausblenden und Geometrievergleich des „+ Programm“-Buttons sowie der Pfeile.
-- Öffentliches Repository: https://github.com/v9h45n47mh-lab/ha-ui-kit
-- Ein separater Release-Tag wurde noch nicht angelegt.
-
-`preview.html` ist die vollständig lokale, interaktive Vorschau. Bestehende HA-Integrationen wurden mit diesem Baukasten nicht umgestellt.
+- Browserprüfungen: `tests/browser.cjs` prüft die ursprünglichen Komponenten und die Shutter-Geometrie; `tests/gallery.cjs` prüft sämtliche zusätzlichen Objektfamilien und ihre Bedienung. Aktueller Workflowstatus ist vor Abschluss zu prüfen.
+- Galerie: Buttons inklusive „+ Programm“ und transparentem „+ Hausarbeit“, Suche, gesperrte Mehrfachauswahl, Prozent/Kelvin/Farbe, Datums-/Saisonvalidierung, Wiederholung, Programme, Kalender, Erledigung, Verlauf, JSON-Import/-Export, Fotoaufbereitung, Bestätigung, Sprache, Panel und Gesten.
+- Ansichten: kompakte Karte 375/390/430/1100 px; Galerie 375/390/1100 px, jeweils helle/dunkle Themes. Der Workflow speichert Ansichts- und Vergleichsbilder unter `ui-screenshots`.
+- Quellpriorität und Objektzuordnung: `docs/COMPONENTS.md`; exakte Quellidentitäten: `docs/PROVENANCE.json`.
+- `preview.html` und `gallery.html` sind vollständig lokale interaktive Vorschauen. Ein separater Release-Tag für 1.2.0 wurde noch nicht angelegt.
+- Die Prüfungen validieren den Baukasten mit Beispieldaten, keine produktive HA-Verbindung. Übernahmen in Anwendungen werden gesondert veröffentlicht und in `docs/ADOPTION.md` dokumentiert.

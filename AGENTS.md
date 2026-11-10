@@ -1,6 +1,7 @@
 # Gemeinsamer Home-Assistant-UI-Baukasten
 
 - Referenz: Shutter Manager 1.4.0, siehe docs/PROVENANCE.json.
+- Bei mehrfach vorhandenen Objekten verbindliche Quellenpriorität: Shutter, Light, Essensplaner, Haushalt, Spülmaschine, Access Manager. Einmalige Objekte aus der jeweiligen Implementierung übernehmen; Herkunft in docs/COMPONENTS.md und docs/PROVENANCE.json pflegen.
 - Komponenten und Symbole in src/ pflegen. dist/ ausschließlich mit npm run build erzeugen.
 - HA-Themes respektieren; kein CDN und keine Netzwerkabhängigkeit zur Laufzeit einführen.
 - Gemeinsame Symbole, Schrift und Abstände nicht pro Integration abwandeln.

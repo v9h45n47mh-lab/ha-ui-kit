@@ -30,7 +30,10 @@
     "close",
     "save",
     "up",
-    "down"
+    "down",
+    "left",
+    "right",
+    "menu"
   ],
   "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included.",
   "sourceTextControls": {
@@ -45,5 +48,60 @@
       ".program-order button"
     ],
     "intentionalDifference": "Program sorting arrows use --primary-color (#03a9f4 fallback), as explicitly requested; the source uses --secondary-text-color."
-  }
+  },
+  "catalogueVersion": "1.2.0",
+  "sourcePriority": [
+    "shutter-manager",
+    "light-manager",
+    "essensplaner-ha",
+    "hausarbeiten-manager",
+    "spuelmaschine-verlauf",
+    "family-access-manager"
+  ],
+  "catalogue": "COMPONENTS.md",
+  "catalogueNotes": "Shared primitives retain Shutter geometry and HA theme colours. Lower-priority functionality is an option of the same component. Unique garden photos use the Gartenarbeit implementation. All components contain UI behaviour only; no service calls, permissions, storage or recurrence execution.",
+  "sourceSnapshots": [
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/shutter-manager",
+      "path": "custom_components/rollladenplaner/frontend/shutter-manager-card.js",
+      "gitBlob": "dc661b6dca0fbb40a0e57ed6f13f2c887ee3648f",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/light-manager",
+      "path": "custom_components/light_manager/frontend/light-manager-card.js",
+      "gitBlob": "f2843ae4bece3cc44e416f4b445291e58e7d914b",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/essensplaner-ha",
+      "path": "custom_components/essensplaner/www/essensplaner-card.js",
+      "gitBlob": "c9a0632e399b92b216e5022615cc9cc46c38d05b",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/hausarbeiten-manager",
+      "path": "custom_components/hausarbeiten_manager/frontend/card.js",
+      "gitBlob": "6f6b28ab18cd2f67d195dbbf17dffbb4fc3af539",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/spuelmaschine-verlauf",
+      "path": "custom_components/spuelmaschine_verlauf/frontend/card.js",
+      "gitBlob": "912790e4e377f1339ef17a9b7b43475659812f06",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/family-access-manager",
+      "path": "custom_components/family_access_manager/frontend/panel.js",
+      "gitBlob": "a9738ebdccf21efcfecb3987cf32e9a600145373",
+      "inspectedAt": "2026-11-10"
+    },
+    {
+      "repository": "https://github.com/v9h45n47mh-lab/gartenarbeit-manager",
+      "path": "custom_components/gartenarbeit_manager/frontend/card.js",
+      "gitBlob": "894f3bfa42e6fb6fbb26904fdf8ecee89f95a71e",
+      "inspectedAt": "2026-11-10"
+    }
+  ]
 }

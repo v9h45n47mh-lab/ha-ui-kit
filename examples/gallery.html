@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HA UI Kit – Baustein-Galerie</title>
+<style>
+:root{font-family:Arial,sans-serif;color:var(--primary-text-color);--primary-color:#03a9f4;--primary-text-color:#212121;--secondary-text-color:#727272;--card-background-color:#fff;--divider-color:#e0e0e0;background:#f5f5f5}
+:root.dark{--primary-text-color:#e1e1e1;--secondary-text-color:#9b9b9b;--card-background-color:#1c1c1c;--divider-color:#383838;--secondary-background-color:#282828;--input-fill-color:#282828;background:#111}
+body{max-width:1000px;padding:24px;margin:auto}body>header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}h1{font-size:22px;font-weight:500;margin:0}#theme{font:inherit;border:1px solid var(--divider-color);border-radius:20px;padding:9px 14px;background:var(--card-background-color);color:var(--primary-text-color);cursor:pointer}
+@media(max-width:600px){body{padding:12px}h1{font-size:18px}}
+</style>
+<header><h1>HA UI Kit · Alle Bausteine</h1><button type="button" id="theme" aria-pressed="false">Dunkles Theme</button></header>
+<family-ui-gallery></family-ui-gallery>
+<script type="module" src="./gallery.js"></script>
+<script type="module">document.querySelector('#theme').onclick=event=>{const dark=document.documentElement.classList.toggle('dark');event.target.setAttribute('aria-pressed',String(dark));event.target.textContent=dark?'Helles Theme':'Dunkles Theme';};</script>
+</html>

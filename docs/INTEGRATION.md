@@ -2,14 +2,14 @@
 
 ## Dateien und Auslieferung
 
-`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.1.0/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
+`scripts/vendor.mjs --target …/frontend` kopiert eine feste Version mit Lizenz und Manifest. Die Integration liefert den **gesamten** Frontendordner inklusive Unterverzeichnissen aus. Beispiel: Wenn die Kartenressource unter `/DOMAIN/card.js` liegt, muss auch `/DOMAIN/family-ui/1.2.0/family-ui.js` mit JavaScript-MIME-Type erreichbar sein. Nur eine einzelne registrierte JS-Datei reicht für den relativen Modulimport nicht. Die konkrete StaticPathConfig-Registrierung der jeweiligen Integration prüfen und bei der Umstellung anpassen.
 
 Die JS-Datei enthält CSS und SVGs bereits vollständig. Die zusätzliche CSS-Datei muss nicht extra geladen werden. Es werden weder npm-Pakete noch weitere HA-Integrationen auf dem HA-System benötigt.
 
 ## Minimale Karte
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.1.0/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, section, row, iconButton, bindUI} from './family-ui/1.2.0/family-ui.js';
 
 class ExampleCard extends HTMLElement {
   constructor() {
@@ -81,6 +81,21 @@ programOrderButtons({programId:program.id,index,count:group.programs.length});
 `bindUI` reicht die Aktionen an die Integration durch. Die Integration prüft wie bisher Berechtigung und Zielposition, speichert die neue Reihenfolge und aktualisiert anschließend die Ansicht. Beispiel: `action === 'move-program'`, `data.program` als Programm-ID und `data.direction` als `up` oder `down`. Die mitgelieferte Beispielkarte zeigt diese kontrollierte Sortierung mit zwei lokalen Einträgen. Die Funktionslogik produktiver Integrationen bleibt deren Aufgabe.
 
 Bei der Übernahme vorhandene „+ Programm“-Buttons und Sortierpfeile durch diese Funktionen ersetzen. Nur ein Update des Modulimports ersetzt individuell programmiertes Markup noch nicht.
+
+## Zusätzliche Objekte ab 1.2.0
+
+[COMPONENTS.md](COMPONENTS.md) enthält die vollständige Zuordnung von Exporten, Vorlagen, Parametern und Ereignissen. `gallery.html` zeigt alle Objektfamilien; `examples/gallery.js` enthält ihre gemeinsame Verwendung. `bindUI` aktiviert auch die neuen Bedienelemente. `bindObjects` ist nur für Hosts gedacht, die die allgemeinen Buttons separat behandeln; beide nicht gleichzeitig an denselben Root binden.
+
+Neue Werte werden als `value` geliefert; komplexe Eingaben zusätzlich mit `valid`, Regler mit `phase: 'input' | 'change'`. Der Callback kann vor dem Speichern den vorhandenen Backend-Validator und die Berechtigungsprüfung aufrufen. Suche, Ausklappen und lokale Eingabe arbeiten unmittelbar im DOM; erst die Integration übernimmt den vorgeschlagenen fachlichen Wert. Beim Aktualisieren aus HA offene Eingaben bewahren und bei abgelehnten Änderungen den gespeicherten Wert wieder rendern.
+
+Die beiden Plusbuttons sind eigenständige Varianten:
+
+```js
+programAddButton(); // gefüllt, originales Textplus: + Programm
+button({label:'Hausarbeit',icon:'add',action:'new-task'}); // transparent, Plus-SVG
+```
+
+Sicherungen liefern geparstes JSON, noch kein geprüftes oder gespeichertes Integrationsschema. Fotoauswahl liefert ein lokal verkleinertes JPEG als Data-URL; Speicherung und Freigaben liegen beim Host. `confirmDialog` bestätigt nur eine UI-Aktion. Wisch-/Aktualisierungsgesten sind optional über `bindGestures` einzubinden und beim Entfernen separat zu lösen. Terminberechnung, Wiederholungsinstanzen, Statistiksummen und Datumsnavigation berechnet weiterhin die Integration.
 
 ## Neue UI-Version übernehmen
 

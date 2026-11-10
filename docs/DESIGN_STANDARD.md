@@ -1,6 +1,8 @@
-# Gemeinsamer Layoutstandard 1.1.0
+# Gemeinsamer Layoutstandard 1.2.0
 
 Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
+
+Für zusätzliche Objekte gilt die Quellenpriorität **Shutter → Light → Essensplaner → Haushalt → Spülmaschine → Access Manager**. Einmalige Objekte stammen aus ihrer ursprünglichen Implementierung. Der [Bausteinkatalog](COMPONENTS.md) ordnet jedes Objekt seiner Vorlage zu; die Quellstände sind in [PROVENANCE.json](PROVENANCE.json) festgehalten. Abweichende Varianten niedrigerer Priorität werden als Option desselben Bausteins angeboten, sofern sie eine vorhandene Funktion benötigen. Gemeinsame Theme-Werte gelten auch für die zusätzlichen Objekte.
 
 | Element | Verbindliche Vorgabe |
 | --- | --- |
@@ -17,6 +19,7 @@ Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten w
 | Schalter | Spur 36 × 20 px, Knopf 16 px; mindestens 40 px hohe Bedienfläche |
 | Buttons | HA-Rundung, ersatzweise 20 px; Standardinnenabstand `9px 14px` |
 | + Programm | `programAddButton()`; Textplus wie im Shutter Manager, kein separates SVG; 13 px, Primärbutton |
+| + Hausarbeit | `button({label:'Hausarbeit',icon:'add',…})`; transparenter Textbutton mit Plus-SVG in HA-Akzentfarbe |
 | Sortierpfeile | `programOrderButtons()`; Textzeichen ↑ / ↓ wie im Shutter Manager; 18 px, Buttons 30 × 34 px, Padding 4 px, Abstand 0; HA-Akzentfarbe, standardmäßig Hellblau `#03a9f4`; deaktiviert mit 45 % Deckkraft |
 | Eingaben | 4 px Rundung, Innenabstand `11px 10px`; HA-Text-, Eingabe- und Trennfarben |
 | Dialoge | Maximal 800 px breit; native Modalität, Escape, Fokusbegrenzung und Fokuswiederherstellung; mobil maximal 96 dvh |
@@ -24,7 +27,7 @@ Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten w
 | Optionale Desktopaktionen | `desktopOnly` blendet die betreffende Aktion mobil aus; Entscheidung je fachlichem Ablauf |
 | Versionszeile | 12 px Nebentextfarbe; Oberfläche, Integration und UI-Version |
 
-Originalpfade sind für `settings`, `help`, `edit`, `trash`, `copy`, `move`, `schedule`, `sensors`, `sunrise`, `sunset`, `lock`, `unlock`, `temperature`, `illuminance`, `success`, `failure` und `unknown` enthalten. `chevron` entspricht dem Original-Faltpfeil. `add`, `close`, `save`, `up` und `down` ergänzen den gleichen Strichstil. Keine Emoji- oder Textzeichen als Ersatz für diese gemeinsamen Aktionssymbole verwenden.
+Originalpfade sind für `settings`, `help`, `edit`, `trash`, `copy`, `move`, `schedule`, `sensors`, `sunrise`, `sunset`, `lock`, `unlock`, `temperature`, `illuminance`, `success`, `failure` und `unknown` enthalten. `chevron` entspricht dem Original-Faltpfeil. `add`, `close`, `save`, `up`, `down`, `left`, `right` und `menu` ergänzen den gleichen Strichstil. Keine Emoji- oder Textzeichen als Ersatz für diese gemeinsamen Aktionssymbole verwenden. Die Sprachwahl verwendet wie ihre Shutter-Vorlage Landesflaggen zusätzlich zu den Textkürzeln DE/EN.
 
 Die Programmbausteine sind die ausdrückliche Ausnahme: Sie verwenden die originalen Textzeichen `+`, `↑` und `↓`. `icon('add')` sowie die generischen SVG-Chevrons `icon('up')`/`icon('down')` bleiben für andere Anwendungsfälle erhalten und werden nicht für diese Programmbausteine verwendet. Die Sortierpfeile haben auf ausdrücklichen Nutzerwunsch die Akzentfarbe statt der sekundären Textfarbe der Vorlage. Erster/letzter Eintrag deaktivieren den jeweils nicht möglichen Pfeil; standardmäßig wird die Sortiergruppe bis 600 px ausgeblendet.
 

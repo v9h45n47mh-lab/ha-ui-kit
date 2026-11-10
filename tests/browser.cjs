@@ -90,7 +90,7 @@ const server = http.createServer((req,res)=>{
     assert.equal(await down.first().isVisible(),false,'Program sorting follows the mobile hiding rule');
     assert.equal(await addProgram.isVisible(),true);
     await page.screenshot({path:path.join(root,'test-results/programs-mobile-light.png'),fullPage:true});
-    await card.getByRole('button',{name:'Anleitung',exact:true}).click();assert.equal(await card.locator('.icon-grid .ui-icon').count(),23);
+    await card.getByRole('button',{name:'Anleitung',exact:true}).click();assert.equal(await card.locator('.icon-grid .ui-icon').count(),26);
     // Multiple cards own independent ShadowRoots and handlers.
     await page.evaluate(()=>document.body.append(document.createElement('family-ui-example-card')));
     const second=page.locator('family-ui-example-card').nth(1);
