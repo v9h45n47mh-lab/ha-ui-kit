@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.0.0**, visuelle Vorlage: **Shutter Manager 1.4.0**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.1.0**, visuelle Vorlage: **Shutter Manager 1.4.0**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -10,6 +10,7 @@ Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, komp
 - Original-SVGs aus Shutter Manager, einschließlich Zahnrad, Bearbeiten, Löschen, Kopieren, Sonnenaufgang und Sonnenuntergang.
 - Kompakte einklappbare Bereiche, Navigation mit Hilfe/Einstellungen rechts und Zeilen mit einheitlichen Aktionssymbolen.
 - Formulare, Filter, Schalter, Versionsanzeige und native modale Dialoge mit Tastatur- und Fokusverhalten.
+- `programAddButton()` für „+ Programm“ und `programOrderButtons()` für die Sortierpfeile ↑ / ↓ nach Shutter Manager; Pfeile in der HA-Akzentfarbe (standardmäßig Hellblau).
 - Handyansicht bis 600 px, umbrechende lange Namen, optional nur am Desktop sichtbare Aktionen.
 - Eigenständiges ES-Modul, lesbare CSS-Datei, Versions-/Prüfsummenmanifest und Kopierwerkzeug.
 - Interaktive [Beispielkarte](examples/index.html), Integrationsanleitung und automatisierte Prüfungen.
@@ -23,10 +24,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Release-Dateien nach `frontend/family-ui/1.0.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Release-Dateien nach `frontend/family-ui/1.1.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.0.0/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.1.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).

@@ -32,5 +32,18 @@
     "up",
     "down"
   ],
-  "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included."
+  "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included.",
+  "sourceTextControls": {
+    "programAddButton": "+ Programm",
+    "programOrderButtons": [
+      "↑",
+      "↓"
+    ],
+    "sourceStyles": [
+      ".page-actions button",
+      ".program-order",
+      ".program-order button"
+    ],
+    "intentionalDifference": "Program sorting arrows use --primary-color (#03a9f4 fallback), as explicitly requested; the source uses --secondary-text-color."
+  }
 }

@@ -4,7 +4,7 @@ import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {escapeHtml, icon, iconButton, section, row, navigation, field, UI_VERSION} from '../dist/family-ui.js';
+import {escapeHtml, icon, iconButton, section, row, navigation, field, programAddButton, programOrderButtons, UI_VERSION} from '../dist/family-ui.js';
 
 test('untrusted labels, values and attributes cannot inject markup',()=>{
   const value='\"><img src=x onerror=alert(1)> & \'quoted\'';
@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.0.0');
+  assert.equal(UI_VERSION,'1.1.0');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -28,14 +28,38 @@ test('one canonical settings icon and accessible navigation',()=>{
   assert.match(icon('sunrise'),/M12 9V2/);
 });
 
+test('program controls use source text glyphs, escaped IDs and correct ordering boundaries',()=>{
+  const add = programAddButton();
+  assert.match(add,/>\+ Programm<\/button>/);
+  assert.ok(!add.includes('<svg'));
+  assert.match(programAddButton({label:'Program',action:'create',data:{kind:'time'},disabled:true}),/data-action="create" data-kind="time" disabled>\+ Program/);
+  const first = programOrderButtons({programId:'a"<b',index:0,count:3});
+  assert.match(first,/data-program="a&quot;&lt;b"/);
+  assert.match(first,/data-direction="up"[^>]*disabled>↑/);
+  assert.match(first,/data-direction="down"[^>]*>↓/);
+  assert.equal((first.match(/ disabled/g)||[]).length,1);
+  assert.ok(!first.includes('<svg'));
+  const last = programOrderButtons({programId:'a',index:2,count:3});
+  assert.match(last,/data-direction="down"[^>]*disabled>↓/);
+  assert.equal((programOrderButtons({programId:'a',index:0,count:1}).match(/ disabled/g)||[]).length,2);
+  assert.equal((programOrderButtons({programId:'a',index:1,count:3,disabled:true}).match(/ disabled/g)||[]).length,2);
+  const translated = programOrderButtons({programId:'a',index:1,count:3,upLabel:'Move up',downLabel:'Move down',action:'reorder',desktopOnly:false});
+  assert.match(translated,/data-action="reorder"/);
+  assert.match(translated,/aria-label="Move up"/);
+  assert.ok(!translated.includes('desktop-only'));
+  assert.throws(()=>programOrderButtons({programId:'a',index:-1,count:3}));
+  assert.throws(()=>programOrderButtons({programId:'a',index:3,count:3}));
+  assert.throws(()=>programOrderButtons({programId:'a',index:0,count:0}));
+});
+
 test('vendored release is pinned and altered files are detected',async()=>{
   const target=await mkdtemp(path.join(tmpdir(),'family-ui-'));
   const run=(...args)=>execFileSync(process.execPath,['scripts/vendor.mjs','--target',target,...args],{cwd:new URL('../',import.meta.url),stdio:'pipe'});
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.0.0/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.0.0/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.1.0/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.1.0/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}

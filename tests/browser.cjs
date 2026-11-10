@@ -65,9 +65,31 @@ const server = http.createServer((req,res)=>{
     await page.setViewportSize({width:1100,height:1000});
     await page.screenshot({path:path.join(root,'test-results/settings-1100-dark.png'),fullPage:true});
     await card.getByRole('button',{name:'Programme',exact:true}).click();
+    const addProgram = card.getByRole('button',{name:'+ Programm',exact:true});
+    assert.equal(await addProgram.textContent(),'+ Programm');
+    assert.equal(await addProgram.locator('svg').count(),0,'Program plus uses the original text glyph');
+    const up = card.getByRole('button',{name:'Nach oben sortieren',exact:true});
+    const down = card.getByRole('button',{name:'Nach unten sortieren',exact:true});
+    assert.equal(await up.first().isEnabled(),false);
+    assert.equal(await down.last().isEnabled(),false);
+    assert.equal(await down.first().textContent(),'↓');
+    assert.equal(await up.last().textContent(),'↑');
+    assert.equal(await down.first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)','Sort arrows use the light blue accent in dark mode');
+    await down.first().focus();await down.first().press('Enter');
+    assert.deepEqual(await card.locator('[data-program-row]').evaluateAll(els=>els.map(el=>el.dataset.programRow)),['evening','morning']);
+    await up.last().click();
+    assert.deepEqual(await card.locator('[data-program-row]').evaluateAll(els=>els.map(el=>el.dataset.programRow)),['morning','evening']);
+    await addProgram.click();assert.equal(await modal.isVisible(),true);await modal.getByRole('button',{name:'Schließen',exact:true}).click();
+    await page.screenshot({path:path.join(root,'test-results/programs-desktop-dark.png'),fullPage:true});
+    await page.getByRole('button',{name:'Helles Theme'}).click();
+    assert.equal(await down.first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)','Sort arrows use the light blue accent in light mode');
+    await page.screenshot({path:path.join(root,'test-results/programs-desktop-light.png'),fullPage:true});
     const filter=card.getByRole('button',{name:'Urlaub',exact:true});await filter.click();assert.equal(await filter.getAttribute('aria-pressed'),'true');
     assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),true);
     await page.setViewportSize({width:390,height:900});assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),false);
+    assert.equal(await down.first().isVisible(),false,'Program sorting follows the mobile hiding rule');
+    assert.equal(await addProgram.isVisible(),true);
+    await page.screenshot({path:path.join(root,'test-results/programs-mobile-light.png'),fullPage:true});
     await card.getByRole('button',{name:'Anleitung',exact:true}).click();assert.equal(await card.locator('.icon-grid .ui-icon').count(),23);
     // Multiple cards own independent ShadowRoots and handlers.
     await page.evaluate(()=>document.body.append(document.createElement('family-ui-example-card')));
@@ -96,6 +118,25 @@ const server = http.createServer((req,res)=>{
         result.push({reference:ref.shadowRoot.querySelector('.settings-button svg').innerHTML,kit:kit.querySelector('[data-icon="settings"]').innerHTML});ref.remove();return result;
       },{css,sourceGear});
       for(const item of comparison)assert.deepEqual(item.kit,item.reference,'Matches Shutter Manager reference');
+      assert.ok(source.includes('>↑</button>') && source.includes('>↓</button>') && source.includes('>+ Programm</button>'),'Reference uses the canonical text glyphs');
+      const programComparison = await page.evaluate(async css=>{
+        const {UI_CSS,programAddButton,programOrderButtons}=await import('/dist/family-ui.js');
+        const ref=document.createElement('div'),kit=document.createElement('div');
+        ref.attachShadow({mode:'open'});kit.attachShadow({mode:'open'});
+        ref.shadowRoot.innerHTML=`<style>${css}</style><div class="page-actions"><button class="primary">+ Programm</button></div><div class="program-order"><button>↑</button><button>↓</button></div>`;
+        kit.shadowRoot.innerHTML=`<style>${UI_CSS}</style><div class="page-actions">${programAddButton()}</div>${programOrderButtons({programId:'b',index:1,count:3,desktopOnly:false})}`;
+        document.body.append(ref,kit);
+        const props=['fontFamily','fontSize','fontWeight','lineHeight','padding','borderRadius','width','height'];
+        const read=(host,selector)=>Object.fromEntries(props.map(key=>[key,getComputedStyle(host.shadowRoot.querySelector(selector))[key]]));
+        const result=['.page-actions button','.program-order button'].map(selector=>({reference:read(ref,selector),kit:read(kit,selector)}));
+        result.push({reference:ref.shadowRoot.querySelector('.page-actions button').textContent,kit:kit.shadowRoot.querySelector('.page-actions button').textContent});
+        result.push({reference:ref.shadowRoot.querySelector('.program-order').textContent,kit:kit.shadowRoot.querySelector('.program-order').textContent});
+        const arrows=kit.shadowRoot.querySelector('.program-order button');
+        const expected=getComputedStyle(kit.shadowRoot.querySelector('.program-add')).backgroundColor;
+        result.push({reference:expected,kit:getComputedStyle(arrows).color});
+        ref.remove();kit.remove();return result;
+      },css);
+      for(const item of programComparison)assert.deepEqual(item.kit,item.reference,'Program controls match reference geometry, glyphs and requested accent color');
       console.log('Shutter Manager 1.4.0 reference styles and settings SVG match');
     }
     assert.deepEqual(errors,[]);console.log('Browser checks passed: mobile/desktop, themes, keyboard, dialogs, isolated cards');

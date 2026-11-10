@@ -1,4 +1,4 @@
-import {UI_CSS, UI_VERSION, ICON_NAMES, icon, escapeHtml, button, iconButton, navigation, toggle, filterButton, section, row, field, selectField, dialog, notice, versionInfo, bindUI} from '../dist/family-ui.js';
+import {UI_CSS, UI_VERSION, ICON_NAMES, icon, escapeHtml, button, programAddButton, programOrderButtons, iconButton, navigation, toggle, filterButton, section, row, field, selectField, dialog, notice, versionInfo, bindUI} from '../dist/family-ui.js';
 
 /** Demo data is local; this card performs no Home Assistant service calls. */
 class FamilyUIExampleCard extends HTMLElement {
@@ -10,6 +10,7 @@ class FamilyUIExampleCard extends HTMLElement {
     this.filtered = false;
     this.name = 'Wohnbereich';
     this.folds = {};
+    this.programs = [{id:'morning',name:'Morgens'},{id:'evening',name:'Abends'}];
   }
   setConfig(config) { this.config = config; }
   set hass(hass) { this._hass = hass; }
@@ -23,9 +24,17 @@ class FamilyUIExampleCard extends HTMLElement {
     if (action === 'navigate') { this.page = data.page; this.render(); }
     if (action === 'enabled') { this.enabled = checked; this.render(); }
     if (action === 'filter') { this.filtered = !this.filtered; this.render(); }
-    if (action === 'edit' || action === 'add') {
+    if (action === 'move-program') {
+      const index = this.programs.findIndex(p => p.id === data.program);
+      const next = index + (data.direction === 'up' ? -1 : 1);
+      if (index >= 0 && next >= 0 && next < this.programs.length) {
+        [this.programs[index], this.programs[next]] = [this.programs[next], this.programs[index]];
+        this.render();
+      }
+    }
+    if (action === 'edit' || action === 'add' || action === 'new-program') {
       const modal = this.shadowRoot.querySelector('dialog');
-      modal.querySelector('input').value = action === 'add' ? '' : this.name;
+      modal.querySelector('input').value = action === 'edit' ? this.name : '';
       modal.showModal();
     }
     if (action === 'cancel') this.shadowRoot.querySelector('dialog').close();
@@ -53,10 +62,10 @@ class FamilyUIExampleCard extends HTMLElement {
       + block({id:'devices',title:'Geräte',trailing:button({label:'Geräte auswählen',action:'add',variant:'primary'}),content:row({title:this.name,description:'Wohnzimmer',trailing:edit+iconButton({icon:'trash',label:'Löschen',action:'delete',danger:true})})+row({title:'Küche',description:'Erdgeschoss',trailing:edit})+row({title:'Gerät mit einem bewusst sehr langen Anzeigenamen für die mobile Ansicht',description:'Obergeschoss',trailing:edit})})
       + block({id:'status',title:'Aktueller Status',content:row({title:'Letzte Änderung',trailing:'<small>Heute, 08:30 Uhr</small>'})})
       + block({id:'backup',title:'Sicherung',content:'<div class="toolbar">'+button({label:'Sicherung erstellen',action:'export'})+button({label:'Sicherung wiederherstellen',action:'import'})+'</div>'});
-    const overview = `<div class="page-actions">${filterButton({label:'Urlaub',action:'filter',selected:this.filtered})}${button({label:'Programm',icon:'add',action:'add',variant:'primary'})}</div>`
-      + block({id:'program',title:'Wohnbereich · Wochentage',trailing:edit,content:row({title:'Mo · Di · Mi · Do · Fr',description:this.filtered?'Im Urlaub ausführbar':'07:00 Uhr · Sonnenaufgang',trailing:iconButton({icon:'copy',label:'Kopieren',action:'copy',desktopOnly:true})})});
+    const overview = `<div class="page-actions">${filterButton({label:'Urlaub',action:'filter',selected:this.filtered})}${programAddButton()}</div>`
+      + block({id:'program',title:'Wohnbereich · Wochentage',trailing:edit,content:this.programs.map((p,index)=>`<div data-program-row="${escapeHtml(p.id)}">${row({title:p.name,description:this.filtered?'Im Urlaub ausführbar':'07:00 Uhr · Sonnenaufgang',trailing:programOrderButtons({programId:p.id,index,count:this.programs.length})})}</div>`).join('')+row({title:'Mo · Di · Mi · Do · Fr',trailing:iconButton({icon:'copy',label:'Kopieren',action:'copy',desktopOnly:true})})});
     const help = `<p class="hint">Symbole, Farben und Abstände werden von allen angepassten Integrationen gemeinsam verwendet.</p><div class="icon-grid">${ICON_NAMES.map(name => `<div>${icon(name)}<small>${escapeHtml(name)}</small></div>`).join('')}</div>`;
-    this.shadowRoot.innerHTML = `<style>${UI_CSS}.icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:20px;margin:24px 0}.icon-grid>div{display:flex;align-items:center;gap:8px}</style><div class="ui-card">${navigation({label:'Beispielkarte',items:[{id:'overview',label:'Programme'},{id:'schedule',label:'Zeitprogramm',icon:'schedule'},{id:'sensors',label:'Sensorprogramme',icon:'sensors'}],active:this.page})}<main>${this.page==='settings'?settings:this.page==='help'?help:overview}<div id="feedback"></div>${versionInfo({frontend:'1.0.0',backend:'Beispieldaten',ui:UI_VERSION})}</main></div>${dialog({id:'edit-dialog',title:'Eintrag bearbeiten',content:`<div class="grid">${field({id:'name',label:'Name',value:this.name,required:true})}${selectField({id:'area',label:'Bereich',value:'living',options:[{value:'living',label:'Wohnzimmer'},{value:'kitchen',label:'Küche'}]})}</div>`,actions:button({label:'Abbrechen',action:'cancel'})+button({label:'Speichern',action:'save',variant:'primary'})})}`;
+    this.shadowRoot.innerHTML = `<style>${UI_CSS}.icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:20px;margin:24px 0}.icon-grid>div{display:flex;align-items:center;gap:8px}</style><div class="ui-card">${navigation({label:'Beispielkarte',items:[{id:'overview',label:'Programme'},{id:'schedule',label:'Zeitprogramm',icon:'schedule'},{id:'sensors',label:'Sensorprogramme',icon:'sensors'}],active:this.page})}<main>${this.page==='settings'?settings:this.page==='help'?help:overview}<div id="feedback"></div>${versionInfo({frontend:UI_VERSION,backend:'Beispieldaten',ui:UI_VERSION})}</main></div>${dialog({id:'edit-dialog',title:'Eintrag bearbeiten',content:`<div class="grid">${field({id:'name',label:'Name',value:this.name,required:true})}${selectField({id:'area',label:'Bereich',value:'living',options:[{value:'living',label:'Wohnzimmer'},{value:'kitchen',label:'Küche'}]})}</div>`,actions:button({label:'Abbrechen',action:'cancel'})+button({label:'Speichern',action:'save',variant:'primary'})})}`;
     // A dedicated node demonstrates safely updating arbitrary text without rerender.
     const name = this.shadowRoot.querySelector('#devices-content .row-text strong');
     if (name) name.dataset.name = '';

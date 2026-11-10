@@ -21,6 +21,8 @@ nav button.selected{border-bottom-color:var(--primary-color,#03a9f4);color:var(-
 .settings-button.selected{color:var(--primary-color,#03a9f4);background:color-mix(in srgb,var(--primary-color,#03a9f4) 8%,transparent)}.settings-button svg{width:24px;height:24px}
 main{padding:8px 16px 16px}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .page-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0}.page-actions button{font-size:13px}
+.program-add{font-size:13px}
+.program-order{display:flex;gap:0}.program-order button{width:30px;height:34px;padding:4px;color:var(--primary-color,#03a9f4);font-size:18px;line-height:1}
 .filter-button{margin-right:auto;border:1px solid var(--divider-color,#e0e0e0);padding:6px 12px;align-self:center}
 .filter-button[aria-pressed="true"]{background:var(--primary-color,#03a9f4);color:var(--text-primary-color,#fff);border-color:var(--primary-color,#03a9f4)}
 .edit-button{display:inline-flex;align-items:center;justify-content:center;min-width:var(--fui-touch);min-height:var(--fui-touch);padding:8px}.edit-button .ui-icon{width:20px;height:20px}

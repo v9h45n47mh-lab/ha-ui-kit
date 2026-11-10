@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 – 2026-11-10
+
+- `programAddButton()` übernimmt das Textplus und den Primärbutton „+ Programm“ aus Shutter Manager.
+- `programOrderButtons()` übernimmt ↑/↓, Maße und mobile Sichtbarkeit aus Shutter Manager; die Farbe folgt dem Nutzerwunsch nach hellblauen HA-Akzentpfeilen.
+- Deaktivierte Pfeile an Gruppengrenzen, übersetzbare Beschriftungen und kontrollierte Aktionen mit Programm-ID/Richtung.
+- Interaktive Beispielkarte und Browserprüfungen für Sortieren, Tastatur, Themes, Mobilansicht sowie Originalgeometrie ergänzt.
+
 ## 1.0.0 – 2026-11-10
 
 - Gemeinsamer UI-Baukasten auf Basis Shutter Manager 1.4.0.

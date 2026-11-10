@@ -22,6 +22,19 @@ export function button({label, action, icon: name, variant = 'text', disabled = 
   return `<button type="button" class="${variant === 'text' ? '' : variant}"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}>${name ? icon(name) : ''}<span>${escapeHtml(label)}</span></button>`;
 }
 
+/** Shutter Manager's text plus is intentional: do not substitute the generic add SVG. */
+export function programAddButton({label = 'Programm', action = 'new-program', disabled = false, data = {}} = {}) {
+  return `<button type="button" class="primary program-add"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}>+ ${escapeHtml(label)}</button>`;
+}
+
+/** Controlled ordering: index/count refer to the sortable group, not the whole list. */
+export function programOrderButtons({programId, index, count, action = 'move-program', disabled = false, desktopOnly = true, upLabel = 'Nach oben sortieren', downLabel = 'Nach unten sortieren'}) {
+  if (typeof programId !== 'string' || !programId) throw new TypeError('Ordering requires a program ID');
+  if (!Number.isInteger(index) || !Number.isInteger(count) || count < 1 || index < 0 || index >= count) throw new RangeError('Ordering requires 0 <= index < count');
+  const control = (direction, label, glyph, atBoundary) => `<button type="button"${actionAttrs(action, {program:programId, direction})} title="${escapeHtml(label)}" aria-label="${escapeHtml(label)}"${disabled || atBoundary ? ' disabled' : ''}>${glyph}</button>`;
+  return `<div class="program-order${desktopOnly ? ' desktop-only' : ''}">${control('up', upLabel, '↑', index === 0)}${control('down', downLabel, '↓', index === count - 1)}</div>`;
+}
+
 export function iconButton({icon: name, label, action, disabled = false, danger = false, data = {}, desktopOnly = false}) {
   if (!label) throw new TypeError('Icon buttons require a label');
   return `<button type="button" class="edit-button${danger ? ' danger' : ''}${desktopOnly ? ' desktop-only' : ''}"${actionAttrs(action, data)} aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}"${disabled ? ' disabled' : ''}>${icon(name)}</button>`;
