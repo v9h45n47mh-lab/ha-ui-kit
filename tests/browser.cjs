@@ -91,7 +91,7 @@ const server = http.createServer((req,res)=>{
         document.body.append(ref);
         const kit=document.querySelector('family-ui-example-card').shadowRoot;
         const read=(root,selector,props)=>Object.fromEntries(props.map(key=>[key,getComputedStyle(root.querySelector(selector))[key]]));
-        const pairs=[['.settings-button.selected','.settings-button.selected',['color','backgroundColor','padding','width']],['.settings-group[data-settings]','#devices.settings-group',['paddingTop','paddingBottom']],['.settings-fold span','#devices .settings-fold span',['fontSize','fontWeight']],['.window h3','#devices .row-text strong',['fontSize','fontWeight','lineHeight']]];
+        const pairs=[['.settings-button.selected','.settings-button.selected',['color','backgroundColor','padding','width']],['.settings-group[data-settings]','[data-settings=devices].settings-group',['paddingTop','paddingBottom']],['.settings-fold span','[data-settings=devices] .settings-fold span',['fontSize','fontWeight']],['.window h3','[data-settings=devices] .row-text strong',['fontSize','fontWeight','lineHeight']]];
         const result=pairs.map(([a,b,props])=>({reference:read(ref.shadowRoot,a,props),kit:read(kit,b,props)}));
         result.push({reference:ref.shadowRoot.querySelector('.settings-button svg').innerHTML,kit:kit.querySelector('[data-icon="settings"]').innerHTML});ref.remove();return result;
       },{css,sourceGear});
