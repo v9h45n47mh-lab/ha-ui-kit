@@ -22,6 +22,9 @@ const ICON_PATHS = Object.freeze({
   "close": "<path d=\"m6 6 12 12M6 18 18 6\"/>",
   "save": "<path d=\"M5 3h12l4 4v14H3V3h2M7 3v6h10V3M7 21v-8h10v8\"/>",
   "up": "<path d=\"m5 15 7-7 7 7\"/>",
+  "left": "<g transform=\"rotate(-90 12 12)\"><path d=\"m5 15 7-7 7 7\"/></g>",
+  "right": "<g transform=\"rotate(90 12 12)\"><path d=\"m5 15 7-7 7 7\"/></g>",
+  "menu": "<path d=\"M4 6h16M4 12h16M4 18h16\"/>",
   "down": "<path d=\"m5 9 7 7 7-7\"/>"
 });
 export const ICON_NAMES = Object.freeze(Object.keys(ICON_PATHS));

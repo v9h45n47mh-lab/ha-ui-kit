@@ -1,4 +1,5 @@
 import { icon } from './icons.js';
+import { bindObjects } from './controllers.js';
 
 /** Text/attribute escaping; content parameters explicitly accept trusted application markup. */
 export function escapeHtml(value = '') {
@@ -63,13 +64,16 @@ export function row({title, description = '', trailing = ''}) {
   return `<div class="setting-row"><div class="row-text"><strong>${escapeHtml(title)}</strong>${description ? `<small>${escapeHtml(description)}</small>` : ''}</div><div class="toolbar">${trailing}</div></div>`;
 }
 
-export function field({id, label, value = '', type = 'text', required = false, disabled = false}) {
-  if (!['text','number','time','date','email','search'].includes(type)) throw new TypeError('Unsupported field type');
-  return `<label class="field" for="${escapeHtml(id)}"><span>${escapeHtml(label)}</span><input id="${escapeHtml(id)}" type="${type}" value="${escapeHtml(value)}"${required ? ' required' : ''}${disabled ? ' disabled' : ''}></label>`;
+export function field({id, label, value = '', type = 'text', required = false, disabled = false, name, min, max, step, placeholder, maxLength, inputMode, autocomplete, unit = '', hint = '', error = ''}) {
+  if (!['text','number','time','date','email','search','url'].includes(type)) throw new TypeError('Unsupported field type');
+  const attrs = Object.entries({name,min,max,step,placeholder,maxlength:maxLength,inputmode:inputMode,autocomplete}).filter(([,v])=>v!==undefined).map(([k,v])=>` ${k}="${escapeHtml(v)}"`).join('');
+  const described = [hint && id+'-hint',error && id+'-error'].filter(Boolean).join(' ');
+  return `<label class="field" for="${escapeHtml(id)}"><span>${escapeHtml(label)}</span><input id="${escapeHtml(id)}" type="${type}" value="${escapeHtml(value)}"${attrs}${required ? ' required' : ''}${disabled ? ' disabled' : ''}${error ? ' aria-invalid="true"' : ''}${described ? ` aria-describedby="${escapeHtml(described)}"` : ''}>${unit?`<small class="field-unit">${escapeHtml(unit)}</small>`:''}${hint?`<small id="${escapeHtml(id)}-hint">${escapeHtml(hint)}</small>`:''}${error?`<small class="field-error" id="${escapeHtml(id)}-error" role="alert">${escapeHtml(error)}</small>`:''}</label>`;
 }
 
-export function selectField({id, label, value = '', options, disabled = false}) {
-  return `<label class="field" for="${escapeHtml(id)}"><span>${escapeHtml(label)}</span><select id="${escapeHtml(id)}"${disabled ? ' disabled' : ''}>${options.map(option => `<option value="${escapeHtml(option.value)}"${String(option.value) === String(value) ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}</select></label>`;
+export function selectField({id, label, value = '', options, disabled = false, name, required = false, hint = '', error = ''}) {
+  const render = option => option.options ? `<optgroup label="${escapeHtml(option.label)}">${option.options.map(render).join('')}</optgroup>` : `<option value="${escapeHtml(option.value)}"${String(option.value) === String(value) ? ' selected' : ''}${option.disabled?' disabled':''}>${escapeHtml(option.label)}</option>`;
+  return `<label class="field" for="${escapeHtml(id)}"><span>${escapeHtml(label)}</span><select id="${escapeHtml(id)}"${name?` name="${escapeHtml(name)}"`:''}${disabled ? ' disabled' : ''}${required?' required':''}${error?' aria-invalid="true"':''}${hint||error?` aria-describedby="${escapeHtml(id)}-help"`:''}>${options.map(render).join('')}</select>${hint||error?`<small id="${escapeHtml(id)}-help" class="${error?'field-error':''}"${error?' role="alert"':''}>${escapeHtml(error||hint)}</small>`:''}</label>`;
 }
 
 /** A native modal: call showModal() after inserting it. Escape and focus stay native. */
@@ -87,6 +91,7 @@ export function versionInfo({frontend, backend, ui, label = 'Oberfläche', backe
 
 /** Bind once per ShadowRoot; the returned function removes the listener on disconnect. */
 export function bindUI(root, onAction = () => {}) {
+  const unbindObjects = bindObjects(root, onAction);
   const handleClick = event => {
     const target = event.target.closest?.('button');
     if (!target || !root.contains(target) || target.disabled) return;
@@ -119,5 +124,5 @@ export function bindUI(root, onAction = () => {}) {
     else if (!event.shiftKey && event.target === last) { event.preventDefault(); first?.focus(); }
   };
   root.addEventListener('keydown', handleKeydown);
-  return () => { root.removeEventListener('click', handleClick); root.removeEventListener('keydown', handleKeydown); };
+  return () => { unbindObjects(); root.removeEventListener('click', handleClick); root.removeEventListener('keydown', handleKeydown); };
 }
