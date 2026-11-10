@@ -58,7 +58,7 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
   const calendar=gallery.locator('#calendar');await calendar.getByRole('button',{name:'Nächste Woche',exact:true}).click();assert.equal(await gallery.locator('#week-calendar article').first().getAttribute('data-ui-calendar-day'),'2026-11-16');await calendar.getByRole('button',{name:'Heute',exact:true}).click();assert.equal(await gallery.locator('#week-calendar article').first().getAttribute('data-ui-calendar-day'),'2026-11-09');
   await gallery.locator('#week-calendar article').first().getByText('Gemüsereis',{exact:true}).click();assert.equal((await last()).action,'open-day');assert.equal((await last()).value,'2026-11-09');
   await gallery.getByRole('checkbox',{name:'Zimmer aufräumen – Paul',exact:true}).check();assert.equal((await last()).checked,true);assert.equal((await last()).data.person,'paul');
-  await gallery.locator('#months').getByRole('button',{name:'Monatsverlauf',exact:true}).click();assert.equal(await gallery.locator('#months-group-0-content').isVisible(),false);
+  await gallery.locator('[data-settings=months]').getByRole('button',{name:'Monatsverlauf',exact:true}).click();assert.equal(await gallery.locator('#months-group-0-content').isVisible(),false);
   assert.equal(await gallery.getByRole('table',{name:'Statistik',exact:true}).locator('tfoot').textContent(),'Gesamt15');
   console.log('Program folds, calendar navigation, completion, grouped history and statistics work');
 
@@ -100,5 +100,5 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
     }
   }
   assert.deepEqual(errors,[]);console.log('All catalogue objects passed in desktop/mobile and light/dark themes');
- }finally{await browser.close();server.close();}
+ }catch(error){await page.screenshot({path:path.join(root,'test-results/gallery-failure.png'),fullPage:true}).catch(()=>{});throw error;}finally{await browser.close();server.close();}
 })().catch(error=>{console.error(error);server.close();process.exitCode=1;});
