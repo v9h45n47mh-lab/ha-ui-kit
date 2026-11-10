@@ -132,5 +132,15 @@ export function bindUI(root, onAction = () => {}) {
     onAction({action:target.dataset.action, data:{...target.dataset}, checked, element:target, originalEvent:event});
   };
   root.addEventListener('click', handleClick);
-  return () => root.removeEventListener('click', handleClick);
+  const handleKeydown = event => {
+    if (event.key !== 'Tab') return;
+    const modal = event.target.closest?.('dialog[open]');
+    if (!modal) return;
+    const controls = [...modal.querySelectorAll('button,input,select,textarea,a[href],[tabindex]')].filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length);
+    const first = controls[0], last = controls.at(-1);
+    if (event.shiftKey && event.target === first) { event.preventDefault(); last?.focus(); }
+    else if (!event.shiftKey && event.target === last) { event.preventDefault(); first?.focus(); }
+  };
+  root.addEventListener('keydown', handleKeydown);
+  return () => { root.removeEventListener('click', handleClick); root.removeEventListener('keydown', handleKeydown); };
 }
