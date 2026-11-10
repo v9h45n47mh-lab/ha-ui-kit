@@ -23,7 +23,7 @@ const server = http.createServer((req,res)=>{
   fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
   try {
     await page.goto(`http://127.0.0.1:${server.address().port}/examples/`);
-    const card=page.locator('family-ui-example-card');
+    const card=page.locator('family-ui-example-card').first();
     await card.getByRole('button',{name:'Einstellungen',exact:true}).waitFor();
     const settings=card.getByRole('button',{name:'Einstellungen',exact:true});
     assert.equal(await settings.getAttribute('aria-current'),'page');
