@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 – 11.11.2026
+
+- Gemeinsame Musicplayer-Bausteine: Kopfbereich mit linkem kompaktem Box-Dropdown ohne sichtbare Beschriftung und Zahnrad rechts, Medientasten, Cover und reine Symbolfavoriten.
+- Kreisrunde Player-Tasten auch beim Hover, gemeinsame Medien-SVGs, unveränderte Grundkomponenten und zentraler Musikdialogstil.
+- `selectField({hideLabel:true})` bewahrt die zugängliche Beschriftung.
+- Eigenes Beispiel und Tests für Desktop/Handy, helle/dunkle Themes, lange Boxnamen und volle Reglerbreite bei frei vorgegebenem Maximum. Keine Berechtigungs-, Konto- oder Automationslogik.
+
 ## 1.3.1 – 2026-11-10
 
 - Kontostände liegen unabhängig von optionalen Hinweisen auf derselben horizontalen Mittellinie. Name, Wert und Fußhinweis überlappen sich auch bei 320 px nicht.

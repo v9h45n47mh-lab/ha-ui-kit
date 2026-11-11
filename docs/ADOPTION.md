@@ -1,6 +1,6 @@
 # Übernahme in die Integrationen
 
-Stand: 10.11.2026. Der Baukasten 1.3.1 ist im Repository verfügbar. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
+Stand: 11.11.2026. Der Baukasten 1.4.0 ergänzt die gemeinsamen Musicplayer-Bausteine. Die untenstehenden Integrationsstände verwenden weiterhin ihre jeweils dokumentierte UI-Version. Die Umstellung der produktiven Integrationen erfolgt in eigenen Releases.
 
 | Integration | UI-Baukasten | Stand |
 | --- | --- | --- |
@@ -14,3 +14,5 @@ Stand: 10.11.2026. Der Baukasten 1.3.1 ist im Repository verfügbar. Die untenst
 | Family Access Manager | 1.2.1 | Veröffentlicht als [0.2.0-Prüfversion](https://github.com/v9h45n47mh-lab/family-access-manager/releases/tag/v0.2.0); unveränderte lokal gebundene Komponenten und ausschließlich UI_CSS für Kopf, Navigation, Benutzer-/Berechtigungszeilen, Auswahlfelder, Schalter, Buttons und Dialoge; kein Kalender vorhanden; Backend-Berechtigungslogik unverändert. 39 HA-Tests, 12 aktuelle Core-Prüfungen, fünf DOM-Prüfungen und 40 Chromium-Varianten bei 1100/430/390/375/320 px hell/dunkel bestanden; berechnete Stile direkt mit Originalkomponenten verglichen, Desktop-/Mobil-Screenshots beider Themes gesichtet; Browser mit HA-Client-Fixture, separater echter HA-Core-Test, kein produktiver Nabu-Casa-Test |
 
 Eine ähnliche Optik gilt nicht als technische Übernahme. Erst gemeinsames Modul, fest gebundene Version, geprüfte Auslieferung aller Dateien und erfolgreiches Integrationsrelease setzen den Stand auf übernommen.
+
+Music Manager 1.12.0 mit UI Kit 1.4.0 ist in Vorbereitung. Die zusätzliche Beta übernimmt die gemeinsamen Player-Bausteine; der veröffentlichte Übernahmestand wird erst nach bestandenem Integrationsrelease eingetragen.

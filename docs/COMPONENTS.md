@@ -133,3 +133,11 @@ Die bisherigen APIs sind weiterhin verfügbar. Eine neue Versionsbindung allein 
 | Zwei gleich breite Kacheln pro Zeile | `accountTiles({content,label})` | Gartenarbeit; auch mobil zweispaltig |
 
 `state` erlaubt `neutral`, `active`, `success`, `warning`, `error`. Der Host liefert alle Texte und Werte; das Kit rechnet keine Konten und sendet keine Dienste. `description` ist ein optionaler sichtbarer Hinweis, `details` eine vollständige zugängliche Beschreibung und ein Tooltip. `content` enthält vertrauenswürdiges Markup aus `accountTile`. Alle Textparameter werden escaped. Eine einzelne Kachel bleibt halbbreit.
+
+## Musicplayer ab 1.4.0
+
+`musicPlayerHeader`, `musicTransport`, `musicFavoriteTile`, `musicArtwork` und `musicActionButton` bilden den gemeinsamen Player. Zusätzlich zu `UI_CSS` wird unverändertes `MUSIC_PLAYER_CSS` innerhalb desselben ShadowRoot eingebunden. [Interaktives Beispiel](../examples/music-player.html).
+
+Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, visuell versteckte Beschriftung; rechts steht das gemeinsame Zahnrad. Player-Tasten sind auch beim Hover kreisrund (48 × 48 px, Play/Pause 56 × 56 px). Favoritenkacheln zeigen ausschließlich Symbole oder Cover; `aria-label` und Tooltip erhalten den Namen. Schrift, Farben, Größen und Abstände stammen vollständig aus dem Kit. Der Host liefert Inhalte und entscheidet, welche Tasten und Einstellungen verfügbar sind.
+
+`rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.

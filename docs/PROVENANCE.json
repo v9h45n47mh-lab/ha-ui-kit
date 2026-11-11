@@ -110,5 +110,18 @@
     "repository": "https://github.com/v9h45n47mh-lab/gartenarbeit-manager",
     "geometry": "Two equal columns at every viewport; square tiles; upper-left name; large centred account value",
     "businessLogic": "Host provides values, units, status and permissions; no account calculation or HA calls"
+  },
+  "musicPlayer": {
+    "introducedIn": "1.4.0",
+    "repository": "https://github.com/v9h45n47mh-lab/music-manager",
+    "version": "1.11.0",
+    "commit": "229eb84c85bd2ddbfb6eef3d5bd7d3cde91f592c",
+    "paths": [
+      "src/music-manager-card.js",
+      "src/music-manager-beta-card.js",
+      "src/music-layout.js"
+    ],
+    "adaptations": "Shared canonical player header, circular transport, image-only favorites, accessible compact speaker selector, media icons and music dialog layout. Existing shared button, field, row, dialog and icon primitives keep priority.",
+    "businessLogic": "None; caller supplies selection, controls, content, volume range and permissions."
   }
 }

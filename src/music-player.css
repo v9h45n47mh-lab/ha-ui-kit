@@ -1,0 +1,110 @@
+
+  :host{min-width:0}
+  .music-stack,.music-browser,.music-editor{display:grid;gap:16px;min-width:0}
+  .music-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0;padding-bottom:12px;border-bottom:1px solid var(--divider-color,#e0e0e0)}
+  .music-now-playing{flex:1;min-width:0}
+  .music-title{margin:0;font-size:22px;font-weight:600;line-height:1.25;color:var(--primary-text-color,#212121);overflow-wrap:anywhere}
+  .music-detail{margin-top:6px;font-size:13px;line-height:1.4;color:var(--secondary-text-color,#727272);overflow-wrap:anywhere}
+  .music-box{flex:0 1 auto;min-width:0;max-width:38%;text-align:end;font-size:13px;font-weight:500;line-height:1.4;color:var(--secondary-text-color,#727272);overflow-wrap:anywhere}
+  .music-controls{display:grid;gap:12px;min-width:0}
+  .music-transport{display:flex;gap:12px}
+  .music-transport button{flex:1;min-width:0;height:44px;display:grid;place-items:center;padding:0;border-radius:12px;background:var(--secondary-background-color,#f2f2f2);color:var(--primary-text-color,#212121)}
+  .music-transport button:disabled{color:var(--disabled-text-color,#bdbdbd);opacity:1}
+  .music-transport button:hover:enabled{background:color-mix(in srgb,var(--primary-color,#03a9f4) 12%,var(--secondary-background-color,#f2f2f2))}
+  .music-icon{width:20px;height:20px;fill:currentColor;vertical-align:middle}
+  .music-volume{min-width:0}
+  .music-volume ha-control-slider{display:block;width:100%}
+  .music-apple-playback{display:grid;gap:8px;min-width:0}
+  .music-transport [data-action="shuffle"][aria-pressed="true"]{color:var(--primary-color,#03a9f4);background:color-mix(in srgb,var(--primary-color,#03a9f4) 14%,transparent)}
+  #music-seek-control .slider-head label{display:none}
+  #music-seek-control .slider-head{justify-content:flex-end}
+  .music-favorites:empty,#music-favorite-status:empty,#music-player-status:empty{display:none}
+  .music-apple-results [aria-pressed="false"] .music-icon,#music-radio-results [aria-pressed="false"] .music-icon{fill:none;stroke:currentColor;stroke-width:1.7}
+  .music-favorites{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:12px;min-width:0}
+  .music-favorite{display:grid;gap:6px;align-content:start;justify-items:center;min-width:0;min-height:80px;padding:8px;border-radius:12px;background:var(--secondary-background-color,#f2f2f2)}
+  .music-favorite>span:last-child{max-width:100%;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .music-station-logo{position:relative;display:grid;place-items:center;width:48px;height:48px;flex-shrink:0;border-radius:8px;background:var(--card-background-color,#fff);color:var(--secondary-text-color,#727272);overflow:hidden}
+  .music-station-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--card-background-color,#fff)}
+  .music-station-row{display:flex;align-items:center;gap:12px;min-width:0}
+  .music-station-row>.setting-row{flex:1;min-width:0}
+  .music-favorite-actions{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+  .music-apple-logo{display:block;width:48px;height:48px;flex-shrink:0;border-radius:10px}
+  .music-apple-results .setting-row{min-width:0}
+  .music-results{min-width:0;display:grid;gap:12px}
+  .music-search-line{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px}
+  .music-library-nav,.music-manage-nav{display:grid;gap:8px;min-width:0}
+  .music-library-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .music-manage-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .music-library-nav button{border:1px solid var(--divider-color,#ddd)}
+  .music-library-nav button[aria-pressed="true"]{background:var(--primary-color,#03a9f4);color:var(--text-primary-color,#fff);border-color:var(--primary-color,#03a9f4)}
+  .music-catalog-item{display:grid;gap:12px;padding:12px;border:1px solid var(--divider-color,#ddd);border-radius:12px;min-width:0}
+  .music-result-actions{display:grid;grid-template-columns:44px 44px minmax(0,1fr);gap:8px;align-items:stretch}
+  .music-result-actions.is-container{grid-template-columns:44px minmax(0,1fr) minmax(0,1fr)}
+  .music-result-actions.is-radio{grid-template-columns:44px minmax(0,1fr)}
+  .music-result-actions button{padding:8px;min-width:0}
+  .music-result-actions .music-icon{width:22px;height:22px}
+  .music-result-actions [data-action="apple-alarm-song"] .music-icon{fill:currentColor;stroke:none}
+  .music-song-actions{display:flex;justify-content:flex-end}
+  .music-song-actions button{min-width:100px}
+  #music-apple-account:empty,#music-apple-status:empty{display:none}
+  #music-alarm-song-tools{display:grid;gap:12px}
+  .music-source-actions button{min-height:44px}
+  @media(max-width:600px){
+    .music-source-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .music-source-actions button{border:1px solid var(--divider-color,#ddd);padding:8px}
+    .music-favorites{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
+    .music-favorite{min-height:104px}
+    .music-transport{gap:8px}
+    .music-transport button{height:48px}
+    .music-browser{gap:12px}
+    .music-manage-nav button{padding:8px}
+    #music-search-form>.toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+    #music-search-form [data-action="manage-favorites"]{grid-column:1/-1}
+    .music-favorite-actions{flex-wrap:wrap}
+    .music-favorite-actions .program-order button{width:44px;height:44px}
+    .music-favorite-actions .check{min-height:44px;min-width:44px;display:grid;place-items:center}
+  }
+
+  .modal{max-height:90dvh}
+  .modal .modal-body{min-height:0;flex:1;overscroll-behavior:contain}
+  .modal footer:empty{display:none}
+  .modal button{min-height:44px}
+  .modal .modal-head .edit-button{min-width:44px}
+  .modal .row-text{min-width:0;overflow-wrap:anywhere}
+  @media(max-width:600px){
+    .modal{inset:0;margin:0;width:100%;max-width:100%;height:100dvh;max-height:100dvh;border-radius:0}
+    .modal .modal-head{padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px 16px}
+    .modal .modal-body{padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+    .modal input:not([type=range]):not([type=checkbox]){font-size:16px;min-height:44px}
+  }
+
+/* Canonical music player presentation. Applications do not override these rules. */
+.fui-player-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0}
+.fui-player-speaker{width:190px;max-width:calc(100% - 64px);min-width:0}
+.fui-player-speaker select{width:100%;min-width:0}
+.fui-player-name{min-width:0;overflow-wrap:anywhere;color:var(--secondary-text-color,#727272)}
+.fui-player-settings{width:48px;height:48px;flex-shrink:0;border-radius:50%;padding:12px;color:var(--secondary-text-color,#727272)}
+.fui-player-settings .ui-icon{width:24px;height:24px}
+.fui-player-heading{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:center;gap:16px;padding:8px 0 16px;border-bottom:1px solid var(--divider-color,#ddd)}
+.fui-player-heading h3{font-size:20px;font-weight:500;line-height:1.3;overflow-wrap:anywhere}
+.fui-player-heading small{display:block;margin-top:6px;overflow-wrap:anywhere}
+.fui-music-artwork{position:relative;display:grid;place-items:center;flex-shrink:0;width:48px;height:48px;border-radius:8px;overflow:hidden;background:var(--secondary-background-color,#f2f2f2);color:var(--primary-color,#03a9f4)}
+.fui-music-artwork img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fui-player-heading .fui-music-artwork{width:80px;height:80px;border-radius:12px}
+.fui-player-heading .fui-music-artwork .ui-icon{width:40px;height:40px}
+.fui-music-transport{display:flex;align-items:center;justify-content:center;gap:12px}
+.fui-music-transport button{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;padding:12px;border-radius:50%}
+.fui-music-transport .fui-music-play{flex-basis:56px;width:56px;height:56px;padding:16px;background:var(--primary-color,#03a9f4);color:var(--text-primary-color,#fff)}
+.fui-music-transport .fui-music-play:hover:enabled{background:var(--primary-color,#03a9f4)}
+.fui-music-transport [aria-pressed="true"]{background:color-mix(in srgb,var(--primary-color,#03a9f4) 14%,transparent)}
+.music-favorites{display:grid;grid-template-columns:repeat(auto-fill,64px);gap:10px}
+.music-favorites .fui-music-favorite{display:grid;place-items:center;width:64px;height:64px;min-width:64px;min-height:64px;padding:8px;border-radius:12px;background:var(--secondary-background-color,#f2f2f2)}
+.music-manage-nav{grid-template-columns:minmax(0,1fr)}
+.music-apple-results.no-alarm-songs .music-result-actions:not(.is-container){grid-template-columns:44px minmax(0,1fr)}
+.fui-player-navigation-status:empty{display:none}
+.fui-player-song-tools{display:grid;gap:12px}
+.fui-player-song-list{display:grid;gap:8px;min-width:0}
+.fui-player-settings-list{display:grid;gap:0}
+@media(max-width:360px){.fui-player-heading{grid-template-columns:64px minmax(0,1fr);gap:12px}.fui-player-heading .fui-music-artwork{width:64px;height:64px}.fui-music-transport{gap:8px}}
+
+.modal .edit-button{width:44px;height:44px;min-width:44px;border-radius:50%}

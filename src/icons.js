@@ -25,12 +25,23 @@ const ICON_PATHS = Object.freeze({
   "left": "<g transform=\"rotate(-90 12 12)\"><path d=\"m5 15 7-7 7 7\"/></g>",
   "right": "<g transform=\"rotate(90 12 12)\"><path d=\"m5 15 7-7 7 7\"/></g>",
   "menu": "<path d=\"M4 6h16M4 12h16M4 18h16\"/>",
-  "down": "<path d=\"m5 9 7 7 7-7\"/>"
+  "down": "<path d=\"m5 9 7 7 7-7\"/>",
+  "media-alarmFilled": "<path fill-rule=\"evenodd\" d=\"M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-1 3h2v4.4l3 1.8-1 1.7-4-2.4V7ZM3.5 1.8l1.3 1.5-3.4 2.9L.1 4.7l3.4-2.9Zm17 0 3.4 2.9-1.3 1.5-3.4-2.9 1.3-1.5Z\"/>",
+  "media-alarm": "<path fill-rule=\"evenodd\" d=\"M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm-1 1h2v5.4l3 1.8-1 1.7-4-2.4V7ZM3.5 1.8l1.3 1.5-3.4 2.9L.1 4.7l3.4-2.9Zm17 0 3.4 2.9-1.3 1.5-3.4-2.9 1.3-1.5Z\"/>",
+  "media-previous": "<path fill-rule=\"evenodd\" d=\"M6 5h2v14H6zM18 5v14l-9-7z\"/>",
+  "media-next": "<path fill-rule=\"evenodd\" d=\"M16 5h2v14h-2zM6 5l9 7-9 7z\"/>",
+  "media-play": "<path fill-rule=\"evenodd\" d=\"M8 5v14l11-7z\"/>",
+  "media-pause": "<path fill-rule=\"evenodd\" d=\"M6 5h4v14H6zM14 5h4v14h-4z\"/>",
+  "media-stop": "<path fill-rule=\"evenodd\" d=\"M6 6h12v12H6z\"/>",
+  "media-star": "<path fill-rule=\"evenodd\" d=\"m12 2.5 2.9 5.9 6.5 1-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-1z\"/>",
+  "media-radio": "<path fill-rule=\"evenodd\" d=\"M4 7h16v13H4zM6 3l13-2v2L6 5zM6 9v3h12V9zM7 14h5v4H7zM15 14h3v2h-3z\"/>",
+  "media-shuffle": "<path fill-rule=\"evenodd\" d=\"m16 3 5 4-5 4V8h-2l-4 5-4 5H3v-2h2l4-5 4-5h3V3ZM3 6h3l3 4-1.3 1.6L5 8H3V6Zm9 7.4 2 2.6h2v-3l5 4-5 4v-3h-3l-2.3-3 1.3-1.6Z\"/>",
+  "media-music": "<path fill-rule=\"evenodd\" d=\"M16 3v11.6a4 4 0 1 0 2 3.4V7h4V3h-6ZM8 6H2v2h6V6Zm0 5H2v2h6v-2Zm-2 5H2v2h4v-2Z\"/>"
 });
 export const ICON_NAMES = Object.freeze(Object.keys(ICON_PATHS));
 export function icon(name, {expanded = false} = {}) {
   if (!Object.hasOwn(ICON_PATHS, name)) throw new TypeError(`Unknown icon: ${name}`);
-  const filled = name === 'settings' || name === 'help';
+  const filled = name === 'settings' || name === 'help' || name.startsWith('media-');
   const chevron = name === 'chevron';
   return `<svg class="ui-icon${filled ? ' filled' : ''}${chevron ? ' chevron' : ''}${chevron && expanded ? ' expanded' : ''}" data-icon="${name}" viewBox="0 0 ${chevron ? '16 16' : '24 24'}" aria-hidden="true" focusable="false">${ICON_PATHS[name]}</svg>`;
 }

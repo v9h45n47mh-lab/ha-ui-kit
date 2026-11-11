@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.3.1**, visuelle Hauptvorlage: **Shutter Manager 1.4.0**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.4.0**, visuelle Hauptvorlage: **Shutter Manager 1.4.0**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -34,10 +34,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Versionsdateien nach `frontend/family-ui/1.3.1/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Versionsdateien nach `frontend/family-ui/1.4.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.3.1/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.4.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).
@@ -70,3 +70,11 @@ Optional `CHROMIUM_PATH` setzen, um ein vorhandenes Chromium zu verwenden. Tests
 Die genaue Zuordnung steht in [DESIGN_STANDARD.md](docs/DESIGN_STANDARD.md). Änderungen an gemeinsamen Elementen erfolgen hier und werden anschließend als neue, fest gebundene UI-Version in die betroffenen Integrationen übernommen. Bestehende Integrationen verwenden den Baukasten **erst nach ihrer jeweiligen Umstellung**; ein Update dieses Repositories allein ändert sie nicht. Der Stand der Übernahme ist in [ADOPTION.md](docs/ADOPTION.md) dokumentiert.
 
 Die SVG- und Layoutvorlage ist mit Version, Commit und Datei in [PROVENANCE.json](docs/PROVENANCE.json) festgehalten. Lizenz: [MIT](LICENSE).
+
+## Musicplayer ab 1.4.0
+
+`musicPlayerHeader`, `musicTransport`, `musicFavoriteTile`, `musicArtwork` und `musicActionButton` bilden den gemeinsamen Player. Zusätzlich zu `UI_CSS` wird unverändertes `MUSIC_PLAYER_CSS` innerhalb desselben ShadowRoot eingebunden. [Interaktives Beispiel](../examples/music-player.html).
+
+Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, visuell versteckte Beschriftung; rechts steht das gemeinsame Zahnrad. Player-Tasten sind auch beim Hover kreisrund (48 × 48 px, Play/Pause 56 × 56 px). Favoritenkacheln zeigen ausschließlich Symbole oder Cover; `aria-label` und Tooltip erhalten den Namen. Schrift, Farben, Größen und Abstände stammen vollständig aus dem Kit. Der Host liefert Inhalte und entscheidet, welche Tasten und Einstellungen verfügbar sind.
+
+`rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.
