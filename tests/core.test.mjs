@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.4.0');
+  assert.equal(UI_VERSION,'1.4.1');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -58,8 +58,8 @@ test('vendored release is pinned and altered files are detected',async()=>{
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.4.0/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.4.0/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.4.1/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.4.1/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}

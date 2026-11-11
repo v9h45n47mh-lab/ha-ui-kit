@@ -108,3 +108,5 @@
 @media(max-width:360px){.fui-player-heading{grid-template-columns:64px minmax(0,1fr);gap:12px}.fui-player-heading .fui-music-artwork{width:64px;height:64px}.fui-music-transport{gap:8px}}
 
 .modal .edit-button{width:44px;height:44px;min-width:44px;border-radius:50%}
+
+.fui-player-speaker-compact{width:150px}

@@ -1,6 +1,6 @@
-# Gemeinsamer Layoutstandard 1.4.0
+# Gemeinsamer Layoutstandard 1.4.1
 
-Vorlage ist der veröffentlichte Shutter Manager 1.4.0. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
+Vorlage ist der veröffentlichte Shutter Manager 1.4.1. Gemeinsame Komponenten werden aus `dist/family-ui.js` verwendet. Die Implementierung ist in `src/` zentral gepflegt; generierte Dateien werden nicht von Hand geändert.
 
 Für zusätzliche Objekte gilt die Quellenpriorität **Shutter → Light → Essensplaner → Haushalt → Spülmaschine → Access Manager**. Einmalige Objekte stammen aus ihrer ursprünglichen Implementierung. Der [Bausteinkatalog](COMPONENTS.md) ordnet jedes Objekt seiner Vorlage zu; die Quellstände sind in [PROVENANCE.json](PROVENANCE.json) festgehalten. Abweichende Varianten niedrigerer Priorität werden als Option desselben Bausteins angeboten, sofern sie eine vorhandene Funktion benötigen. Gemeinsame Theme-Werte gelten auch für die zusätzlichen Objekte.
 
@@ -46,12 +46,14 @@ Die kompakte Darstellung ist bewusst an die Vorlage angelehnt. Dialoge verwenden
 
 `accountTiles` verwendet immer zwei gleich breite Spalten, auch bei 320 px und bei nur einem sichtbaren Konto. `accountTile` ist quadratisch; der Name steht oben links, der Zahlenwert groß und mittig mit Einheit/Status darunter. Standardabstand und Innenabstand betragen 16 px, bis 600 px jeweils 12 px. Der Host bestimmt Wert und Bedeutung; das Kit stellt nur die angegebenen semantischen Zustände dar. Optionale Details sind als vollständiger Tooltip und zugängliche Beschreibung verfügbar. Keine lokale Gestaltungskopie pro Integration.
 
-Ab 1.4.0 wird die Wertgruppe unabhängig von Hinweistexten exakt in der Kachelmitte ausgerichtet. Beide Kontostände stehen auf derselben Linie. Ein optionaler Fußhinweis ist einzeilig mit Ellipse, vollständigem Tooltip und unverändert zugänglichem Text.
+Ab 1.4.1 wird die Wertgruppe unabhängig von Hinweistexten exakt in der Kachelmitte ausgerichtet. Beide Kontostände stehen auf derselben Linie. Ein optionaler Fußhinweis ist einzeilig mit Ellipse, vollständigem Tooltip und unverändert zugänglichem Text.
 
-## Musicplayer ab 1.4.0
+## Musicplayer ab 1.4.1
 
 `musicPlayerHeader`, `musicTransport`, `musicFavoriteTile`, `musicArtwork` und `musicActionButton` bilden den gemeinsamen Player. Zusätzlich zu `UI_CSS` wird unverändertes `MUSIC_PLAYER_CSS` innerhalb desselben ShadowRoot eingebunden. [Interaktives Beispiel](../examples/music-player.html).
 
 Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, visuell versteckte Beschriftung; rechts steht das gemeinsame Zahnrad. Player-Tasten sind auch beim Hover kreisrund (48 × 48 px, Play/Pause 56 × 56 px). Favoritenkacheln zeigen ausschließlich Symbole oder Cover; `aria-label` und Tooltip erhalten den Namen. Schrift, Farben, Größen und Abstände stammen vollständig aus dem Kit. Der Host liefert Inhalte und entscheidet, welche Tasten und Einstellungen verfügbar sind.
 
 `rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.
+
+Player-Kopf ab 1.4.1: `speakerSelect.compact:true` verwendet die gemeinsame 150-px-Variante für reine Raumnamen. `hideSpeaker:true` lässt ausschließlich das Zahnrad im Kopf stehen. Rechte und die Anzeige der Box in Einstellungen entscheidet weiterhin der Host.

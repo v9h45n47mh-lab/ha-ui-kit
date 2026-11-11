@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1 – 11.11.2026
+
+- Optionales `speakerSelect.compact` im gemeinsamen Player-Kopf: 150 px für Raumnamen bis „Schlafzimmer“. Die bestehende Standardbreite bleibt erhalten.
+- `hideSpeaker` blendet die Box im Kopf aus, ohne das Zahnrad oder die Player-Steuerung zu verändern.
+- Zusätzliche Browser- und API-Prüfungen für die kompakte Auswahl und ausgeblendete Box.
+
 ## 1.4.0 – 11.11.2026
 
 - Gemeinsame Musicplayer-Bausteine: Kopfbereich mit linkem kompaktem Box-Dropdown ohne sichtbare Beschriftung und Zahnrad rechts, Medientasten, Cover und reine Symbolfavoriten.

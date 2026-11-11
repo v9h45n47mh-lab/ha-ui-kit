@@ -19,3 +19,9 @@ test('player transport icons use equal width and height with circular hover geom
  assert.match(html,/fui-music-play/);assert.match(html,/data-icon="media-next"/);assert.equal(musicTransport(), '');
  assert.match(MUSIC_PLAYER_CSS,/width:48px;height:48px;[^}]*border-radius:50%/);assert.match(MUSIC_PLAYER_CSS,/width:56px;height:56px/);
 });
+
+test('compact speaker size and hidden speaker name remain optional presentation only',()=>{
+ const header=musicPlayerHeader({speakerSelect:{id:'box',value:'bed',compact:true,options:[{value:'bed',label:'Schlafzimmer'}]}});assert.match(header,/fui-player-speaker-compact/);
+ const hidden=musicPlayerHeader({speaker:'Paul',hideSpeaker:true});assert(!hidden.includes('fui-player-name'));assert(!hidden.includes('Paul'));assert.match(hidden,/data-icon="settings"/);
+ assert.match(MUSIC_PLAYER_CSS,/\.fui-player-speaker-compact\{width:150px/);
+});
