@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0 – 14.11.2026
+
+- Added shared skip-once and reschedule icons for one-execution schedule controls.
+- Added optional button({compact:true}) styling with a narrower icon/text layout and a minimum 40 px touch target; default controls are unchanged.
+- Added unit and desktop/mobile light/dark browser coverage for icons, control dimensions, theme inheritance and keyboard actions.
+
 ## 1.4.1 – 11.11.2026
 
 - Optionales `speakerSelect.compact` im gemeinsamen Player-Kopf: 150 px für Raumnamen bis „Schlafzimmer“. Die bestehende Standardbreite bleibt erhalten.

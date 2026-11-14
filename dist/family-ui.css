@@ -11,6 +11,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 button:disabled{opacity:.45;cursor:default}button:disabled:hover{background:transparent}
 button.primary{background:var(--primary-color,#03a9f4);color:var(--text-primary-color,#fff)}button.danger{color:var(--error-color,#db4437)}
 button>.ui-icon+span{margin-left:6px}
+button.compact{padding:7px 8px;min-height:var(--fui-touch)}
+button.compact>.ui-icon{width:16px;height:16px}
+button.compact>.ui-icon+span{margin-left:4px}
 .ui-icon{width:var(--fui-icon);height:var(--fui-icon);flex-shrink:0;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .ui-icon.filled{fill:currentColor;stroke:none}.chevron{width:20px;height:20px;transform:rotate(-90deg);transition:transform .15s}.chevron.expanded{transform:rotate(0)}
 .card-top{display:flex;align-items:stretch;border-bottom:1px solid var(--divider-color,#e0e0e0);min-height:52px}

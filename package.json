@@ -1,6 +1,6 @@
 {
   "name": "@v9h45n47mh-lab/ha-ui-kit",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "private": true,
   "type": "module",
   "description": "Gemeinsamer lokaler UI-Baukasten für Home-Assistant-Karten nach Shutter Manager 1.4.0",
@@ -12,7 +12,7 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.cjs && node tests/account-tiles.cjs && node tests/gallery.cjs && node tests/program-rows.cjs && node tests/music-player.cjs"
+    "test:browser": "node tests/browser.cjs && node tests/account-tiles.cjs && node tests/gallery.cjs && node tests/program-rows.cjs && node tests/music-player.cjs && node tests/schedule-controls.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

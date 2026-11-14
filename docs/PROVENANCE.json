@@ -33,7 +33,9 @@
     "down",
     "left",
     "right",
-    "menu"
+    "menu",
+    "skip-once",
+    "reschedule"
   ],
   "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included.",
   "sourceTextControls": {
@@ -123,5 +125,10 @@
     ],
     "adaptations": "Shared canonical player header, circular transport, image-only favorites, accessible compact speaker selector, media icons and music dialog layout. Existing shared button, field, row, dialog and icon primitives keep priority.",
     "businessLogic": "None; caller supplies selection, controls, content, volume range and permissions."
+  },
+  "scheduleControls": {
+    "since": "1.5.0",
+    "source": "Shared UI Kit addition for Shutter Manager one-execution schedule controls",
+    "compactButton": "Optional narrower icon/text layout with unchanged default controls and a 40 px minimum touch height"
   }
 }

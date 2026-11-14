@@ -143,3 +143,8 @@ Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, vi
 `rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.
 
 Player-Kopf ab 1.4.1: `speakerSelect.compact:true` verwendet die gemeinsame 150-px-Variante für reine Raumnamen. `hideSpeaker:true` lässt ausschließlich das Zahnrad im Kopf stehen. Rechte und die Anzeige der Box in Einstellungen entscheidet weiterhin der Host.
+
+
+## One-execution schedule controls (1.5.0)
+
+Use `button({label:'Skip',icon:'skip-once',compact:true,action:'skip'})` for a narrow text/icon control. Compact buttons retain the shared font and theme colors, 16 px icons and a minimum 40 px touch target. Existing buttons keep their default geometry. Use `iconButton({icon:'reschedule',label:'Reschedule once',action:'reschedule'})` for the adjacent one-execution time control. The kit owns only markup and styling; applications validate dates, future times, ownership and execution rights.

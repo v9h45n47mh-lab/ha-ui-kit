@@ -18,9 +18,9 @@ function actionAttrs(action, data) {
   return ` data-action="${escapeHtml(action)}"${dataAttrs(data)}`;
 }
 
-export function button({label, action, icon: name, variant = 'text', disabled = false, data = {}}) {
+export function button({label, action, icon: name, variant = 'text', disabled = false, compact = false, data = {}}) {
   if (!['text', 'primary', 'danger'].includes(variant)) throw new TypeError('Unknown button variant');
-  return `<button type="button" class="${variant === 'text' ? '' : variant}"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}>${name ? icon(name) : ''}<span>${escapeHtml(label)}</span></button>`;
+  return `<button type="button" class="${[variant === 'text' ? '' : variant,compact?'compact':''].filter(Boolean).join(' ')}"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}>${name ? icon(name) : ''}<span>${escapeHtml(label)}</span></button>`;
 }
 
 /** Shutter Manager's text plus is intentional: do not substitute the generic add SVG. */

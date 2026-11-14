@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.4.1**, visuelle Hauptvorlage: **Shutter Manager 1.4.1**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.5.0**, visuelle Hauptvorlage: **Shutter Manager 1.5.0**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -34,10 +34,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Versionsdateien nach `frontend/family-ui/1.4.1/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Versionsdateien nach `frontend/family-ui/1.5.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.4.1/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.5.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).
@@ -71,7 +71,7 @@ Die genaue Zuordnung steht in [DESIGN_STANDARD.md](docs/DESIGN_STANDARD.md). Än
 
 Die SVG- und Layoutvorlage ist mit Version, Commit und Datei in [PROVENANCE.json](docs/PROVENANCE.json) festgehalten. Lizenz: [MIT](LICENSE).
 
-## Musicplayer ab 1.4.1
+## Musicplayer ab 1.5.0
 
 `musicPlayerHeader`, `musicTransport`, `musicFavoriteTile`, `musicArtwork` und `musicActionButton` bilden den gemeinsamen Player. Zusätzlich zu `UI_CSS` wird unverändertes `MUSIC_PLAYER_CSS` innerhalb desselben ShadowRoot eingebunden. [Interaktives Beispiel](../examples/music-player.html).
 
