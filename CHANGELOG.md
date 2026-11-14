@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.2 – 14.11.2026
+
+- Add a distinct restore-schedule icon for restoring an individually skipped occurrence.
+- Add optional actionRow({skipped:true}) with theme-aware light-gray text while keeping controls fully visible and usable.
+
 ## 1.5.1 – 14.11.2026
 
 - Added optional actionRow({inlineActions:true}) so adjacent compact schedule controls remain side by side on mobile without changing default rows.

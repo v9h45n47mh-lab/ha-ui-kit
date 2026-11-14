@@ -33,3 +33,7 @@ fieldset{border:0;padding:0;margin:0;min-width:0}legend,.field-label{font-size:1
 @media(max-width:380px){.daily-history-row{gap:6px;grid-template-columns:36px minmax(0,1fr) auto}.command-result{font-size:10px}}
 
 .ride-actions.inline-actions{flex-wrap:nowrap;flex-shrink:0}
+
+/* Skipped occurrence: theme-owned muted text; controls remain fully usable. */
+.ride.skipped>.ride-info{color:var(--disabled-text-color,#9e9e9e)}
+.ride.skipped>.ride-info small{color:inherit}

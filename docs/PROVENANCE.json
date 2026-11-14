@@ -129,6 +129,12 @@
   "scheduleControls": {
     "since": "1.5.0",
     "source": "Shared UI Kit addition for Shutter Manager one-execution schedule controls",
-    "compactButton": "Optional narrower icon/text layout with unchanged default controls and a 40 px minimum touch height"
+    "compactButton": "Optional narrower icon/text layout with unchanged default controls and a 40 px minimum touch height",
+    "restoreSchedule": {
+      "since": "1.5.2",
+      "source": "Shared UI Kit extension requested for Light Manager",
+      "design": "Counterclockwise return arrow around a clock; original SVG path, same shared stroke style"
+    },
+    "skippedRow": "Optional theme-aware light-gray text for skipped occurrences; action controls remain unchanged."
   }
 }

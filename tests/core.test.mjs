@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.5.1');
+  assert.equal(UI_VERSION,'1.5.2');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -58,8 +58,8 @@ test('vendored release is pinned and altered files are detected',async()=>{
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.5.1/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.5.1/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.5.2/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.5.2/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}
@@ -97,4 +97,11 @@ test('inline action groups are optional and keep default rows unchanged',()=>{
  const normal=actionRow({title:'Cover',actions:'buttons'});
  assert.ok(!normal.includes('inline-actions'));
  assert.match(actionRow({title:'Cover',actions:'buttons',inlineActions:true}),/class="toolbar ride-actions inline-actions"/);
+});
+
+test('skipped occurrences have a distinct shared state and restore symbol',()=>{
+ assert.match(actionRow({title:'Skipped',skipped:true,inlineActions:true}),/class="ride skipped"/);
+ assert.ok(!actionRow({title:'Active'}).includes('skipped'));
+ assert.match(icon('restore-schedule'),/data-icon="restore-schedule"/);
+ assert.notEqual(icon('restore-schedule'),icon('skip-once'));
 });
