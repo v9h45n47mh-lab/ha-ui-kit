@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1 – 14.11.2026
+
+- Added optional actionRow({inlineActions:true}) so adjacent compact schedule controls remain side by side on mobile without changing default rows.
+- Extended the shared browser suite to verify horizontal alignment, touch targets and no viewport overflow.
+
 ## 1.5.0 – 14.11.2026
 
 - Added shared skip-once and reschedule icons for one-execution schedule controls.

@@ -127,7 +127,7 @@ const accounts=accountTiles({content:accountTile({id:"account-max",label:"Maximi
 
 Das feste Raster liefert zwei halbe Breiten, auch mobil. Keine lokale CSS-Kopie ergänzen. Konten, Einheiten, Vorzeichenbedeutung, Detailtexte und Berechtigungen bleiben in der Anwendung.
 
-## Musicplayer ab 1.5.0
+## Musicplayer ab 1.5.1
 
 `musicPlayerHeader`, `musicTransport`, `musicFavoriteTile`, `musicArtwork` und `musicActionButton` bilden den gemeinsamen Player. Zusätzlich zu `UI_CSS` wird unverändertes `MUSIC_PLAYER_CSS` innerhalb desselben ShadowRoot eingebunden. [Interaktives Beispiel](../examples/music-player.html).
 
@@ -135,9 +135,11 @@ Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, vi
 
 `rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.
 
-Player-Kopf ab 1.5.0: `speakerSelect.compact:true` verwendet die gemeinsame 150-px-Variante für reine Raumnamen. `hideSpeaker:true` lässt ausschließlich das Zahnrad im Kopf stehen. Rechte und die Anzeige der Box in Einstellungen entscheidet weiterhin der Host.
+Player-Kopf ab 1.5.1: `speakerSelect.compact:true` verwendet die gemeinsame 150-px-Variante für reine Raumnamen. `hideSpeaker:true` lässt ausschließlich das Zahnrad im Kopf stehen. Rechte und die Anzeige der Box in Einstellungen entscheidet weiterhin der Host.
 
 
-## One-execution schedule controls (1.5.0)
+## One-execution schedule controls (1.5.1)
 
 Use `button({label:'Skip',icon:'skip-once',compact:true,action:'skip'})` for a narrow text/icon control. Compact buttons retain the shared font and theme colors, 16 px icons and a minimum 40 px touch target. Existing buttons keep their default geometry. Use `iconButton({icon:'reschedule',label:'Reschedule once',action:'reschedule'})` for the adjacent one-execution time control. The kit owns only markup and styling; applications validate dates, future times, ownership and execution rights.
+
+Use actionRow({inlineActions:true}) when compact actions must stay side by side. The optional group prevents wrapping and shrinking; titles continue to wrap normally. Default action rows keep their existing behavior.

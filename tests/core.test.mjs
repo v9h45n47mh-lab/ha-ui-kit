@@ -4,7 +4,7 @@ import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {escapeHtml, icon, iconButton, section, row, navigation, field, programAddButton, programOrderButtons, toggle, programRow, button, ICON_NAMES, UI_VERSION} from '../dist/family-ui.js';
+import {escapeHtml, icon, iconButton, section, row, navigation, field, programAddButton, programOrderButtons, toggle, programRow, button, actionRow, ICON_NAMES, UI_VERSION} from '../dist/family-ui.js';
 
 test('untrusted labels, values and attributes cannot inject markup',()=>{
   const value='\"><img src=x onerror=alert(1)> & \'quoted\'';
@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.5.0');
+  assert.equal(UI_VERSION,'1.5.1');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -58,8 +58,8 @@ test('vendored release is pinned and altered files are detected',async()=>{
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.5.0/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.5.0/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.5.1/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.5.1/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}
@@ -91,4 +91,10 @@ test('compact action buttons are optional and preserve escaping and disabling',(
   assert.match(compact,/class="primary compact"/);
   assert.match(compact,/data-occurrence="day:ride" disabled/);
   assert.match(compact,/data-icon="skip-once"/);assert.match(compact,/Skip &lt;once&gt;/);
+});
+
+test('inline action groups are optional and keep default rows unchanged',()=>{
+ const normal=actionRow({title:'Cover',actions:'buttons'});
+ assert.ok(!normal.includes('inline-actions'));
+ assert.match(actionRow({title:'Cover',actions:'buttons',inlineActions:true}),/class="toolbar ride-actions inline-actions"/);
 });

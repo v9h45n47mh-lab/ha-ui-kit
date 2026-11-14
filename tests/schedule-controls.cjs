@@ -13,7 +13,8 @@ const root=path.resolve(__dirname,'..');
   await page.goto('http://schedule-controls.test');
   await page.evaluate(async()=>{
    const UI=await import('/kit.js'),host=document.getElementById('host'),shadow=host.attachShadow({mode:'open'});
-   shadow.innerHTML='<style>'+UI.UI_CSS+'</style><ha-card><main><div class="toolbar">'+UI.button({label:'Skip',icon:'skip-once',action:'skip',variant:'primary',compact:true})+UI.iconButton({icon:'reschedule',label:'Reschedule once',action:'reschedule'})+'</div><div class="toolbar">'+UI.button({label:'Auslassen',action:'reference',variant:'primary'})+'</div></main></ha-card>';
+   const controls=UI.button({label:'Skip',icon:'skip-once',action:'skip',variant:'primary',compact:true})+UI.iconButton({icon:'reschedule',label:'Reschedule once',action:'reschedule'});
+   shadow.innerHTML='<style>'+UI.UI_CSS+'</style><ha-card><main>'+UI.actionRow({title:'Sa 07:00 · Cover with a longer name',description:'Position 50%',inlineActions:true,actions:controls})+'<div class="toolbar">'+UI.button({label:'Auslassen',action:'reference',variant:'primary'})+'</div></main></ha-card>';
    window.actions=[];shadow.addEventListener('click',event=>{const action=event.target.closest('button')?.dataset.action;if(action)window.actions.push(action);});
   });
   const host=page.locator('#host'),skip=host.getByRole('button',{name:'Skip',exact:true}),shift=host.getByRole('button',{name:'Reschedule once',exact:true});
@@ -29,6 +30,7 @@ const root=path.resolve(__dirname,'..');
    const small=await skip.boundingBox(),normal=await host.getByRole('button',{name:'Auslassen',exact:true}).boundingBox(),icon=await shift.boundingBox();
    assert.ok(small.width+12<normal.width,'Skip is substantially narrower than the previous full-label control');
    assert.ok(small.height>=40&&icon.width>=40&&icon.height>=40,'compact controls retain a usable touch target');
+   assert.ok(Math.abs(small.y+small.height/2-icon.y-icon.height/2)<1,'Skip and reschedule remain side by side on mobile');
    const glyph=await skip.locator('svg').boundingBox();assert.equal(glyph.width,16);assert.equal(glyph.height,16);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    await skip.focus();await skip.press('Enter');await shift.focus();await shift.press('Space');

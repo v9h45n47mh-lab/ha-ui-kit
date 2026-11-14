@@ -62,3 +62,5 @@ Player-Kopf ab 1.4.1: `speakerSelect.compact:true` verwendet die gemeinsame 150-
 ## One-execution schedule controls (1.5.0)
 
 Use `button({label:'Skip',icon:'skip-once',compact:true,action:'skip'})` for a narrow text/icon control. Compact buttons retain the shared font and theme colors, 16 px icons and a minimum 40 px touch target. Existing buttons keep their default geometry. Use `iconButton({icon:'reschedule',label:'Reschedule once',action:'reschedule'})` for the adjacent one-execution time control. The kit owns only markup and styling; applications validate dates, future times, ownership and execution rights.
+
+Use actionRow({inlineActions:true}) when compact actions must stay side by side. The optional group prevents wrapping and shrinking; titles continue to wrap normally. Default action rows keep their existing behavior.
