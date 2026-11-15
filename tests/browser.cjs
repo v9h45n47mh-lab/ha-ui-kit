@@ -77,12 +77,12 @@ const server = http.createServer((req,res)=>{
     await addProgram.click();assert.equal(await modal.isVisible(),true);await modal.getByRole('button',{name:'Schließen',exact:true}).click();
     await page.screenshot({path:path.join(root,'test-results/programs-desktop-dark.png'),fullPage:true});
     await page.getByRole('button',{name:'Helles Theme'}).click();
-    assert.equal(await down.first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)','Sort arrows use the light blue accent in light mode');
+    assert.equal(await handles.first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)','Sort arrows use the light blue accent in light mode');
     await page.screenshot({path:path.join(root,'test-results/programs-desktop-light.png'),fullPage:true});
     const filter=card.getByRole('button',{name:'Urlaub',exact:true});await filter.click();assert.equal(await filter.getAttribute('aria-pressed'),'true');
     assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),true);
     await page.setViewportSize({width:390,height:900});assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),false);
-    assert.equal(await down.first().isVisible(),false,'Program sorting follows the mobile hiding rule');
+    assert.equal(await handles.first().isVisible(),false,'Program sorting follows the mobile hiding rule');
     assert.equal(await addProgram.isVisible(),true);
     await page.screenshot({path:path.join(root,'test-results/programs-mobile-light.png'),fullPage:true});
     await card.getByRole('button',{name:'Anleitung',exact:true}).click();assert.equal(await card.locator('.icon-grid .ui-icon').count(),(await import('../dist/family-ui.js')).ICON_NAMES.length);
