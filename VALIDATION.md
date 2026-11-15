@@ -1,3 +1,10 @@
-# HA UI Kit 1.5.1 verification
+# Prüfung 1.6.0
 
-Prepared on 2026-11-14. Full build/unit/check and six browser suites are required before publication. The optional inline action group is checked for horizontal Skip/reschedule alignment, narrow text buttons, 40 px targets and no overflow at 320/390/1100 px in both themes; default components remain unchanged.
+Stand: 15.11.2026. Implementierungsstand `12ac13b8510e2a2098eb392de2b20952677ca995`.
+
+- `npm run build`, `npm test` und `npm run check` bestanden; 29 Unit-Tests.
+- Alle sieben Browser-Suiten bestanden, einschließlich unveränderter Shutter-Referenz, bestehender Komponenten und neuer Benutzerzeilen.
+- Neue Benutzerzeilen bei 1100/430/390/375/320 px, hell/dunkel, mit langen Namen und Rollen sowie zugänglichen Bedienelementen geprüft.
+- Erfolgreicher CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/43711519587
+
+Der Main-Release prüft denselben Stand erneut vor dem Erstellen des Releases.
