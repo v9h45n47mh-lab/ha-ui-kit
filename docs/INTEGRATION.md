@@ -147,3 +147,11 @@ Use actionRow({inlineActions:true}) when compact actions must stay side by side.
 ## Skipped schedule occurrences (1.5.2)
 
 Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. The shared skipped state uses `--disabled-text-color` (fallback `#9e9e9e`) for text only; controls retain normal contrast. Omit redundant skip detail text and use `iconButton({icon:"restore-schedule",label:"Wieder einplanen",…})` instead of the skip icon. Do not change permissions or scheduling logic.
+
+## Kompakte Benutzerzeile ab 1.6.0
+
+```js
+userAccessRow({id:user.id,title:user.name,description:"Eingeschränkt",value:roleId,options:roles,enabled:true,toggleAction:"user-activation",toggleLabel:"Family Access für "+user.name});
+```
+
+`select[data-user]` sendet native `change`-Ereignisse. Der kontrollierte Schalter meldet `checked` über `bindUI`; der Host übernimmt erst nach seiner Prüfung. Keine lokalen Breiten, Schriftgrößen oder Abstände ergänzen. Administratorzeilen verwenden `admin:true` und enthalten keine Eingaben.

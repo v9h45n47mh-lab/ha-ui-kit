@@ -5,6 +5,16 @@ import {icon} from './icons.js';
 function objectId(id) { if (typeof id !== 'string' || !id || /\s/.test(id)) throw new TypeError('A unique ID without whitespace is required'); return escapeHtml(id); }
 function objectAction(action) { return `data-control-action="${escapeHtml(action)}"`; }
 
+/** Native role changes carry data-user; enabled changes use the controlled toggle. */
+export function userAccessRow({id,title,description='',value='',options=[],enabled=false,admin=false,disabled=false,toggleAction='user-enabled',toggleLabel='Zugriff für '+title,roleLabel='Rolle für '+title,adminLabel='Vollzugriff'}) {
+  objectId(id);
+  const name=`<div class="row-text"><strong>${escapeHtml(title)}</strong>${description?`<small>${escapeHtml(description)}</small>`:''}</div>`;
+  if(admin)return `<div class="setting-row fui-user-access" data-access-user="${escapeHtml(id)}">${name}<div class="fui-user-access-admin">${statusBadge({label:adminLabel,state:'neutral',icon:'lock'})}</div></div>`;
+  const role=selectField({id:'access-role-'+id,label:roleLabel,value,options,disabled,hideLabel:true}).replace('<select ',`<select data-user="${escapeHtml(id)}" `);
+  const control=toggle({label:toggleLabel,action:toggleAction,checked:enabled,disabled,iconOnly:true,data:{user:id}});
+  return `<div class="setting-row fui-user-access" data-access-user="${escapeHtml(id)}">${name}<div class="fui-user-access-role">${role}</div><div class="fui-user-access-toggle">${control}</div></div>`;
+}
+
 export function textareaField({id,label,value='',name,rows=3,maxLength,required=false,disabled=false,hint='',error=''}) {
   objectId(id);
   return `<label class="field" for="${escapeHtml(id)}"><span>${escapeHtml(label)}</span><textarea id="${escapeHtml(id)}" rows="${Math.max(1,Number(rows)||3)}"${name?` name="${escapeHtml(name)}"`:''}${maxLength!==undefined?` maxlength="${escapeHtml(maxLength)}"`:''}${required?' required':''}${disabled?' disabled':''}${error?' aria-invalid="true"':''}${hint||error?` aria-describedby="${escapeHtml(id)}-help"`:''}>${escapeHtml(value)}</textarea>${hint||error?`<small id="${escapeHtml(id)}-help" class="${error?'field-error':''}"${error?' role="alert"':''}>${escapeHtml(error||hint)}</small>`:''}</label>`;

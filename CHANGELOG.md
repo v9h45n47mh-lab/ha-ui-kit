@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0 – 15.11.2026
+
+- Neue gemeinsame Benutzerzeile `userAccessRow`: Name, Rolle und Aktivierung in einer kompakten Zeile; mobil zusammengehörig untereinander.
+- Unveränderte gemeinsame Schriften, Farben, Auswahlfelder, Schalter und Administratorstatus; lange Namen und Rollen ohne horizontalen Überlauf.
+- Bestehende Komponenten bleiben unverändert.
+
 ## 1.5.2 – 14.11.2026
 
 - Add a distinct restore-schedule icon for restoring an individually skipped occurrence.

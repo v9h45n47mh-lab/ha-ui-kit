@@ -68,3 +68,7 @@ Use actionRow({inlineActions:true}) when compact actions must stay side by side.
 ## Skipped schedule occurrences (1.5.2)
 
 Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. The shared skipped state uses `--disabled-text-color` (fallback `#9e9e9e`) for text only; controls retain normal contrast. Omit redundant skip detail text and use `iconButton({icon:"restore-schedule",label:"Wieder einplanen",…})` instead of the skip icon. Do not change permissions or scheduling logic.
+
+## Benutzerzeilen ab 1.6.0
+
+`userAccessRow` übernimmt Zeilentypografie und Bedienelemente unverändert aus dem Kit. Desktop: Name links, Rollenauswahl bis 240 px und kompakter Schalter rechts. Mobil: Name/Schalter in einer Zeile, Rolle in der nächsten, mit einer gemeinsamen Trennlinie. Lange Namen und Rollen bleiben innerhalb der verfügbaren Breite; Administratorstatus überlappt den Namen nicht.

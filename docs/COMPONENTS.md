@@ -154,3 +154,7 @@ Use actionRow({inlineActions:true}) when compact actions must stay side by side.
 ## Skipped schedule occurrences (1.5.2)
 
 Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. The shared skipped state uses `--disabled-text-color` (fallback `#9e9e9e`) for text only; controls retain normal contrast. Omit redundant skip detail text and use `iconButton({icon:"restore-schedule",label:"Wieder einplanen",…})` instead of the skip icon. Do not change permissions or scheduling logic.
+
+## Benutzer und Rollen ab 1.6.0
+
+`userAccessRow({id,title,description,value,options,enabled,admin,toggleAction,toggleLabel,roleLabel})` verbindet Benutzername, native Rollenauswahl und kontrollierten Schalter. Desktop: drei ausgerichtete Spalten; bis 600 px: Schalter neben dem Namen, Rolle darunter. Administratoren erhalten nur den gemeinsamen Vollzugriffsstatus. Rollenänderungen sind native `change`-Ereignisse mit `data-user`; Schalter werden über `bindUI` gemeldet. Der Host entscheidet über Rechte und Speicherung.
