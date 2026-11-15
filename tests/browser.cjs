@@ -82,7 +82,7 @@ const server = http.createServer((req,res)=>{
     const filter=card.getByRole('button',{name:'Urlaub',exact:true});await filter.click();assert.equal(await filter.getAttribute('aria-pressed'),'true');
     assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),true);
     await page.setViewportSize({width:390,height:900});assert.equal(await card.getByRole('button',{name:'Kopieren',exact:true}).isVisible(),false);
-    assert.equal(await handles.first().isVisible(),false,'Program sorting follows the mobile hiding rule');
+    assert.equal(await handles.first().isVisible(),true,'Drag sorting remains available on mobile');
     assert.equal(await addProgram.isVisible(),true);
     await page.screenshot({path:path.join(root,'test-results/programs-mobile-light.png'),fullPage:true});
     await card.getByRole('button',{name:'Anleitung',exact:true}).click();assert.equal(await card.locator('.icon-grid .ui-icon').count(),(await import('../dist/family-ui.js')).ICON_NAMES.length);
