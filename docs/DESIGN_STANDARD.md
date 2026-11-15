@@ -72,3 +72,10 @@ Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. Th
 ## Benutzerzeilen ab 1.6.0
 
 `userAccessRow` übernimmt Zeilentypografie und Bedienelemente unverändert aus dem Kit. Desktop: Name links, Rollenauswahl bis 240 px und kompakter Schalter rechts. Mobil: Name/Schalter in einer Zeile, Rolle in der nächsten, mit einer gemeinsamen Trennlinie. Lange Namen und Rollen bleiben innerhalb der verfügbaren Breite; Administratorstatus überlappt den Namen nicht.
+
+
+## Sortieren durch Ziehen ab 1.7.0
+
+`orderHandle({id,index,count,action,group,disabled,label,data})` und `programOrderButtons` rendern einen Sortiergriff ohne Pfeilbuttons, auch mobil. `bindUI` bindet die Pointer-/Touch-/Tastatursteuerung automatisch ein. Den Griff etwa 180 ms halten, ziehen und loslassen; Escape oder eine veränderte Liste bricht ab. Am fokussierten Griff sortieren Pfeil auf/ab und Pos1/Ende ebenfalls.
+
+Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromIndex`, `data.toIndex` und weiterhin `data.direction`. Die Anwendung verschiebt per Entfernen/Einfügen, prüft ihre Rechte und speichert einmal. Keine Berechtigungs-, Speicher- oder Automationslogik im Kit. Bereiche mit gleicher Aktion/Gruppe bleiben getrennt von anderen Programmgruppen. Suchansichten oder während einer Speicherung gesperrte Griffe über `disabled` deaktivieren.

@@ -158,3 +158,10 @@ Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. Th
 ## Benutzer und Rollen ab 1.6.0
 
 `userAccessRow({id,title,description,value,options,enabled,admin,toggleAction,toggleLabel,roleLabel})` verbindet Benutzername, native Rollenauswahl und kontrollierten Schalter. Desktop: drei ausgerichtete Spalten; bis 600 px: Schalter neben dem Namen, Rolle darunter. Administratoren erhalten nur den gemeinsamen Vollzugriffsstatus. Rollenänderungen sind native `change`-Ereignisse mit `data-user`; Schalter werden über `bindUI` gemeldet. Der Host entscheidet über Rechte und Speicherung.
+
+
+## Sortieren durch Ziehen ab 1.7.0
+
+`orderHandle({id,index,count,action,group,disabled,label,data})` und `programOrderButtons` rendern einen Sortiergriff ohne Pfeilbuttons, auch mobil. `bindUI` bindet die Pointer-/Touch-/Tastatursteuerung automatisch ein. Den Griff etwa 180 ms halten, ziehen und loslassen; Escape oder eine veränderte Liste bricht ab. Am fokussierten Griff sortieren Pfeil auf/ab und Pos1/Ende ebenfalls.
+
+Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromIndex`, `data.toIndex` und weiterhin `data.direction`. Die Anwendung verschiebt per Entfernen/Einfügen, prüft ihre Rechte und speichert einmal. Keine Berechtigungs-, Speicher- oder Automationslogik im Kit. Bereiche mit gleicher Aktion/Gruppe bleiben getrennt von anderen Programmgruppen. Suchansichten oder während einer Speicherung gesperrte Griffe über `disabled` deaktivieren.

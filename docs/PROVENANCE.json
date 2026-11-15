@@ -35,7 +35,8 @@
     "right",
     "menu",
     "skip-once",
-    "reschedule"
+    "reschedule",
+    "drag"
   ],
   "notes": "Shared visual values and source SVGs extracted; no shutter control or sensor logic included.",
   "sourceTextControls": {
@@ -136,5 +137,14 @@
       "design": "Counterclockwise return arrow around a clock; original SVG path, same shared stroke style"
     },
     "skippedRow": "Optional theme-aware light-gray text for skipped occurrences; action controls remain unchanged."
+  },
+  "ordering170": {
+    "origin": "Controlled ordering derived from the shared Shutter program controls; hold/drag interaction added for the requested cross-application migration.",
+    "components": [
+      "orderHandle",
+      "programOrderButtons",
+      "bindOrdering"
+    ],
+    "storage": "None; applications persist a single controlled offset."
   }
 }

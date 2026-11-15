@@ -1,5 +1,6 @@
 // Source paths: Shutter Manager 1.4.0. See docs/PROVENANCE.json.
 const ICON_PATHS = Object.freeze({
+  "drag": "<path d=\"M8 4h2v2H8zm6 0h2v2h-2zM8 9h2v2H8zm6 0h2v2h-2zM8 14h2v2H8zm6 0h2v2h-2zM8 19h2v2H8zm6 0h2v2h-2z\"/>",
   "sunrise": "<path d=\"M2 17h20M5 21h14M7 17a5 5 0 0 1 10 0M4 12l-2-2m18 2 2-2M12 9V2m-3 3 3-3 3 3\"/>",
   "sunset": "<path d=\"M2 17h20M5 21h14M7 17a5 5 0 0 1 10 0M4 12l-2-2m18 2 2-2M12 2v7m-3-3 3 3 3-3\"/>",
   "lock": "<rect x=\"5\" y=\"10\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 10V6a4 4 0 0 1 8 0v4m-4 5v2\"/>",

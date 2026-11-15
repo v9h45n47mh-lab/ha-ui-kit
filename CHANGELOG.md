@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.0 – Ziehen zum Sortieren
+
+Gemeinsamer Sortiergriff mit gedrückt halten und ziehen für Maus und Touch; Tastatur über Pfeiltasten sowie Pos1/Ende, Escape zum Abbrechen. programOrderButtons liefert jetzt einen einzelnen Griff statt Pfeilen. orderHandle und bindOrdering sind öffentliche Komponenten. Die Anwendung speichert die Position einmal mit data.offset; Gruppen, Rechte und Daten bleiben in der Anwendung.
+
+
 ## 1.6.0 – 15.11.2026
 
 - Neue gemeinsame Benutzerzeile `userAccessRow`: Name, Rolle und Aktivierung in einer kompakten Zeile; mobil zusammengehörig untereinander.

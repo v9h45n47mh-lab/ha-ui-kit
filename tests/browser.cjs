@@ -68,16 +68,11 @@ const server = http.createServer((req,res)=>{
     const addProgram = card.getByRole('button',{name:'+ Programm',exact:true});
     assert.equal(await addProgram.textContent(),'+ Programm');
     assert.equal(await addProgram.locator('svg').count(),0,'Program plus uses the original text glyph');
-    const up = card.getByRole('button',{name:'Nach oben sortieren',exact:true});
-    const down = card.getByRole('button',{name:'Nach unten sortieren',exact:true});
-    assert.equal(await up.first().isEnabled(),false);
-    assert.equal(await down.last().isEnabled(),false);
-    assert.equal(await down.first().textContent(),'↓');
-    assert.equal(await up.last().textContent(),'↑');
-    assert.equal(await down.first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)','Sort arrows use the light blue accent in dark mode');
-    await down.first().focus();await down.first().press('Enter');
+    const handles=card.locator('[data-ui="order"]');
+    assert.equal(await handles.count(),2);assert.equal(await handles.locator('[data-icon="drag"]').count(),2);
+    await handles.first().focus();await handles.first().press('ArrowDown');
     assert.deepEqual(await card.locator('[data-program-row]').evaluateAll(els=>els.map(el=>el.dataset.programRow)),['evening','morning']);
-    await up.last().click();
+    await handles.last().focus();await handles.last().press('ArrowUp');
     assert.deepEqual(await card.locator('[data-program-row]').evaluateAll(els=>els.map(el=>el.dataset.programRow)),['morning','evening']);
     await addProgram.click();assert.equal(await modal.isVisible(),true);await modal.getByRole('button',{name:'Schließen',exact:true}).click();
     await page.screenshot({path:path.join(root,'test-results/programs-desktop-dark.png'),fullPage:true});
@@ -128,9 +123,9 @@ const server = http.createServer((req,res)=>{
         document.body.append(ref,kit);
         const props=['fontFamily','fontSize','fontWeight','lineHeight','padding','borderRadius','width','height'];
         const read=(host,selector)=>Object.fromEntries(props.map(key=>[key,getComputedStyle(host.shadowRoot.querySelector(selector))[key]]));
-        const result=['.page-actions button','.program-order button'].map(selector=>({reference:read(ref,selector),kit:read(kit,selector)}));
+        const result=['.page-actions button'].map(selector=>({reference:read(ref,selector),kit:read(kit,selector)}));
         result.push({reference:ref.shadowRoot.querySelector('.page-actions button').textContent,kit:kit.shadowRoot.querySelector('.page-actions button').textContent});
-        result.push({reference:ref.shadowRoot.querySelector('.program-order').textContent,kit:kit.shadowRoot.querySelector('.program-order').textContent});
+
         const arrows=kit.shadowRoot.querySelector('.program-order button');
         const expected=getComputedStyle(kit.shadowRoot.querySelector('.program-add')).backgroundColor;
         result.push({reference:expected,kit:getComputedStyle(arrows).color});

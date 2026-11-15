@@ -95,7 +95,7 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
       if(mode==='dark')await page.getByRole('button',{name:'Dunkles Theme',exact:true}).click();
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`No page overflow at ${width} ${mode}`);
       assert.equal(await gallery.evaluate(el=>el.scrollWidth<=el.clientWidth),true,`No card overflow at ${width} ${mode}`);
-      const sort=gallery.locator('#programs .program-order');assert.equal(await sort.isVisible(),width>600);
+      const sort=gallery.locator('#programs .program-order');assert.equal(await sort.isVisible(),true);
       if(width>600)assert.equal(await sort.locator('button').first().evaluate(el=>getComputedStyle(el).color),'rgb(3, 169, 244)');
       for(const id of ['buttons','selection','ranges','dates','programs','calendar'])await gallery.locator('#'+id).screenshot({path:path.join(root,`test-results/gallery-${id}-${width}-${mode}.png`)});
     }
