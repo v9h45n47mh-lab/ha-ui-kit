@@ -155,3 +155,10 @@ userAccessRow({id:user.id,title:user.name,description:"Eingeschränkt",value:rol
 ```
 
 `select[data-user]` sendet native `change`-Ereignisse. Der kontrollierte Schalter meldet `checked` über `bindUI`; der Host übernimmt erst nach seiner Prüfung. Keine lokalen Breiten, Schriftgrößen oder Abstände ergänzen. Administratorzeilen verwenden `admin:true` und enthalten keine Eingaben.
+
+
+## Sortieren durch Ziehen ab 1.7.0
+
+`orderHandle({id,index,count,action,group,disabled,label,data})` und `programOrderButtons` rendern einen Sortiergriff ohne Pfeilbuttons, auch mobil. `bindUI` bindet die Pointer-/Touch-/Tastatursteuerung automatisch ein. Den Griff etwa 180 ms halten, ziehen und loslassen; Escape oder eine veränderte Liste bricht ab. Am fokussierten Griff sortieren Pfeil auf/ab und Pos1/Ende ebenfalls.
+
+Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromIndex`, `data.toIndex` und weiterhin `data.direction`. Die Anwendung verschiebt per Entfernen/Einfügen, prüft ihre Rechte und speichert einmal. Keine Berechtigungs-, Speicher- oder Automationslogik im Kit. Bereiche mit gleicher Aktion/Gruppe bleiben getrennt von anderen Programmgruppen. Suchansichten oder während einer Speicherung gesperrte Griffe über `disabled` deaktivieren.

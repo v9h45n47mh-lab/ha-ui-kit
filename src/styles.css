@@ -49,3 +49,11 @@ input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary-color,#03
 [hidden]{display:none!important}
 @media(max-width:600px){.card-top{min-height:48px}nav{padding:0 4px}nav button{padding:14px 8px;font-size:13px}.settings-button{width:42px;padding:9px}main{padding:4px 12px 12px}.settings-heading-row{gap:8px}.desktop-only{display:none!important}.modal{max-width:calc(100% - 16px);max-height:96vh;max-height:96dvh}.modal-head,footer{padding:12px 16px}.modal-head h3{font-size:18px}.modal-body{padding:16px}.grid{grid-template-columns:minmax(0,1fr)}.full{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.chevron,.switch-thumb{transition:none}}
+
+/* Mouse, touch and keyboard ordering; applications own persistence. */
+.fui-order-handle,.program-order .fui-order-handle{width:40px;height:40px;min-width:40px;padding:8px;color:var(--primary-color,#03a9f4);cursor:grab;touch-action:none;user-select:none;flex-shrink:0}
+.fui-order-handle[aria-grabbed="true"]{cursor:grabbing}
+.fui-order-handle:disabled{cursor:default}
+.fui-order-dragging{opacity:.55}
+.fui-order-before{box-shadow:inset 0 3px var(--primary-color,#03a9f4)}
+.fui-order-after{box-shadow:inset 0 -3px var(--primary-color,#03a9f4)}

@@ -1,5 +1,6 @@
 import { icon } from './icons.js';
 import { bindObjects } from './controllers.js';
+import { bindOrdering } from './ordering.js';
 
 /** Text/attribute escaping; content parameters explicitly accept trusted application markup. */
 export function escapeHtml(value = '') {
@@ -28,12 +29,16 @@ export function programAddButton({label = 'Programm', action = 'new-program', di
   return `<button type="button" class="primary program-add"${actionAttrs(action, data)}${disabled ? ' disabled' : ''}>+ ${escapeHtml(label)}</button>`;
 }
 
-/** Controlled ordering: index/count refer to the sortable group, not the whole list. */
-export function programOrderButtons({programId, index, count, action = 'move-program', disabled = false, desktopOnly = true, upLabel = 'Nach oben sortieren', downLabel = 'Nach unten sortieren'}) {
-  if (typeof programId !== 'string' || !programId) throw new TypeError('Ordering requires a program ID');
-  if (!Number.isInteger(index) || !Number.isInteger(count) || count < 1 || index < 0 || index >= count) throw new RangeError('Ordering requires 0 <= index < count');
-  const control = (direction, label, glyph, atBoundary) => `<button type="button"${actionAttrs(action, {program:programId, direction})} title="${escapeHtml(label)}" aria-label="${escapeHtml(label)}"${disabled || atBoundary ? ' disabled' : ''}>${glyph}</button>`;
-  return `<div class="program-order${desktopOnly ? ' desktop-only' : ''}">${control('up', upLabel, '↑', index === 0)}${control('down', downLabel, '↓', index === count - 1)}</div>`;
+/** One shared drag handle; indices refer to the sortable group. */
+export function orderHandle({id,index,count,action='move-program',group='',disabled=false,label='Reihenfolge ändern',data={}}) {
+  if(typeof id!=='string'||!id)throw new TypeError('Ordering requires an ID');
+  if(!Number.isInteger(index)||!Number.isInteger(count)||count<1||index<0||index>=count)throw new RangeError('Ordering requires 0 <= index < count');
+  return `<button type="button" class="fui-order-handle" data-ui="order"${actionAttrs(action,{...data,program:id,'order-group':group})} aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}" aria-keyshortcuts="ArrowUp ArrowDown Home End" aria-grabbed="false"${disabled||count<2?' disabled':''}>${icon('drag')}</button>`;
+}
+
+/** Compatibility export: arrows are replaced by a mouse/touch/keyboard handle. */
+export function programOrderButtons({programId,index,count,action='move-program',disabled=false,group='',dragLabel='Reihenfolge ändern'}) {
+  return `<div class="program-order">${orderHandle({id:programId,index,count,action,disabled,group,label:dragLabel})}</div>`;
 }
 
 export function iconButton({icon: name, label, action, disabled = false, danger = false, data = {}, desktopOnly = false}) {
@@ -92,6 +97,7 @@ export function versionInfo({frontend, backend, ui, label = 'Oberfläche', backe
 /** Bind once per ShadowRoot; the returned function removes the listener on disconnect. */
 export function bindUI(root, onAction = () => {}) {
   const unbindObjects = bindObjects(root, onAction);
+  const unbindOrdering = bindOrdering(root, onAction);
   const handleClick = event => {
     const target = event.target.closest?.('button');
     if (!target || !root.contains(target) || target.disabled) return;
@@ -124,5 +130,5 @@ export function bindUI(root, onAction = () => {}) {
     else if (!event.shiftKey && event.target === last) { event.preventDefault(); first?.focus(); }
   };
   root.addEventListener('keydown', handleKeydown);
-  return () => { unbindObjects(); root.removeEventListener('click', handleClick); root.removeEventListener('keydown', handleKeydown); };
+  return () => { unbindOrdering(); unbindObjects(); root.removeEventListener('click', handleClick); root.removeEventListener('keydown', handleKeydown); };
 }

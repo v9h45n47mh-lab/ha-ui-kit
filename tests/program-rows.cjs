@@ -20,7 +20,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   const host=page.locator('#card'),toggle=host.getByRole('switch',{name:'Zirkulationspumpe Wochenende und Feiertage aktiv',exact:true});
   assert.match(await toggle.getAttribute('aria-label'),/Zirkulationspumpe/);
   assert.equal(await toggle.locator(':scope > span').last().isVisible(),false);
-  assert.ok(await host.locator('.program-title').last().evaluate(e=>e.getBoundingClientRect().width)>150);
+  assert.ok(await host.locator('.program-title').last().evaluate(e=>e.getBoundingClientRect().width)>100,'Program title keeps readable space beside the mobile drag handle');
   const geometry=await host.locator('.program').evaluateAll(rows=>rows.map(row=>{
    const title=row.querySelector('.program-title>span'),meta=row.querySelector('.tags>span');
    return {title:title.getBoundingClientRect().left,meta:meta.getBoundingClientRect().left,row:row.getBoundingClientRect().left};

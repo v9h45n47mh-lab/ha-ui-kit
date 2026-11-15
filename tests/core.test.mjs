@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.equal(UI_VERSION,'1.6.0');
+  assert.equal(UI_VERSION,'1.7.0');
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -28,28 +28,17 @@ test('one canonical settings icon and accessible navigation',()=>{
   assert.match(icon('sunrise'),/M12 9V2/);
 });
 
-test('program controls use source text glyphs, escaped IDs and correct ordering boundaries',()=>{
-  const add = programAddButton();
-  assert.match(add,/>\+ Programm<\/button>/);
-  assert.ok(!add.includes('<svg'));
-  assert.match(programAddButton({label:'Program',action:'create',data:{kind:'time'},disabled:true}),/data-action="create" data-kind="time" disabled>\+ Program/);
-  const first = programOrderButtons({programId:'a"<b',index:0,count:3});
-  assert.match(first,/data-program="a&quot;&lt;b"/);
-  assert.match(first,/data-direction="up"[^>]*disabled>↑/);
-  assert.match(first,/data-direction="down"[^>]*>↓/);
-  assert.equal((first.match(/ disabled/g)||[]).length,1);
-  assert.ok(!first.includes('<svg'));
-  const last = programOrderButtons({programId:'a',index:2,count:3});
-  assert.match(last,/data-direction="down"[^>]*disabled>↓/);
-  assert.equal((programOrderButtons({programId:'a',index:0,count:1}).match(/ disabled/g)||[]).length,2);
-  assert.equal((programOrderButtons({programId:'a',index:1,count:3,disabled:true}).match(/ disabled/g)||[]).length,2);
-  const translated = programOrderButtons({programId:'a',index:1,count:3,upLabel:'Move up',downLabel:'Move down',action:'reorder',desktopOnly:false});
-  assert.match(translated,/data-action="reorder"/);
-  assert.match(translated,/aria-label="Move up"/);
-  assert.ok(!translated.includes('desktop-only'));
-  assert.throws(()=>programOrderButtons({programId:'a',index:-1,count:3}));
-  assert.throws(()=>programOrderButtons({programId:'a',index:3,count:3}));
-  assert.throws(()=>programOrderButtons({programId:'a',index:0,count:0}));
+test('ordering uses one accessible drag handle without arrow buttons',()=>{
+  assert.match(programAddButton(),/>\+ Programm<\/button>/);
+  const handle=programOrderButtons({programId:'a"<b',index:0,count:3});
+  assert.match(handle,/data-program="a&quot;&lt;b"/);
+  assert.match(handle,/data-ui="order"/);assert.match(handle,/data-icon="drag"/);
+  assert.equal((handle.match(/<button /g)||[]).length,1);
+  assert.ok(!handle.includes('↑')&&!handle.includes('↓')&&!handle.includes('desktop-only'));
+  assert.match(programOrderButtons({programId:'one',index:0,count:1}),/ disabled/);
+  assert.match(programOrderButtons({programId:'a',index:1,count:3,disabled:true}),/ disabled/);
+  assert.match(programOrderButtons({programId:'a',index:1,count:3,dragLabel:'Move',action:'reorder'}),/aria-label="Move"/);
+  for(const [index,count] of [[-1,3],[3,3],[0,0]])assert.throws(()=>programOrderButtons({programId:'a',index,count}));
 });
 
 test('vendored release is pinned and altered files are detected',async()=>{
@@ -58,8 +47,8 @@ test('vendored release is pinned and altered files are detected',async()=>{
   try{
     run(); run('--check');
     const lock=JSON.parse(await readFile(path.join(target,'family-ui.lock.json'),'utf8'));
-    assert.equal(lock.module,'./family-ui/1.6.0/family-ui.js');
-    await writeFile(path.join(target,'family-ui/1.6.0/family-ui.js'),'changed');
+    assert.equal(lock.module,'./family-ui/1.7.0/family-ui.js');
+    await writeFile(path.join(target,'family-ui/1.7.0/family-ui.js'),'changed');
     assert.throws(()=>run('--check'));
     assert.throws(()=>run());
   }finally{await rm(target,{recursive:true,force:true});}
