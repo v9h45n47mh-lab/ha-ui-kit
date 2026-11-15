@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const root=path.resolve(__dirname,'..');
 const server=http.createServer((req,res)=>{
  if(req.url==='/'){res.setHeader('Content-Type','text/html');res.end('<html><meta name="viewport" content="width=device-width,initial-scale=1"><order-test></order-test></html>');return;}
- const file=path.join(root,req.url);res.setHeader('Content-Type','application/javascript');res.end(fs.readFileSync(file));
+ const file=path.join(root,req.url);if(!fs.existsSync(file)){res.statusCode=404;res.end();return;}res.setHeader('Content-Type','application/javascript');res.end(fs.readFileSync(file));
 });
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
