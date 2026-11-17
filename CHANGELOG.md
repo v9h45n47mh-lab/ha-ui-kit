@@ -1,3 +1,8 @@
+## 1.9.2 – Readable grouped bars
+
+- Keep densely spaced bar groups inside the plot without overlap.
+- Show the zero baseline for positive and negative bars, and align inspection with the groups.
+
 ## 1.9.1 – Energy flow and responsive charts
 
 - New shared energy flow display and solar/grid/home/battery icons.

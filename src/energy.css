@@ -12,3 +12,4 @@
 @media(max-width:360px){.fui-energy-circle .ui-icon{width:20px;height:20px}.fui-energy-circle strong{font-size:12px}.fui-energy-circle small{font-size:10px}}
 
 .fui-chart-line.fui-energy-grid{stroke-dasharray:6 3}
+.fui-chart-zero{stroke:var(--secondary-text-color,#727272);stroke-opacity:.65}

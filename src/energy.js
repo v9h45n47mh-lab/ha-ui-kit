@@ -24,16 +24,30 @@ export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX
   const times=[...new Set(series.flatMap(s=>s.points.map(p=>p.x)))].filter(Number.isFinite).sort((a,b)=>a-b);
   const values=series.flatMap(s=>s.points.map(p=>p.y)).filter(v=>typeof v==='number'&&Number.isFinite(v));
   const low=min??Math.min(0,...values),high=max??Math.max(1,...values),range=high-low||1;
-  const x=t=>52+(t-(times[0]||0))/((times.at(-1)||0)-(times[0]||0)||1)*plotWidth;
+  const first = times[0] ?? 0;
+  const span = (times.at(-1) ?? first) - first;
+  let band = 0;
+  if (kind === 'bar') {
+    // Leave half a group at either end. Use the closest timestamps so groups
+    // stay separate even when some intervals are missing.
+    const shortestInterval = times.slice(1).reduce((shortest, t, i) => Math.min(shortest, t - times[i]), span);
+    band = span > 0 ? plotWidth / (span / shortestInterval + 1) : plotWidth;
+  }
+  const inset = band / 2;
+  const x = t => 52 + inset + (t - first) / (span || 1) * (plotWidth - band);
   const y=v=>220-(v-low)/range*180;
-  const chartData={width,plotWidth,times,labels:times.map(formatX),unit,series:series.map(s=>({label:s.label,role:roleClass(s.role),values:times.map(t=>{const v=s.points.find(p=>p.x===t)?.y;return typeof v==='number'&&Number.isFinite(v)?formatValue(v):null;})}))};
-  const ticks=[0,1,2,3].map(i=>{const v=low+range*i/3,yy=y(v);return `<line class="fui-chart-grid" x1="52" x2="${width-28}" y1="${yy}" y2="${yy}"/><text x="46" y="${yy+4}" text-anchor="end">${escapeHtml(formatValue(v))}</text>`;}).join('');
+  const chartData={width,plotWidth,inset,times,labels:times.map(formatX),unit,series:series.map(s=>({label:s.label,role:roleClass(s.role),values:times.map(t=>{const v=s.points.find(p=>p.x===t)?.y;return typeof v==='number'&&Number.isFinite(v)?formatValue(v):null;})}))};
+  const ticks=[0,1,2,3].map(i=>{const v=low+range*i/3,yy=y(v);return `<line class="fui-chart-grid" x1="52" x2="${width-28}" y1="${yy}" y2="${yy}"/><text x="46" y="${yy+4}" text-anchor="end">${escapeHtml(formatValue(v))}</text>`;}).join('')+
+    (kind === 'bar' && low < 0 && high > 0 ? `<line class="fui-chart-zero" x1="52" x2="${width-28}" y1="${y(0)}" y2="${y(0)}"/>` : '');
   const marks=series.map((s,si)=>{
     const points=times.map(t=>({x:t,y:s.points.find(p=>p.x===t)?.y}));
     const cls=roleClass(s.role);
     if(kind==='bar'){
-      const step=plotWidth/Math.max(2,times.length),w=Math.max(1,Math.min(28,step*.75/series.length));
-      return points.filter(p=>typeof p.y==='number'&&Number.isFinite(p.y)).map(p=>`<rect class="fui-chart-bar ${cls}" x="${x(p.x)+(si-series.length/2)*w}" y="${Math.min(y(0),y(p.y))}" width="${w}" height="${Math.max(1,Math.abs(y(p.y)-y(0)))}"/>`).join('');
+      const barWidth = Math.min(28, band * .75 / series.length);
+      const baseline = y(0);
+      return points.filter(p => typeof p.y === 'number' && Number.isFinite(p.y)).map(p =>
+        `<rect class="fui-chart-bar ${cls}" x="${x(p.x)+(si-series.length/2)*barWidth}" y="${Math.min(baseline,y(p.y))}" width="${barWidth}" height="${Math.abs(y(p.y)-baseline)}"/>`
+      ).join('');
     }
     let d='',pen=false;for(const p of points){if(typeof p.y!=='number'||!Number.isFinite(p.y)){pen=false;continue;}d+=`${pen?'L':'M'}${x(p.x)},${y(p.y)} `;pen=true;}
     return `<path class="fui-chart-line ${cls}" d="${d}"/>`+points.filter(p=>typeof p.y==='number'&&Number.isFinite(p.y)).map(p=>`<circle class="fui-chart-dot ${cls}" cx="${x(p.x)}" cy="${y(p.y)}" r="2"/>`).join('');
@@ -49,13 +63,19 @@ export function bindSeriesCharts(root) {
     index=Math.max(0,Math.min(data.times.length-1,index));chart.dataset.chartIndex=String(index);
     chart.querySelector('.fui-chart-inspector').innerHTML=`<strong>${escapeHtml(data.labels[index])}</strong><div class="fui-chart-values">${data.series.map(s=>`<span>${escapeHtml(s.label)}</span><span>${escapeHtml(s.values[index]===null?'—':s.values[index]+' '+data.unit)}</span>`).join('')}</div>`;
     const cursor=chart.querySelector('.fui-chart-cursor'),times=data.times;
-    const xx=52+(times[index]-times[0])/(times.at(-1)-times[0]||1)*data.plotWidth;
+    const inset = data.inset ?? 0;
+    const xx=52+inset+(times[index]-times[0])/(times.at(-1)-times[0]||1)*(data.plotWidth-2*inset);
     cursor.removeAttribute('hidden');cursor.setAttribute('x1',xx);cursor.setAttribute('x2',xx);
   }
   function pointer(event){
     const svg=event.target.closest?.('.fui-chart-svg');if(!svg)return;
     const chart=svg.closest('[data-chart]'),data=JSON.parse(chart.dataset.chart);if(!data.times.length)return;
-    const box=svg.getBoundingClientRect(),t=data.times[0]+Math.max(0,Math.min(1,((event.clientX-box.left)/box.width*data.width-52)/data.plotWidth))*(data.times.at(-1)-data.times[0]);
+    const box = svg.getBoundingClientRect();
+    const inset = data.inset ?? 0;
+    const plotWidth = data.plotWidth - 2 * inset;
+    const offset = (event.clientX - box.left) / box.width * data.width - 52 - inset;
+    const fraction = plotWidth > 0 ? Math.max(0, Math.min(1, offset / plotWidth)) : 0;
+    const t = data.times[0] + fraction * (data.times.at(-1) - data.times[0]);
     let index=0;data.times.forEach((v,i)=>{if(Math.abs(v-t)<Math.abs(data.times[index]-t))index=i;});inspect(chart,index);
     if(event.type==='pointerdown')svg.setPointerCapture?.(event.pointerId);
   }
