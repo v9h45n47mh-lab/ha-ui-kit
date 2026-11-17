@@ -186,3 +186,5 @@ Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromInd
 `seriesChart` accepts optional `width` (280–1000 SVG units). Hosts should pass their current inner width to retain readable 12 px chart labels on mobile. The plot height stays 264 units; hit testing uses the supplied geometry. Initial inspectors show the most recent interval.
 
 Since 1.9.2, bars are sized to the closest timestamps and placed within the plot. Signed data shows a zero baseline between positive and negative columns. The component keeps the supplied intervals and values at every width.
+
+Since 1.9.3, pass `legendAction` and stable `series[].id` values for a selectable legend. `bindUI` forwards the action with `data.series`. The host updates `series[].hidden` and renders again. Optional `series[].legendValue` is displayed and announced with the toggle. Swatches and bars use the same semantic UI Kit colours.

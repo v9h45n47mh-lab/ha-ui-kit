@@ -24,3 +24,19 @@ test('dense signed bar groups fit within mobile chart without covering adjacent 
   assert.ok(bars.some(bar => bar.y < zero && bar.y + bar.height === zero));
   assert.ok(bars.some(bar => bar.y === zero && bar.height > 0));
 });
+
+test('interactive legend keeps hidden entries available and removes their bars', () => {
+  const production = {id: 'pv', role: 'solar', label: 'Erzeugung', legendValue: '8 kWh', points: [{x: 1, y: 8}]};
+  const grid = {id: 'grid', role: 'grid', label: 'Netzbezug', hidden: true, points: [{x: 1, y: 5}]};
+  const options = {id: 'energy', title: 'Energie', kind: 'bar', legendAction: 'toggle'};
+  const html = seriesChart({...options, series: [production, grid]});
+  assert.match(html, /data-series="pv" aria-pressed="true"/);
+  assert.match(html, /data-series="grid" aria-pressed="false"/);
+  assert.match(html, /aria-describedby="energy-legend-value-0"/);
+  assert.match(html, /fui-chart-bar fui-energy-solar/);
+  assert.doesNotMatch(html, /fui-chart-bar fui-energy-grid/);
+  const empty = seriesChart({...options, series: [grid]});
+  assert.match(empty, /data-series="grid" aria-pressed="false"/);
+  assert.match(empty, /Wähle mindestens eine Datenreihe aus/);
+  assert.doesNotMatch(empty, /<svg/);
+});

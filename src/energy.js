@@ -1,4 +1,4 @@
-import {escapeHtml} from './components.js';
+import {escapeHtml, notice} from './components.js';
 import {icon} from './icons.js';
 
 const ENERGY_ROLES = new Set(['solar','grid','home','battery','export','charge']);
@@ -18,8 +18,25 @@ export function energyFlow({nodes,flows=[],label='Energiefluss',animated=true}) 
   }).join('')}</div>`;
 }
 
-/** Numeric x coordinates; null points break lines. data is escaped, never executed. */
-export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX=String,formatValue=v=>Number(v).toLocaleString('de-DE',{maximumFractionDigits:2}),width=700}) {
+/** Numeric x coordinates; null points break lines. Interactive legends are controlled by the caller. */
+export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX=String,formatValue=v=>Number(v).toLocaleString('de-DE',{maximumFractionDigits:2}),width=700,legendAction,legendLabel='Datenreihen'}) {
+  const heading = `<h3>${escapeHtml(title)}${unit ? ` <small>${escapeHtml(unit)}</small>` : ''}</h3>`;
+  const legend = legendAction
+    ? `<div class="fui-chart-legend fui-chart-legend-interactive" role="group" aria-label="${escapeHtml(legendLabel)}">${series.map((item, index) => {
+        const label = escapeHtml(item.label);
+        const valueId = `${escapeHtml(id)}-legend-value-${index}`;
+        const hasValue = item.legendValue != null;
+        const description = hasValue ? ` aria-describedby="${valueId}"` : '';
+        const value = hasValue ? `<small id="${valueId}">${escapeHtml(item.legendValue)}</small>` : '';
+        return `<button type="button" class="fui-chart-legend-button ${roleClass(item.role)}" data-action="${escapeHtml(legendAction)}" data-series="${escapeHtml(item.id)}" aria-pressed="${!item.hidden}" aria-label="${label}"${description}><i aria-hidden="true"></i><span>${label}${value}</span></button>`;
+      }).join('')}</div>`
+    : `<div class="fui-chart-legend">${series.map(item => `<span><i class="${roleClass(item.role)}"></i>${escapeHtml(item.label)}</span>`).join('')}</div>`;
+  if (legendAction) {
+    series = series.filter(item => !item.hidden);
+    if (!series.length) {
+      return `<section class="fui-series-chart" id="${escapeHtml(id)}">${heading}${legend}${notice('Wähle mindestens eine Datenreihe aus.')}</section>`;
+    }
+  }
   width=Math.max(280,Math.min(1000,Number(width)||700));const plotWidth=width-80;
   const times=[...new Set(series.flatMap(s=>s.points.map(p=>p.x)))].filter(Number.isFinite).sort((a,b)=>a-b);
   const values=series.flatMap(s=>s.points.map(p=>p.y)).filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -53,7 +70,7 @@ export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX
     return `<path class="fui-chart-line ${cls}" d="${d}"/>`+points.filter(p=>typeof p.y==='number'&&Number.isFinite(p.y)).map(p=>`<circle class="fui-chart-dot ${cls}" cx="${x(p.x)}" cy="${y(p.y)}" r="2"/>`).join('');
   }).join('');
   const indices=times.length?[...new Set([0,Math.floor((times.length-1)/2),times.length-1])]:[];
-  return `<section class="fui-series-chart" id="${escapeHtml(id)}" style="--chart-rows:${series.length}" data-chart-index="${Math.max(0,times.length-1)}" data-chart="${escapeHtml(JSON.stringify(chartData))}"><h3>${escapeHtml(title)}${unit?` <small>${escapeHtml(unit)}</small>`:''}</h3><div class="fui-chart-legend">${series.map(s=>`<span><i class="${roleClass(s.role)}"></i>${escapeHtml(s.label)}</span>`).join('')}</div><div class="fui-chart-inspector" aria-live="polite">${values.length?`<strong>${escapeHtml(chartData.labels.at(-1))}</strong><div class="fui-chart-values">${chartData.series.map(s=>`<span>${escapeHtml(s.label)}</span><span>${escapeHtml(s.values.at(-1)===null?'—':s.values.at(-1)+' '+unit)}</span>`).join('')}</div>`:'Keine historischen Werte für diesen Zeitraum vorhanden.'}</div><svg class="fui-chart-svg" viewBox="0 0 ${width} 264" role="group" aria-label="${escapeHtml(title+' – Pfeiltasten für Einzelwerte')}" tabindex="0">${ticks}${marks}${indices.map(i=>`<text x="${x(times[i])}" y="248" text-anchor="${i===0?'start':i===times.length-1?'end':'middle'}">${escapeHtml(formatX(times[i]))}</text>`).join('')}<line class="fui-chart-cursor" x1="52" x2="52" y1="32" y2="220" hidden/><rect class="fui-chart-hit" x="52" y="32" width="${plotWidth}" height="188"/></svg></section>`;
+  return `<section class="fui-series-chart" id="${escapeHtml(id)}" style="--chart-rows:${series.length}" data-chart-index="${Math.max(0,times.length-1)}" data-chart="${escapeHtml(JSON.stringify(chartData))}">${heading}${legend}<div class="fui-chart-inspector" aria-live="polite">${values.length?`<strong>${escapeHtml(chartData.labels.at(-1))}</strong><div class="fui-chart-values">${chartData.series.map(s=>`<span>${escapeHtml(s.label)}</span><span>${escapeHtml(s.values.at(-1)===null?'—':s.values.at(-1)+' '+unit)}</span>`).join('')}</div>`:'Keine historischen Werte für diesen Zeitraum vorhanden.'}</div><svg class="fui-chart-svg" viewBox="0 0 ${width} 264" role="group" aria-label="${escapeHtml(title+' – Pfeiltasten für Einzelwerte')}" tabindex="0">${ticks}${marks}${indices.map(i=>`<text x="${x(times[i])}" y="248" text-anchor="${i===0?'start':i===times.length-1?'end':'middle'}">${escapeHtml(formatX(times[i]))}</text>`).join('')}<line class="fui-chart-cursor" x1="52" x2="52" y1="32" y2="220" hidden/><rect class="fui-chart-hit" x="52" y="32" width="${plotWidth}" height="188"/></svg></section>`;
 }
 
 /** Bind once per ShadowRoot, cleanup on disconnect. The inspector stays above the plot. */

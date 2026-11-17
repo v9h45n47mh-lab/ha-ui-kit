@@ -132,3 +132,25 @@ fieldset{border:0;padding:0;margin:0;min-width:0}legend,.field-label{font-size:1
 
 .fui-chart-line.fui-energy-grid{stroke-dasharray:6 3}
 .fui-chart-zero{stroke:var(--secondary-text-color,#727272);stroke-opacity:.65}
+
+.fui-chart-legend-interactive{gap:6px}
+.fui-chart-legend-button{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:40px;
+  padding:5px 8px;
+  border:1px solid var(--divider-color,#e0e0e0);
+  border-radius:var(--ha-button-border-radius,12px);
+  color:var(--secondary-text-color,#727272);
+  font:inherit;
+  text-align:left;
+}
+.fui-chart-legend-button i{flex:none;width:8px;height:8px;margin:0;border-radius:50%}
+.fui-chart-legend-button small{display:block;color:inherit}
+.fui-chart-legend-button[aria-pressed="true"]{
+  border-color:var(--series-color);
+  background:color-mix(in srgb,var(--series-color) 12%,transparent);
+  color:var(--primary-text-color,#212121);
+}
+.fui-chart-legend-button[aria-pressed="false"] i{background:transparent;border:1px solid var(--series-color)}

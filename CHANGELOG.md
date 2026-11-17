@@ -1,3 +1,8 @@
+## 1.9.3 – Interactive chart legends
+
+- Allow chart series to be toggled with their legend buttons, using the same energy colours as the bars.
+- Legend buttons can show a formatted total and remain available with all series hidden.
+
 ## 1.9.2 – Readable grouped bars
 
 - Keep densely spaced bar groups inside the plot without overlap.
