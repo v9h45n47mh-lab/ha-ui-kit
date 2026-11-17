@@ -19,7 +19,7 @@ export function energyFlow({nodes,flows=[],label='Energiefluss',animated=true}) 
 }
 
 /** Numeric x coordinates; null points break lines. Interactive legends are controlled by the caller. */
-export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX=String,formatValue=v=>Number(v).toLocaleString('de-DE',{maximumFractionDigits:2}),width=700,legendAction,legendLabel='Datenreihen'}) {
+export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX=String,formatValue=v=>Number(v).toLocaleString('de-DE',{maximumFractionDigits:2}),width=700,legendAction,legendLabel='Datenreihen',integerTicks=false}) {
   const heading = `<h3>${escapeHtml(title)}${unit ? ` <small>${escapeHtml(unit)}</small>` : ''}</h3>`;
   const legend = legendAction
     ? `<div class="fui-chart-legend fui-chart-legend-interactive" role="group" aria-label="${escapeHtml(legendLabel)}">${series.map((item, index) => {
@@ -40,7 +40,19 @@ export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX
   width=Math.max(280,Math.min(1000,Number(width)||700));const plotWidth=width-80;
   const times=[...new Set(series.flatMap(s=>s.points.map(p=>p.x)))].filter(Number.isFinite).sort((a,b)=>a-b);
   const values=series.flatMap(s=>s.points.map(p=>p.y)).filter(v=>typeof v==='number'&&Number.isFinite(v));
-  const low=min??Math.min(0,...values),high=max??Math.max(1,...values),range=high-low||1;
+  let low=min??Math.min(0,...values),high=max??Math.max(1,...values);
+  let tickValues;
+  if (integerTicks) {
+    const targetStep = Math.max(1, (high - low) / 3);
+    const magnitude = 10 ** Math.floor(Math.log10(targetStep));
+    const step = [1, 2, 5, 10].find(value => value * magnitude >= targetStep) * magnitude;
+    low = Math.floor(low / step) * step;
+    high = Math.max(low + step, Math.ceil(high / step) * step);
+    tickValues = Array.from({length: 1 + (high - low) / step}, (_, i) => low + i * step);
+  } else {
+    tickValues = [0, 1, 2, 3].map(i => low + (high - low || 1) * i / 3);
+  }
+  const range = high - low || 1;
   const first = times[0] ?? 0;
   const span = (times.at(-1) ?? first) - first;
   let band = 0;
@@ -54,7 +66,7 @@ export function seriesChart({id,title,series,unit='',kind='line',min,max,formatX
   const x = t => 52 + inset + (t - first) / (span || 1) * (plotWidth - band);
   const y=v=>220-(v-low)/range*180;
   const chartData={width,plotWidth,inset,times,labels:times.map(formatX),unit,series:series.map(s=>({label:s.label,role:roleClass(s.role),values:times.map(t=>{const v=s.points.find(p=>p.x===t)?.y;return typeof v==='number'&&Number.isFinite(v)?formatValue(v):null;})}))};
-  const ticks=[0,1,2,3].map(i=>{const v=low+range*i/3,yy=y(v);return `<line class="fui-chart-grid" x1="52" x2="${width-28}" y1="${yy}" y2="${yy}"/><text x="46" y="${yy+4}" text-anchor="end">${escapeHtml(formatValue(v))}</text>`;}).join('')+
+  const ticks=tickValues.map(v=>{const yy=y(v);return `<line class="fui-chart-grid" x1="52" x2="${width-28}" y1="${yy}" y2="${yy}"/><text x="46" y="${yy+4}" text-anchor="end">${escapeHtml(integerTicks ? v.toLocaleString('de-DE') : formatValue(v))}</text>`;}).join('')+
     (kind === 'bar' && low < 0 && high > 0 ? `<line class="fui-chart-zero" x1="52" x2="${width-28}" y1="${y(0)}" y2="${y(0)}"/>` : '');
   const marks=series.map((s,si)=>{
     const points=times.map(t=>({x:t,y:s.points.find(p=>p.x===t)?.y}));

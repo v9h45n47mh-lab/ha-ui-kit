@@ -1,3 +1,7 @@
+## 1.9.4 – Whole number chart ticks
+
+- `seriesChart` kann ganzzahlige Teilstriche auf der Wertachse anzeigen und die Genauigkeit der Einzelwerte beibehalten.
+
 ## 1.9.3 – Interactive chart legends
 
 - Allow chart series to be toggled with their legend buttons, using the same energy colours as the bars.

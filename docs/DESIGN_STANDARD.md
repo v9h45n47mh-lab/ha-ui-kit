@@ -102,3 +102,5 @@ Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromInd
 Since 1.9.2, bars are sized to the closest timestamps and placed within the plot. Signed data shows a zero baseline between positive and negative columns. The component keeps the supplied intervals and values at every width.
 
 Since 1.9.3, pass `legendAction` and stable `series[].id` values for a selectable legend. `bindUI` forwards the action with `data.series`. The host updates `series[].hidden` and renders again. Optional `series[].legendValue` is displayed and announced with the toggle. Swatches and bars use the same semantic UI Kit colours.
+
+Set `integerTicks: true` for whole-number ticks on the value axis. `formatValue` still controls individual readings.

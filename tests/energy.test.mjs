@@ -40,3 +40,12 @@ test('interactive legend keeps hidden entries available and removes their bars',
   assert.match(empty, /Wähle mindestens eine Datenreihe aus/);
   assert.doesNotMatch(empty, /<svg/);
 });
+
+test('whole-number ticks preserve precise readings and use distinct marks for small values', () => {
+  const options = {id: 'energy', title: 'Energie', unit: 'kWh', kind: 'bar', integerTicks: true};
+  const chart = value => seriesChart({...options, series: [{label: 'PV', points: [{x: 1, y: value}]}]});
+  const labels = html => [...html.matchAll(/<text x="46"[^>]*>([^<]+)<\/text>/g)].map(match => match[1]);
+  assert.deepEqual(labels(chart(0.33)), ['0', '1']);
+  assert.deepEqual(labels(chart(9.68)), ['0', '5', '10']);
+  assert.match(chart(0.33), />0,33 kWh</);
+});
