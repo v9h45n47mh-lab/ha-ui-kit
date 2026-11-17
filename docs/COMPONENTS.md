@@ -165,3 +165,8 @@ Use `actionRow({skipped:true,inlineActions:true})` for an omitted occurrence. Th
 `orderHandle({id,index,count,action,group,disabled,label,data})` und `programOrderButtons` rendern einen Sortiergriff ohne Pfeilbuttons, auch mobil. `bindUI` bindet die Pointer-/Touch-/Tastatursteuerung automatisch ein. Den Griff etwa 180 ms halten, ziehen und loslassen; Escape oder eine veränderte Liste bricht ab. Am fokussierten Griff sortieren Pfeil auf/ab und Pos1/Ende ebenfalls.
 
 Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromIndex`, `data.toIndex` und weiterhin `data.direction`. Die Anwendung verschiebt per Entfernen/Einfügen, prüft ihre Rechte und speichert einmal. Keine Berechtigungs-, Speicher- oder Automationslogik im Kit. Bereiche mit gleicher Aktion/Gruppe bleiben getrennt von anderen Programmgruppen. Suchansichten oder während einer Speicherung gesperrte Griffe über `disabled` deaktivieren.
+
+
+## Datumsgrenzen ab 1.7.1
+
+`dateNavigation` unterstützt optional `previousDisabled`, `nextDisabled` und `todayDisabled`. Die vorhandene Option `disabled` sperrt weiterhin alle drei Aktionen. Beschriftungen und Aktionen bleiben vom Host wählbar; das Kit verändert keine Datums- oder Berechtigungslogik. Für Tagesansichten am heutigen Datum `nextDisabled:true` verwenden. Darstellung, Symbole, Schrift und Abstände bleiben unverändert.

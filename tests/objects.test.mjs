@@ -49,3 +49,12 @@ test('photo controls reject SVG and remote script URLs; compression bounds input
   for(const src of ['javascript:alert(1)','https://example.com/image.png','data:image/svg+xml;base64,PHN2Zz4='])assert.throws(()=>ui.photoPreview({src}));
   await assert.rejects(ui.compressPhoto({type:'image/svg+xml',size:5}),/JPG/);await assert.rejects(ui.compressPhoto({type:'image/png',size:21*1024*1024}),/20 MB/);
 });
+
+test('daily navigation blocks a future day while previous and today remain available',()=>{
+  const html=ui.dateNavigation({label:'17.11.2026',previousLabel:'Vorheriger Tag',nextLabel:'Nächster Tag',previousAction:'previous-day',nextAction:'next-day',nextDisabled:true});
+  assert.match(html,/data-action="next-day"[^>]* disabled/);
+  assert.doesNotMatch(html,/data-action="previous-day"[^>]* disabled/);
+  assert.doesNotMatch(html,/data-action="today"[^>]* disabled/);
+  const allDisabled=ui.dateNavigation({label:'Tag',disabled:true});
+  assert.equal((allDisabled.match(/ disabled/g)||[]).length,3);
+});

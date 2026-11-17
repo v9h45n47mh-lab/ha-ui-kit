@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.1 (2026-11-17)
+
+- Datumsnavigation kann Vorwärts-, Rückwärts- und Heute-Schaltflächen einzeln deaktivieren. Bestehende Aufrufe behalten ihre Darstellung und ihr Verhalten.
+- Tagesansichten können damit den nächsten Tag am heutigen Datum sperren, ohne lokale UI-Änderungen.
+
 ## 1.7.0 – Ziehen zum Sortieren
 
 Gemeinsamer Sortiergriff mit gedrückt halten und ziehen für Maus und Touch; Tastatur über Pfeiltasten sowie Pos1/Ende, Escape zum Abbrechen. programOrderButtons liefert jetzt einen einzelnen Griff statt Pfeilen. orderHandle und bindOrdering sind öffentliche Komponenten. Die Anwendung speichert die Position einmal mit data.offset; Gruppen, Rechte und Daten bleiben in der Anwendung.

@@ -139,8 +139,8 @@ export function statisticsTable({label='Statistik',columns,rows,totals}) {
   const cells=(values,tag)=>columns.map((col,i)=>`<${tag}${tag==='th'?' scope="col"':''}${col.align==='right'?' class="numeric"':''}>${escapeHtml(values[i])}</${tag}>`).join('');
   return `<div class="fui-statistics"><table aria-label="${escapeHtml(label)}"><thead><tr>${cells(columns.map(c=>c.label),'th')}</tr></thead><tbody>${rows.map(values=>`<tr>${cells(values,'td')}</tr>`).join('')}</tbody>${totals?`<tfoot><tr>${cells(totals,'td')}</tr></tfoot>`:''}</table></div>`;
 }
-export function dateNavigation({label,previousLabel='Vorherige Woche',nextLabel='Nächste Woche',todayLabel='Heute',previousAction='previous-period',nextAction='next-period',todayAction='today',disabled=false}) {
-  return `<div class="week">${iconButton({icon:'left',label:previousLabel,action:previousAction,disabled})}<strong>${escapeHtml(label)}</strong>${button({label:todayLabel,action:todayAction,disabled})}${iconButton({icon:'right',label:nextLabel,action:nextAction,disabled})}</div>`;
+export function dateNavigation({label,previousLabel='Vorherige Woche',nextLabel='Nächste Woche',todayLabel='Heute',previousAction='previous-period',nextAction='next-period',todayAction='today',disabled=false,previousDisabled=false,nextDisabled=false,todayDisabled=false}) {
+  return `<div class="week">${iconButton({icon:'left',label:previousLabel,action:previousAction,disabled:disabled||previousDisabled})}<strong>${escapeHtml(label)}</strong>${button({label:todayLabel,action:todayAction,disabled:disabled||todayDisabled})}${iconButton({icon:'right',label:nextLabel,action:nextAction,disabled:disabled||nextDisabled})}</div>`;
 }
 export function dateKey(date) {return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
 export function calendarDates(start,count=7) {
