@@ -13,8 +13,9 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
  fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
  try{
   await page.goto(url);const gallery=page.locator('family-ui-gallery');await gallery.locator('#recurrence .recurrence-hint').waitFor();
+  const energyChart=gallery.locator('#energy-example-chart .fui-chart-svg');await energyChart.focus();await energyChart.press('ArrowRight');assert.ok((await gallery.locator('#energy-example-chart .fui-chart-inspector').innerText()).includes('PV'));
   const last=()=>gallery.evaluate(el=>el.events.at(-1));
-  assert.equal(await gallery.locator('.gallery-block').count(),17,'Every catalogue section renders');
+  assert.equal(await gallery.locator('.gallery-block').count(),18,'Every catalogue section renders');
   assert.equal(await gallery.locator('#accounts .fui-account-tile').count(),2,'Shared account tiles appear in the catalogue');
   assert.equal(await gallery.getByRole('button',{name:'+ Programm',exact:true}).textContent(),'+ Programm');
   assert.equal(await gallery.getByRole('button',{name:'Hausarbeit',exact:true}).locator('svg').count(),1);

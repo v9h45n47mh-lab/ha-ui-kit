@@ -8,3 +8,6 @@ Stand: 15.11.2026. Implementierungsstand `12ac13b8510e2a2098eb392de2b20952677ca9
 - Erfolgreicher CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/43711519587
 
 Der Main-Release prüft denselben Stand erneut vor dem Erstellen des Releases.
+
+
+1.9.1: 35 unit tests and deterministic build checked locally. Full browser and pinned Shutter reference verification run in GitHub Actions before release. New energy components are included in the gallery and PV Manager responsive interaction suite.

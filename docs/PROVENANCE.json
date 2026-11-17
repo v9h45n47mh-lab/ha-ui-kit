@@ -42,8 +42,8 @@
   "sourceTextControls": {
     "programAddButton": "+ Programm",
     "programOrderButtons": [
-      "↑",
-      "↓"
+      "\u2191",
+      "\u2193"
     ],
     "sourceStyles": [
       ".page-actions button",
@@ -146,5 +146,20 @@
       "bindOrdering"
     ],
     "storage": "None; applications persist a single controlled offset."
+  },
+  "energyDisplays": {
+    "version": "1.9.0",
+    "source": "pv-manager 1.0.0 \u2013 user-supplied energy flow reference",
+    "components": [
+      "energyFlow",
+      "seriesChart",
+      "bindSeriesCharts"
+    ],
+    "icons": [
+      "energy-solar",
+      "energy-grid",
+      "energy-home",
+      "energy-battery"
+    ]
   }
 }

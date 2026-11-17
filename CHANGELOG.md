@@ -1,3 +1,15 @@
+## 1.9.1 – Energy flow and responsive charts
+
+- New shared energy flow display and solar/grid/home/battery icons.
+- New line and grouped bar charts with mouse, touch and keyboard inspection, null gaps and reduced motion.
+- Responsive plot geometry keeps chart labels readable on narrow cards.
+- Initial inspector shows the most recent interval; flow labels retain bottom spacing.
+
+## 1.9.0 – Energy displays
+
+- Shared energy flow display and solar/grid/home/battery icons.
+- Shared line and bar charts with mouse, touch, keyboard inspector above the plot; null gaps and reduced motion.
+
 # Changelog
 
 ## 1.8.0 – 17.11.2026
