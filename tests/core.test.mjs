@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.match(UI_VERSION,/^1\.7\.\d+$/);
+  assert.match(UI_VERSION,/^1\.8\.\d+$/);
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});
@@ -93,4 +93,13 @@ test('skipped occurrences have a distinct shared state and restore symbol',()=>{
  assert.ok(!actionRow({title:'Active'}).includes('skipped'));
  assert.match(icon('restore-schedule'),/data-icon="restore-schedule"/);
  assert.notEqual(icon('restore-schedule'),icon('skip-once'));
+});
+
+
+test('navigation exposes a canonical refresh icon without changing default navigation',()=>{
+  const nav=navigation({label:'Views',items:[{id:'one',label:'One'}],active:'one',actions:[{icon:'refresh',label:'Aktualisieren',action:'reload'}]});
+  assert.match(nav,/fui-navigation-actions/);assert.match(nav,/data-icon="refresh"/);
+  assert.equal((nav.match(/data-action="reload"/g)||[]).length,1);
+  assert.match(nav,/aria-label="Aktualisieren"/);
+  assert.ok(!navigation({label:'Views',items:[],active:''}).includes('fui-navigation-actions'));
 });

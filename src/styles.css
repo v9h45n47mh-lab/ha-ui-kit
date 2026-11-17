@@ -57,3 +57,5 @@ input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary-color,#03
 .fui-order-dragging{opacity:.55}
 .fui-order-before{box-shadow:inset 0 3px var(--primary-color,#03a9f4)}
 .fui-order-after{box-shadow:inset 0 -3px var(--primary-color,#03a9f4)}
+
+.fui-navigation-actions{display:flex;align-items:center;flex-shrink:0}

@@ -17,3 +17,11 @@ test('all account text and identifiers are escaped',()=>{
   assert.match(tile,/&lt;img src=x&gt;/);assert.match(tile,/id="a&quot;b"/);
   assert.match(tile,/class="fui-account-tile success"/);
 });
+
+
+test('paired readings retain explicit labels, values and safe descriptions',()=>{
+  const tile=accountTile({id:'readings',label:'Minimum / Maximum',metrics:[{label:'Minimum',value:'<img>',unit:'°C',description:'01:00'},{label:'Maximum',value:25,unit:'°C',description:'13:00'}]});
+  assert.match(tile,/has-metrics/);assert.equal((tile.match(/class="fui-account-metric"/g)||[]).length,2);
+  assert.match(tile,/Minimum/);assert.match(tile,/Maximum/);assert.match(tile,/&lt;img&gt;/);assert.ok(!tile.includes('<img>'));
+  assert.throws(()=>accountTile({id:'too-many',label:'Readings',metrics:[{},{},{}]}),TypeError);
+});

@@ -42,3 +42,14 @@ fieldset{border:0;padding:0;margin:0;min-width:0}legend,.field-label{font-size:1
 .fui-user-access-toggle{min-width:40px;display:flex;align-items:center;justify-content:flex-end}
 .fui-user-access-admin{grid-column:2/-1;justify-self:end}
 @media(max-width:600px){.fui-user-access{grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:8px 0}.fui-user-access-role{grid-column:1/-1;grid-row:2}.fui-user-access-toggle{grid-column:2;grid-row:1}.fui-user-access-admin{grid-column:2;grid-row:1}}
+
+/* Optional paired readings; existing square account tiles keep their geometry. */
+.fui-account-tile.has-metrics{aspect-ratio:auto;min-height:180px;display:flex;flex-direction:column;gap:12px}
+.has-metrics .fui-account-label{white-space:normal;overflow-wrap:anywhere}
+.fui-account-metrics{display:grid;gap:12px;flex:1;align-content:space-evenly;min-width:0}
+.fui-account-metric{display:grid;gap:3px;min-width:0}
+.fui-account-metric-label{font-size:12px;line-height:1.35;color:var(--secondary-text-color,#727272);overflow-wrap:anywhere}
+.fui-account-metric-reading{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;min-width:0}
+.fui-account-metric-value{font-size:clamp(20px,4vw,28px);font-weight:500;line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;min-width:0}
+.fui-account-metric-description{font-size:11px;line-height:1.35;color:var(--secondary-text-color,#727272);overflow-wrap:anywhere}
+.active .fui-account-metric-reading{color:var(--primary-color,#03a9f4)}

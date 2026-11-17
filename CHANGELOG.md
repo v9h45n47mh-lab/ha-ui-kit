@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0 – 17.11.2026
+
+- Optional zwei beschriftete Messwerte in einer gemeinsamen accountTile; normale Kontokacheln bleiben unverändert.
+- Gemeinsames Aktualisieren-Symbol und optionale Aktionen in der Kopfleiste der Navigation.
+- Gleich breite Messkacheln ohne überlagerte Werte auf schmalen Bildschirmen.
+
 ## 1.7.1 (2026-11-17)
 
 - Datumsnavigation kann Vorwärts-, Rückwärts- und Heute-Schaltflächen einzeln deaktivieren. Bestehende Aufrufe behalten ihre Darstellung und ihr Verhalten.

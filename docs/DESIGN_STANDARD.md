@@ -84,3 +84,10 @@ Das kontrollierte Ereignis enthält `data.program`, `data.offset`, `data.fromInd
 ## Datumsgrenzen ab 1.7.1
 
 `dateNavigation` unterstützt optional `previousDisabled`, `nextDisabled` und `todayDisabled`. Die vorhandene Option `disabled` sperrt weiterhin alle drei Aktionen. Beschriftungen und Aktionen bleiben vom Host wählbar; das Kit verändert keine Datums- oder Berechtigungslogik. Für Tagesansichten am heutigen Datum `nextDisabled:true` verwenden. Darstellung, Symbole, Schrift und Abstände bleiben unverändert.
+
+
+## Messkacheln und Kopfaktionen ab 1.8.0
+
+`accountTile({metrics:[{label,value,unit,description},…]})` zeigt bis zu zwei Messwerte in einer gemeinsamen, automatisch hohen Kachel. Ohne `metrics` bleiben bestehende quadratische Kontokacheln unverändert. Werte und Texte werden escaped; Berechnung und Formatierung erfolgen im Host.
+
+`navigation({actions:[{icon:'refresh',label:'Aktualisieren',action:'reload',disabled:false}]})` ergänzt feste Kopfaktionen neben Hilfe und Einstellungen. Die bestehenden Reiter bleiben horizontal scrollbar. Das Kit enthält nur Darstellung und Ereignisse, keine Lade- oder Speicherlogik.

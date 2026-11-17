@@ -7,7 +7,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   for(const width of [1100,430,390,375,320])for(const dark of [false,true]){
    await page.setViewportSize({width,height:1000});
    await page.setContent('<style>body{margin:12px}#card{max-width:760px;margin:auto}</style><div id="card"></div>');
-   await page.addScriptTag({type:'module',content:source+';window.kit={UI_CSS,accountTile,accountTiles};'});
+   await page.addScriptTag({type:'module',content:source+';window.kit={UI_CSS,accountTile,accountTiles,navigation};'});
    await page.evaluate(dark=>{
     const {UI_CSS,accountTile,accountTiles}=kit,host=document.querySelector('#card');
     document.body.style.background=dark?'#111':'#fff';
@@ -35,6 +35,16 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
     host.shadowRoot.querySelector('.fui-account-tiles').innerHTML=kit.accountTile({id:'own',label:'Ein sehr langer vollständiger Benutzername',value:999999,unit:'min',status:'offen'});
     const t=host.shadowRoot.querySelector('.fui-account-tile');return {width:t.clientWidth,grid:t.parentElement.clientWidth,overflow:t.scrollWidth>t.clientWidth,title:t.querySelector('h4').title};
    });assert.ok(single.width<single.grid/2);assert.equal(single.overflow,false);assert.match(single.title,/vollständiger/);
+   await page.locator('#card').evaluate(host=>{
+    const {UI_CSS,accountTile,accountTiles,navigation}=kit;
+    host.shadowRoot.innerHTML='<style>'+UI_CSS+'</style><ha-card>'+navigation({label:'Views',items:[{id:'temperature',label:'Temperatur'},{id:'wind',label:'Wind'},{id:'illuminance',label:'Helligkeit'}],active:'temperature',actions:[{icon:'refresh',label:'Aktualisieren',action:'reload'}]})+'<main>'+accountTiles({content:accountTile({id:'now',label:'Aktuell',state:'active',metrics:[{value:'100.000',unit:'lx',description:'Messung 15:00'},{label:'Veränderung in 1 Std.',value:'+1.234',unit:'lx',description:'Steigend'}]})+accountTile({id:'extremes',label:'Minimum / Maximum',metrics:[{label:'Minimum',value:'−12,3',unit:'°C',description:'Uhrzeit nicht gespeichert'},{label:'Maximum',value:'30,4',unit:'°C',description:'15:00'}]})})+'</main></ha-card>';
+   });
+   const compound=await page.locator('#card').evaluate(host=>{
+    const root=host.shadowRoot,tiles=[...root.querySelectorAll('.fui-account-tile')],reload=root.querySelector('[data-action="reload"]');
+    return {metrics:root.querySelectorAll('.fui-account-metric').length,overflow:tiles.some(t=>t.scrollWidth>t.clientWidth||t.scrollHeight>t.clientHeight),heights:tiles.map(t=>t.getBoundingClientRect().height),refreshWidth:reload.getBoundingClientRect().width,refreshVisible:reload.getBoundingClientRect().right<=innerWidth};
+   });
+   assert.equal(compound.metrics,4);assert.equal(compound.overflow,false);assert.equal(compound.refreshVisible,true);assert.ok(compound.refreshWidth>=40);assert.ok(Math.abs(compound.heights[0]-compound.heights[1])<1);
+   await page.screenshot({path:path.join(__dirname,`../test-results/paired-readings-${width}-${dark?'dark':'light'}.png`),fullPage:true});
   }
   console.log('Account tiles: two columns, square geometry, large centred values, long names, single accounts, mobile/desktop and both themes passed.');
  }finally{await browser.close();}

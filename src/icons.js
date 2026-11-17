@@ -23,6 +23,7 @@ const ICON_PATHS = Object.freeze({
   "help": "<path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-3h2v-2h-2v2zm1-11a4 4 0 0 0-4 4h2a2 2 0 1 1 4 0c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5a4 4 0 0 0-4-4z\"/>",
   "chevron": "<path d=\"M4 6l4 4 4-4\"/>",
   "add": "<path d=\"M12 5v14M5 12h14\"/>",
+  "refresh": "<path d=\"M20 7v5h-5M19.1 16a8 8 0 1 1-.7-9.6L20 8\"/>",
   "close": "<path d=\"m6 6 12 12M6 18 18 6\"/>",
   "save": "<path d=\"M5 3h12l4 4v14H3V3h2M7 3v6h10V3M7 21v-8h10v8\"/>",
   "up": "<path d=\"m5 15 7-7 7 7\"/>",
