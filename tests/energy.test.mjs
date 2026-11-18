@@ -12,9 +12,9 @@ test('flow dots scale with absolute watts and keep the direction of the connecti
     {from: 'grid', to: 'home', value: 0},
   ];
   const markup = energyFlow({nodes, flows});
-  const steps = [...markup.matchAll(/pathLength="100" style="--fui-flow-dot-step:([\d.]+);--fui-flow-dot-duration:([\d.]+)s"/g)];
-  assert.deepEqual(steps.map(([, step, duration]) => [100 / Number(step), Number(duration)]),
-    [[1, 5], [4, 1.25], [8, 0.625]]);
+  const steps = [...markup.matchAll(/pathLength="100" style="--fui-flow-dot-step:([\d.]+);--fui-flow-dot-duration:([\d.]+)s;--fui-flow-dot-start:(-[\d.]+)px;--fui-flow-dot-end:(-[\d.]+)px"/g)];
+  assert.deepEqual(steps.map(([, step, duration, start, end]) => [100 / Number(step), Number(duration), Number(start) - Number(end)]),
+    [[1, 5, 100], [4, 1.25, 25], [8, 0.625, 12.5]]);
   assert.match(markup, /fui-energy-battery animated reverse/);
   const still = energyFlow({nodes, flows, animated: false});
   assert.doesNotMatch(still, /pathLength| animated/);

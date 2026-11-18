@@ -10,8 +10,8 @@
 }
 .fui-flow-line.reverse{animation-direction:reverse}
 @keyframes fui-energy-move{
-  from{stroke-dashoffset:calc(-.5 * var(--fui-flow-dot-step))}
-  to{stroke-dashoffset:calc(-1.5 * var(--fui-flow-dot-step))}
+  from{stroke-dashoffset:var(--fui-flow-dot-start)}
+  to{stroke-dashoffset:var(--fui-flow-dot-end)}
 }
 .fui-energy-solar{--series-color:var(--energy-solar)}.fui-energy-grid{--series-color:var(--energy-grid)}.fui-energy-home{--series-color:var(--energy-home)}.fui-energy-battery{--series-color:var(--energy-battery)}.fui-energy-export{--series-color:var(--energy-export)}.fui-energy-charge{--series-color:var(--energy-charge)}
 .fui-energy-node{position:absolute;left:var(--node-x);top:var(--node-y);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;padding:0;color:var(--primary-text-color,#212121);background:transparent;border-radius:50%;width:22%;max-width:110px;min-width:70px;gap:4px;font-weight:400}

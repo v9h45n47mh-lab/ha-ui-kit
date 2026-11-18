@@ -15,7 +15,8 @@ export function energyFlow({nodes,flows=[],label='Energiefluss',animated=true}) 
     const reverse = flow.from === to;
     // Use the same watts-to-dots scale for each connection, regardless of its length.
     const dots = Math.min(8, Math.max(1, Math.ceil(Math.sqrt(watts / 225))));
-    const motion = animated ? ` pathLength="100" style="--fui-flow-dot-step:${100 / dots};--fui-flow-dot-duration:${5 / dots}s"` : '';
+    const step = 100 / dots;
+    const motion = animated ? ` pathLength="100" style="--fui-flow-dot-step:${step};--fui-flow-dot-duration:${5 / dots}s;--fui-flow-dot-start:${-step / 2}px;--fui-flow-dot-end:${-step * 1.5}px"` : '';
     return track + `<path class="fui-flow-line ${roleClass(flow.role||flow.from)}${animated?' animated':''}${reverse?' reverse':''}" d="${d}"${motion}/>`;
   }).join('');
   return `<div class="fui-energy-flow" role="group" aria-label="${escapeHtml(label)}"><svg viewBox="0 0 500 390" aria-hidden="true" focusable="false">${edges}</svg>${nodes.map(n=>{

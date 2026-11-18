@@ -1,5 +1,9 @@
 ## 1.9.4 – Whole number chart ticks
 
+## 1.9.6 – 2026-11-18
+
+- Die Punkte im Energiefluss bewegen sich wieder gleichmäßig entlang der Verbindung.
+
 ## 1.9.5 – 2026-11-18
 
 - Die wandernden Punkte im Energiefluss zeigen Leistungsunterschiede an. Die Anzahl pro Verbindung steigt mit der Leistung in Watt bis auf acht Punkte.
