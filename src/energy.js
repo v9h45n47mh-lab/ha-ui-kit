@@ -9,8 +9,14 @@ export function energyFlow({nodes,flows=[],label='Energiefluss',animated=true}) 
   const paths={'solar-home':'M270 108 Q270 177 390 177','solar-grid':'M230 108 Q230 177 110 177','solar-battery':'M250 112 L250 278','grid-home':'M110 195 L390 195','battery-home':'M270 282 Q270 213 390 213','grid-battery':'M110 213 Q230 213 230 282'};
   const edges=Object.entries(paths).filter(([key])=>key.includes('battery')?nodes.some(n=>n.id==='battery'):true).map(([key,d])=>{
     const [from,to]=key.split('-');const flow=flows.find(f=>(f.from===from&&f.to===to)||(f.from===to&&f.to===from));
-    const watts=flow?.value,active=Number.isFinite(watts)&&watts>0,reverse=flow?.from===to;
-    return `<path class="fui-flow-track" d="${d}"/>${active?`<path class="fui-flow-line ${roleClass(flow.role||flow.from)}${animated?' animated':''}${reverse?' reverse':''}" d="${d}"/>`:''}`;
+    const track = `<path class="fui-flow-track" d="${d}"/>`;
+    const watts = flow?.value;
+    if (!Number.isFinite(watts) || watts <= 0) return track;
+    const reverse = flow.from === to;
+    // Use the same watts-to-dots scale for each connection, regardless of its length.
+    const dots = Math.min(8, Math.max(1, Math.ceil(Math.sqrt(watts / 225))));
+    const motion = animated ? ` pathLength="100" style="--fui-flow-dot-step:${100 / dots};--fui-flow-dot-duration:${5 / dots}s"` : '';
+    return track + `<path class="fui-flow-line ${roleClass(flow.role||flow.from)}${animated?' animated':''}${reverse?' reverse':''}" d="${d}"${motion}/>`;
   }).join('');
   return `<div class="fui-energy-flow" role="group" aria-label="${escapeHtml(label)}"><svg viewBox="0 0 500 390" aria-hidden="true" focusable="false">${edges}</svg>${nodes.map(n=>{
     const [x,y]=positions[n.id]||positions.home;
