@@ -30,7 +30,8 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  await pinch(35,70);await pinch(70,35);await pinch(35,70,true);
  assert.deepEqual(await touch.evaluate(()=>pinchSteps),[1,-1]);assert.equal(await touch.evaluate(()=>visualViewport.scale),pageScale,'Map gestures do not zoom the page');
  const marker=await touch.locator('family-ui-gallery').locator('#radar .fui-radar-marker').boundingBox();assert(Math.abs(marker.x+marker.width/2-cx)<1&&Math.abs(marker.y+marker.height/2-cy)<1,'The location stays centred');
- const before=await touch.evaluate(()=>scrollY);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:cx,y:cy,id:1}]});for(let i=1;i<=6;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:cx,y:cy+i*15,id:1}]});await touch.waitForTimeout(20);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(100);
- assert((await touch.evaluate(()=>scrollY))<before-20,'One finger can scroll the page');await touch.evaluate(()=>pinchCleanup());await touch.close();
+ await touch.waitForTimeout(250);const before=await touch.evaluate(()=>scrollY);
+ await cdp.send('Input.synthesizeScrollGesture',{x:cx,y:cy,yDistance:100,gestureSourceType:'touch',speed:300});await touch.waitForTimeout(250);
+ const after=await touch.evaluate(()=>scrollY);console.log('Single-finger scroll:',{before,after});assert(after<before-20,'One finger can scroll the page');await touch.evaluate(()=>pinchCleanup());await touch.close();
  assert.deepEqual(errors,[]);await browser.close();server.close();console.log('PASS radar: four widths, themes, model timeline, real two-finger pinch, page scrolling, centred marker and stable focus');
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});

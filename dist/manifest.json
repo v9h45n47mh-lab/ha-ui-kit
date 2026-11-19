@@ -3,7 +3,7 @@
   "version": "1.16.0",
   "layout": "shutter-manager-1.4.0",
   "files": {
-    "family-ui.js": "97cc2f8cfdac31ec8ddcec4b37b09baf2f104106efb686fceea8e906ce85805d",
+    "family-ui.js": "1f03692da77b5b52ba87c30111b1b83d07fcdb538a4035a79e49dd06e6f854c9",
     "family-ui.css": "8b081ad7a0e3d6d0d43fc52a94073aed8061e386b7f8ca5638b2b8651bb602b4",
     "radar-scale.json": "3aae13c6ce3647a229cc810289593eeb56efa1e7316bdb916abcbf57272e5889"
   }

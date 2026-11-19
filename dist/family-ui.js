@@ -929,7 +929,7 @@ export function updateRadarMap(root,options) {
   const input=root.querySelector('input'),freshInput=next.querySelector('input');
   input.value=freshInput.value;input.max=freshInput.max;input.disabled=freshInput.disabled;input.setAttribute('aria-valuetext',freshInput.getAttribute('aria-valuetext'));
   for(const old of root.querySelectorAll('button[data-action]')) {
-    const fresh=next.querySelector('[data-action="'+old.dataset.action+'"]');if(!fresh)continue;
+    const fresh=next.querySelector('[data-action="'+old.dataset.action+'"]'+(old.dataset.hours?'[data-hours="'+old.dataset.hours+'"]':''));if(!fresh)continue;
     old.disabled=fresh.disabled;
     for(const name of ['title','aria-label','aria-pressed']){if(fresh.hasAttribute(name))old.setAttribute(name,fresh.getAttribute(name));else old.removeAttribute(name);}
     if(old.innerHTML!==fresh.innerHTML)old.innerHTML=fresh.innerHTML;
