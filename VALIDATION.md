@@ -1,11 +1,12 @@
-# Prüfung 1.11.0
+# Prüfung 1.12.0
 
-Stand: 19.11.2026. Vertikale Wetterliste geprüft mit lokalem Build, Prüfsummen und 43 erfolgreichen Unit-Tests.
+Stand: 19.11.2026. Aufklappbare Stundenwerte geprüft mit lokalem Build, Prüfsummen und 44 erfolgreichen Unit-Tests.
 
-- Alle neun Browser-Suiten bestanden, einschließlich unveränderter Shutter-Referenz und bestehender horizontaler Wetterdarstellung.
-- Wetterzeilen bei 1100/768/390/320 px hell/dunkel geprüft. Zusätzliche 300-px-Karte auf großem Desktop, natürliche Reihenfolge, fehlender horizontaler Überlauf und vertikales Touch-Scrollen geprüft; Ansichten gesichtet.
-- Weather Analysis: Startreiter Wetter, aktuelle Werte genau einmal innerhalb von Ist, Einklappen unabhängig von der Vorhersage sowie Zustandserhalt beim Aktualisieren und Reiterwechsel geprüft. 35 Bildschirmaufnahmen bei 1100/390/320 px hell/dunkel ohne JavaScriptfehler.
-- Erfolgreicher UI-Kit-CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/44509832146
-- Erfolgreicher Weather-Analysis-CI-Lauf: https://github.com/v9h45n47mh-lab/weather-analysis/actions/runs/44509973933
+- Alle neun Browser-Suiten bestanden, einschließlich vorhandener Komponenten und Shutter-Referenz.
+- Wetterzeiträume mit eigenständigen Stundenwerten per Maus, Enter/Leertaste und echtem Touch geöffnet und geschlossen. Farben, kompakte Darstellung, fehlender horizontaler Überlauf und deckungsgleiche Windspalten bei 1100/768/390/320 px hell/dunkel geprüft; Ansichten gesichtet.
+- Weather Analysis: 88 Backendprüfungen, tatsächliche stündliche Sensorintegrale und Vorhersagedaten, Messlücken, Teilstunden, Niederschlagssummen, stabile Falt-IDs sowie Zeitumstellung mit 23/25 Stunden geprüft.
+- Wetterkarte einschließlich gemerkter Stundenbereiche bei Reiterwechsel und Aktualisierung geprüft; 41 Bildschirmaufnahmen bei 1100/390/320 px hell/dunkel ohne JavaScriptfehler.
+- Erfolgreicher UI-Kit-CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/44516826881
+- Erfolgreicher Weather-Analysis-CI-Lauf: https://github.com/v9h45n47mh-lab/weather-analysis/actions/runs/44517051732
 
 Der Main-Release prüft Build, Unit-Tests und Browser erneut vor dem Erstellen des Releases.
