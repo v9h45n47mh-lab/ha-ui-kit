@@ -8,8 +8,8 @@ export function radarMap({id='radar',frames=[],index=0,baseImage='',radarImage='
   const control=(icon,label,action,disabled=false)=>iconButton({icon,label,action,disabled});
   const source=frame?.kind==='observation'?'Messung':frame?.kind==='model'?'Modellvorhersage':'Vorhersage';
   horizon=horizon===12?12:1;
-  const marks=horizon===12?[[-7200,'−2 Std.'],[0,'Jetzt'],[21600,'+6 Std.'],[43200,'+12 Std.']]:[[-7200,'−2 Std.'],[-3600,'−1 Std.'],[0,'Jetzt'],[3600,'+1 Std.']];
-  const ticks=marks.map(([offset,label],i)=>{const stamp=now+offset;let fraction=(offset+7200)/(7200+horizon*3600);if(count>1){const nearest=frames.reduce((best,item,index)=>Math.abs(item.time-stamp)<Math.abs(frames[best].time-stamp)?index:best,0);fraction=nearest/(count-1);}return `<span class="${i===0?'is-first':i===marks.length-1?'is-last':''}" style="left:${Math.max(0,Math.min(100,fraction*100))}%">${e(label)}<small>${time(stamp)}</small></span>`;}).join('');
+  const marks=horizon===12?[[-7200,'−2 Std.'],[0,'Jetzt'],[3600,'+1 Std.'],[21600,'+6 Std.'],[43200,'+12 Std.']]:[[-7200,'−2 Std.'],[-3600,'−1 Std.'],[0,'Jetzt'],[3600,'+1 Std.']];
+  const ticks=marks.map(([offset,label],i)=>{const stamp=now+offset;let fraction=horizon===12?(offset<=3600?(offset+7200)/300:36+(offset-3600)/1800)/58:(offset+7200)/(7200+3600);if(count>1){const nearest=frames.reduce((best,item,index)=>Math.abs(item.time-stamp)<Math.abs(frames[best].time-stamp)?index:best,0);fraction=nearest/(count-1);}return `<span class="${i===0?'is-first':i===marks.length-1?'is-last':''}" style="left:${Math.max(0,Math.min(100,fraction*100))}%">${e(label)}<small>${time(stamp)}</small></span>`;}).join('');
   return `<section class="fui-radar" id="${e(id)}" aria-label="Regenradar">
     ${horizonChoices?`<div class="toolbar fui-radar-horizon" role="group" aria-label="Vorschauzeitraum">${[1,12].map(hours=>filterButton({label:hours+' Std.',action:'radar-horizon',selected:hours===horizon,data:{hours}})).join('')}</div>`:''}
     <div class="fui-radar-map" aria-busy="${busy}">
@@ -24,7 +24,7 @@ export function radarMap({id='radar',frames=[],index=0,baseImage='',radarImage='
     </div>
     <label class="fui-radar-slider" for="${e(id)}-time"><span>Radarzeitpunkt</span><input id="${e(id)}-time" type="range" min="0" max="${Math.max(0,count-1)}" step="1" value="${selected}" aria-valuetext="${time(frame?.time)} Uhr · ${frame?source:'Radardaten laden'}" ${count?'':'disabled'}></label>
     <div class="fui-radar-ticks" aria-hidden="true">${ticks}</div>
-    <p class="hint fui-radar-resolution">2 Stunden Rückblick · ${horizon===12?'12 Stunden Vorhersage · 30-Minuten-Schritte in der Vorschau':'1 Stunde Vorhersage · 5-Minuten-Schritte'}</p>
+    <p class="hint fui-radar-resolution">2 Stunden Rückblick · ${horizon===12?'12 Stunden Vorhersage · erste Stunde: 5-Minuten-Schritte · danach: 30-Minuten-Schritte':'1 Stunde Vorhersage · 5-Minuten-Schritte'}</p>
     <details class="fui-radar-legend" ${legendImage?'':'hidden'}><summary>Niederschlag in mm/h · Farbskala</summary>${image(legendImage,'Legende der Niederschlagsintensität in Millimeter pro Stunde','fui-radar-scale')}</details>
   </section>`;
 }

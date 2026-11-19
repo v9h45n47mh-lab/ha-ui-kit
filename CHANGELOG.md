@@ -1,3 +1,7 @@
+## 1.16.1 – 2026-11-19
+
+- Durchgehende Radarvorschau ohne Auswahlbuttons in der Referenzgalerie. Zeitachse und Hinweis erläutern den automatischen Übergang von 5-Minuten-Schritten in der ersten Stunde zu 30-Minuten-Schritten danach.
+
 ## 1.16.0 – 2026-11-19
 
 - Gemeinsame Radarvorschauauswahl für eine oder zwölf Stunden. Zeitmarken folgen den tatsächlichen Bildern, auch bei unterschiedlichen Schritten in Historie und Vorschau.

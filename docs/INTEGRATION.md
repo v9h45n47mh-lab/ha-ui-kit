@@ -230,3 +230,5 @@ Mit `markerLabel` lässt sich die zugängliche Beschriftung für einen genauen S
 ## Erweiterte Radarvorschau · 1.16.0
 
 `radarMap` und `updateRadarMap` akzeptieren `horizon` (1/12) und `horizonChoices` für die gemeinsame Vorschauauswahl. `radar-horizon` liefert `data-hours`. Frames mit `kind: model` sind als Modellvorhersage gekennzeichnet. Netzwerk, Zeitraster und Quellen bleiben im Host. `bindRadarGestures(root,onZoom,onActive)` bindet Zwei-Finger-Gesten, liefert ganze Zoomschritte und eine Aufräumfunktion. Während der Geste bleibt die Standortmitte fest. Ein Finger darf die Seite scrollen.
+
+Ab 1.16.1 wird die durchgehende Radarvorschau mit `horizon:12` und `horizonChoices:false` dargestellt. Die ersten 60 Minuten verwenden 5-Minuten-Schritte, danach 30-Minuten-Schritte. Eine Zeitmarke bei +1 Stunde und der gemeinsame Hinweis erklären den automatischen Übergang.
