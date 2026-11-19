@@ -1,0 +1,47 @@
+[
+  {
+    "min": 0,
+    "label": "< 0,1",
+    "color": "#c9e7ff"
+  },
+  {
+    "min": 0.1,
+    "label": "0,1",
+    "color": "#8ac8ef"
+  },
+  {
+    "min": 0.5,
+    "label": "0,5",
+    "color": "#4b9dd7"
+  },
+  {
+    "min": 1,
+    "label": "1",
+    "color": "#2873bd"
+  },
+  {
+    "min": 2,
+    "label": "2",
+    "color": "#45a884"
+  },
+  {
+    "min": 5,
+    "label": "5",
+    "color": "#91ba4a"
+  },
+  {
+    "min": 10,
+    "label": "10",
+    "color": "#f1cf4c"
+  },
+  {
+    "min": 20,
+    "label": "20",
+    "color": "#ed9140"
+  },
+  {
+    "min": 50,
+    "label": "50+",
+    "color": "#d65358"
+  }
+]

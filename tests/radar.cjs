@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  for(const width of [320,390,768,1100])for(const dark of [false,true]){
   await page.setViewportSize({width,height:1000});await page.evaluate(d=>document.documentElement.classList.toggle('dark',d),dark);
   assert.equal(await radar.getByRole('slider',{name:'Radarzeitpunkt'}).count(),1);
-  assert.equal(await radar.locator('.fui-radar-marker').getAttribute('aria-label'),'Dein Standort');
+  assert.equal(await radar.locator('.fui-radar-marker').getAttribute('aria-label'),'Dein Standort');assert((await radar.locator('.fui-radar-base').getAttribute('src')).startsWith('data:image/svg+xml;base64,'));
   assert(await radar.locator('.fui-radar-overlay').evaluate(e=>e.complete&&e.naturalWidth>0));
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await radar.screenshot({path:path.join(screens,`radar-${width}-${dark?'dark':'light'}.png`)});

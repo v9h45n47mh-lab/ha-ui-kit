@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {radarMap,navigation,ICON_NAMES} from '../dist/family-ui.js';
+import {radarBackground,radarLegend,RADAR_SCALE,radarMap,navigation,ICON_NAMES} from '../dist/family-ui.js';
 const frames=[{time:1795089600,kind:'observation'},{time:1795089900,kind:'prediction'}];
 test('radar keeps observation and prediction explicit with accessible controls',()=>{
   const first=radarMap({frames,index:0,now:1795089600});
@@ -18,3 +18,17 @@ test('weather tabs share local icons with readable labels and tooltips',()=>{
   const html=navigation({items:[{id:'radar',label:'Regenradar',icon:'radar'}],active:'radar'});
   assert.match(html,/aria-label="Regenradar"/);assert.match(html,/title="Regenradar"/);assert.match(html,/data-icon="radar"/);
 });
+
+const svg=src=>Buffer.from(src.split(',')[1],'base64').toString('utf8');
+test('local background is a small standalone image with capped escaped labels',()=>{
+  const src=radarBackground({lines:[{kind:'river',points:[[0,0],[512,512]]}],places:Array.from({length:8},(_,i)=>({x:i*40,y:50,name:'Böhl <script>'+i}))});
+  const image=svg(src);assert.equal((image.match(/<text /g)||[]).length,4);assert.match(image,/Böhl &lt;script&gt;/);assert.doesNotMatch(image,/<script|href=|onload|foreignObject/);
+  assert(src.length<3000);assert.throws(()=>radarBackground({lines:[{kind:'river',points:[[NaN,0]]}]}));
+  assert.match(radarMap({baseImage:src}),/src="data:image\/svg\+xml;base64,/);
+});
+test('local legend and renderer share one strictly increasing scale',()=>{
+  assert(RADAR_SCALE.every((item,i)=>/^#[0-9a-f]{6}$/i.test(item.color)&&(!i||item.min>RADAR_SCALE[i-1].min)));
+  const image=svg(radarLegend());assert.equal((image.match(/mm\/h/g)||[]).length,RADAR_SCALE.length);assert.match(image,/keine Radardaten/);
+});
+
+test('cold loading shows a location-ready map without invented forecast labels',()=>{const html=radarMap({baseImage:radarBackground()});assert.match(html,/Radardaten laden/);assert.doesNotMatch(html,/>Vorhersage<|>Messung</);assert.match(html,/aria-label="Dein Standort"/);});

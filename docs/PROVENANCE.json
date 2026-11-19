@@ -206,6 +206,17 @@
       "wind",
       "minus"
     ],
-    "data": "Host supplied images and metadata; no provider requests, location or playback in the kit."
+    "data": "Host supplied images and metadata; no provider requests, location or playback in the kit.",
+    "localBackdrop": {
+      "since": "1.14.0",
+      "source": "Original local vector renderer for requested minimal Weather Analysis map",
+      "data": "Host supplied geographical lines and city labels; no remote requests",
+      "exports": [
+        "radarBackground",
+        "radarLegend",
+        "RADAR_SCALE"
+      ],
+      "scale": "src/radar-scale.json"
+    }
   }
 }

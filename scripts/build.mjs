@@ -8,11 +8,13 @@ const pkg = JSON.parse(await read('package.json'));
 const tokens = JSON.parse(await read('src/tokens.json'));
 const css = `:host{${Object.entries(tokens.variables).map(([name,value]) => `${name}:${value}`).join(';')}}\n${await read('src/styles.css')}\n${await read('src/objects.css')}\n${await read('src/energy.css')}\n${await read('src/weather.css')}\n${await read('src/radar.css')}`;
 const icons = await read('src/icons.js');
+const radarScale=JSON.parse(await read('src/radar-scale.json'));
+const scaleJSON=JSON.stringify(radarScale,null,2)+'\n';
 const components = (await Promise.all(['src/ordering.js','src/components.js','src/objects.js','src/controllers.js','src/music-player.js','src/energy.js','src/weather.js','src/radar.js'].map(read))).map(s=>s.replace(/^import [^\n]*\n/gm,'')).join('\n');
-const module = `/* HA UI Kit ${pkg.version} | MIT | Source priority: Shutter, Light, Essensplaner, Haushalt, Spuelmaschine, Access */\nexport const UI_VERSION = ${JSON.stringify(pkg.version)};\nexport const UI_CSS = ${JSON.stringify(css)};\n${icons}\nexport const MUSIC_PLAYER_CSS = ${JSON.stringify(await read('src/music-player.css'))};\n${components}`;
+const module = `/* HA UI Kit ${pkg.version} | MIT | Source priority: Shutter, Light, Essensplaner, Haushalt, Spuelmaschine, Access */\nexport const UI_VERSION = ${JSON.stringify(pkg.version)};\nexport const UI_CSS = ${JSON.stringify(css)};\n${icons}\nexport const RADAR_SCALE = Object.freeze(${JSON.stringify(radarScale)});\nexport const MUSIC_PLAYER_CSS = ${JSON.stringify(await read('src/music-player.css'))};\n${components}`;
 const hash = text => createHash('sha256').update(text).digest('hex');
-const manifest = JSON.stringify({name:pkg.name,version:pkg.version,layout:'shutter-manager-1.4.0',files:{'family-ui.js':hash(module),'family-ui.css':hash(css)}},null,2)+'\n';
-const outputs = {'family-ui.js':module,'family-ui.css':css,'manifest.json':manifest};
+const manifest = JSON.stringify({name:pkg.name,version:pkg.version,layout:'shutter-manager-1.4.0',files:{'family-ui.js':hash(module),'family-ui.css':hash(css),'radar-scale.json':hash(scaleJSON)}},null,2)+'\n';
+const outputs = {'family-ui.js':module,'family-ui.css':css,'manifest.json':manifest,'radar-scale.json':scaleJSON};
 await mkdir(path.join(root, 'dist'), {recursive:true});
 for (const [file, content] of Object.entries(outputs)) {
   if (process.argv.includes('--check')) {

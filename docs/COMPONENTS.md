@@ -218,3 +218,8 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 ## Regenradar · 1.13.0
 
 `radarMap(options)` rendert eine responsive Radaransicht mit Bildebenen, Standortmarker, Zoom, Zeitregler und Abspielsteuerung. Daten und Bildabruf bleiben beim Host.
+
+
+## Lokale Radar-Grafiken · 1.14.0
+
+`radarBackground({lines,places})` erzeugt eine lokale, bewusst reduzierte SVG-Kartengrafik als Daten-URL. `radarLegend()` erzeugt die gemeinsame Niederschlagslegende. `RADAR_SCALE` und `dist/radar-scale.json` liefern dieselben Schwellenwerte und Farben für die Darstellung im Host.

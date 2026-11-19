@@ -1,3 +1,9 @@
+## 1.14.0 – 2026-11-19
+
+- Lokaler Radar-Hintergrund aus einfachen Vektorlinien und höchstens vier Ortsnamen, ohne externe Kartenabrufe, Straßen, Gebäude oder Geländerelief.
+- Neue `radarBackground`- und `radarLegend`-Grafiken sowie gemeinsam versionierte Niederschlagsskala in `RADAR_SCALE` und `radar-scale.json`.
+- Radar-Bildebenen unterstützen lokal erzeugte SVG-Datenbilder. Standortmarker, Bedienelemente und bisherige PNG-Aufrufe bleiben kompatibel.
+
 ## 1.13.0 – 2026-11-19
 
 - Gemeinsames Regenradar mit Kartenebenen, Standortmarker, Zoom, Abspielen, Einzelbildnavigation und bedienbarer Zeitleiste.

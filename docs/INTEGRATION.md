@@ -215,3 +215,10 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 ## Regenradar · 1.13.0
 
 `radarMap({frames,index,baseImage,radarImage,legendImage,playing,busy,error,now,timezone,zoom})`: Frames enthalten Unix-Sekunden `time` und `kind` (`observation`/`prediction`). Auf `radar-*`-Aktionen reagieren; den nativen Zeitregler per `input` bedienen. Bilder nur aus vertrauenswürdigen Quellen. Netzwerk und Abspielen steuert die Integration.
+
+
+## Lokale Radar-Grafiken · 1.14.0
+
+Radar: `radarBackground` akzeptiert projizierte 512×512-Pixelkoordinaten; `kind` ist river/border. Die Integration liefert echte geografische Geometrien und höchstens vier Ortsnamen. Das Ergebnis wird als `baseImage` an `radarMap`/`updateRadarMap` übergeben, `radarLegend()` als `legendImage`. Die Datenerzeugung und Georeferenzierung bleiben im Host. `radar-scale.json` wird unverändert mit ausgeliefert und darf serverseitig zum Einfärben verwendet werden.
+
+Mit `markerLabel` lässt sich die zugängliche Beschriftung für einen genauen Standort oder einen gekennzeichneten Ersatzort setzen.
