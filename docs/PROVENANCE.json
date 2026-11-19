@@ -192,5 +192,20 @@
       "control": "Canonical chevron and bindUI collapse; no data aggregation or storage in the kit.",
       "layout": "Compact hourly rows with aligned columns and source colours."
     }
+  },
+  "radar": {
+    "since": "1.13.0",
+    "source": "Original implementation for Weather Analysis requested rain radar, last two hours and next hour.",
+    "components": [
+      "radarMap"
+    ],
+    "icons": [
+      "weather",
+      "warning",
+      "radar",
+      "wind",
+      "minus"
+    ],
+    "data": "Host supplied images and metadata; no provider requests, location or playback in the kit."
   }
 }

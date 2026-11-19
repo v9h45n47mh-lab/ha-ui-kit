@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.12.0**, visuelle Hauptvorlage: **Shutter Manager 1.5.2**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.13.0**, visuelle Hauptvorlage: **Shutter Manager 1.5.2**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -34,10 +34,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Versionsdateien nach `frontend/family-ui/1.12.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Versionsdateien nach `frontend/family-ui/1.13.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.12.0/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.13.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).
@@ -87,3 +87,6 @@ Ab 1.11.0 stellt `weatherList` Zeiträume und aktuelle Messwerte untereinander d
 
 
 Ab 1.12.0 können Wetterzeilen mit dem gemeinsamen Faltpfeil eigene Stundenwerte zeigen. Die Messspalten bleiben dabei ausgerichtet; die Integration liefert die Daten und merkt die Faltzustände.
+
+
+Ab 1.13.0 steht `radarMap` mit `updateRadarMap` für Radarbild-Ebenen, Standortmarker, Zoom und Zeitnavigation bereit. Die kontrollierte Aktualisierung erhält Regler, Fokus und Pointer-Capture. Alle Datenabrufe und Abspielzeiten bleiben beim Host. Neue Symbole: Wetter, Warnung, Radar, Wind.

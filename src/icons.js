@@ -1,5 +1,10 @@
 // Source paths: Shutter Manager 1.4.0. See docs/PROVENANCE.json.
 const ICON_PATHS = Object.freeze({
+  "weather": '<circle cx="8" cy="8" r="4"/><path d="M8 1v2M1 8h2M3 3l1.5 1.5M16 6a5 5 0 0 0-9 4 4 4 0 0 0 0 8h11a4 4 0 1 0-2-7"/>',
+  "warning": '<path d="m12 3 10 18H2L12 3ZM12 9v5m0 3h.01"/>',
+  "radar": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12 19 5M12 3v2M3 12h2m7 7v2m7-9h2"/><circle cx="9" cy="15" r="1"/>',
+  "wind": '<path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h6a3 3 0 1 1-3 3"/>',
+  "minus": '<path d="M5 12h14"/>',
   "energy-solar": '<path d="M4 10h16l2 10H2l2-10Zm1 5h14M9 10l-1 10m7-10 1 10M12 2v3M5 4l2 2m12-2-2 2M9 7a3 3 0 0 1 6 0"/>',
   "energy-grid": '<path d="M9 3h6l4 18M9 3 5 21M7 11h10M6 16h12M5 7h14M9 11l8 5m-2-5-8 5"/>',
   "energy-home": '<path d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7"/>',

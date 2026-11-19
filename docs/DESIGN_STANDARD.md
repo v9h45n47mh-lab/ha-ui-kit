@@ -127,3 +127,8 @@ Die Liste scrollt gemeinsam mit der Seite. Desktopzeilen zeigen Zeit, Symbol, Te
 Items für `weatherList` können `hours:[{time,temperature,kind,graphic,metrics,…}]`, eine im ShadowRoot eindeutige `detailsId` und optional `expanded:false` enthalten. Der Zeitbereich wird zum gemeinsamen, per Maus, Touch, Enter und Leertaste bedienbaren Faltbutton. `bindUI` steuert `aria-expanded` und die Sichtbarkeit, analog zu `section`. Die Integration speichert und restauriert die Faltzustände anhand stabiler IDs; beim laufenden Forecast dazu den ursprünglichen 3-Stunden-Beginn verwenden.
 
 Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Messspalten bleiben an den übergeordneten Zeilen ausgerichtet. `fui-weather-hour` und `data-weather-hour-kind` kennzeichnen Stunden, `fui-weather-period` und `data-weather-kind` weiterhin die übergeordneten Zeiträume. Die Integration liefert echte Stundenwerte und fehlende Werte als Gedankenstrich; das Kit teilt keine 3-Stunden-Werte auf und führt weder Datenabfragen noch Speicherzugriffe aus. Ohne `hours` erscheint kein zusätzlicher Button.
+
+
+## Regenradar · 1.13.0
+
+Regenradar: gemeinsame Kartenebenen und zentraler Standortmarker. Messung/Vorhersage immer ausgeschrieben, genaue lokale Zeit, 2 Stunden Rückblick und 1 Stunde Vorschau. Fehlende Bilder klar kennzeichnen. Originalfarbskala des Datenanbieters erhalten. Icon-Reiter haben stets verständliche `aria-label` und Tooltip.

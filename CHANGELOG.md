@@ -1,3 +1,10 @@
+## 1.13.0 – 2026-11-19
+
+- Gemeinsames Regenradar mit Kartenebenen, Standortmarker, Zoom, Abspielen, Einzelbildnavigation und bedienbarer Zeitleiste.
+- Messung und Vorhersage werden getrennt gekennzeichnet. Exakte Bildzeiten, Lade- und Fehlerzustände sowie ausklappbare Originallegende.
+- Neue gemeinsame Symbole für Wetter, Warnungen, Radar und Wind; Navigation unterstützt sie mit Beschriftung für Screenreader und Tooltip.
+- Karten und Daten bleiben in der Integration; keine Netzwerkabhängigkeit im UI Kit.
+
 ## 1.12.0 – 2026-11-19
 
 - Wetterzeiträume lassen sich mit dem gemeinsamen Faltpfeil in Stundenwerte aufklappen.
