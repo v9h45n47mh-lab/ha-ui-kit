@@ -21,7 +21,8 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  assert(retained,'Frame changes preserve slider and keyboard focus');assert.match(await radar.locator('output').innerText(),/Vorhersage/);assert.equal(await radar.getByRole('button',{name:'Radar anhalten'}).count(),1);
  assert.equal(await radar.getByRole('button',{name:'Nächstes Radarbild'}).isDisabled(),true);
  const touch=await browser.newPage({viewport:{width:390,height:850},isMobile:true,hasTouch:true});await touch.goto(`http://127.0.0.1:${server.address().port}/examples/gallery.html`);
- const touchMap=touch.locator('family-ui-gallery').locator('#radar .fui-radar-map');await touchMap.scrollIntoViewIfNeeded();
+ await touch.evaluate(async()=>{const {UI_CSS,radarMap,radarBackground}=await import('/dist/family-ui.js');document.body.innerHTML='<style>'+UI_CSS+'</style><div id="radar-scroll" style="height:650px;overflow-y:auto;touch-action:pan-y"><div style="height:300px"></div>'+radarMap({baseImage:radarBackground()})+'<div style="height:700px"></div></div>';document.getElementById('radar-scroll').scrollTop=250;});
+ const touchMap=touch.locator('.fui-radar-map');
  await touchMap.evaluate(async map=>{const {bindRadarGestures}=await import('/dist/family-ui.js');window.pinchSteps=[];window.pinchCleanup=bindRadarGestures(map,step=>pinchSteps.push(step));});
  const box=await touchMap.boundingBox(),cx=box.x+box.width/2,cy=box.y+box.height/2,cdp=await touch.context().newCDPSession(touch);
  const points=spread=>[{x:cx-spread,y:cy,id:1},{x:cx+spread,y:cy,id:2}];
@@ -30,8 +31,8 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  await pinch(35,70);await pinch(70,35);await pinch(35,70,true);
  assert.deepEqual(await touch.evaluate(()=>pinchSteps),[1,-1]);assert.equal(await touch.evaluate(()=>visualViewport.scale),pageScale,'Map gestures do not zoom the page');
  const marker=await touch.locator('family-ui-gallery').locator('#radar .fui-radar-marker').boundingBox();assert(Math.abs(marker.x+marker.width/2-cx)<1&&Math.abs(marker.y+marker.height/2-cy)<1,'The location stays centred');
- await touch.waitForTimeout(250);const before=await touch.evaluate(()=>scrollY);
+ await touch.waitForTimeout(250);const before=await touch.evaluate(()=>document.getElementById('radar-scroll').scrollTop);
  await cdp.send('Input.synthesizeScrollGesture',{x:cx,y:cy,yDistance:before>20?100:-100,gestureSourceType:'touch',speed:300});await touch.waitForTimeout(250);
- const after=await touch.evaluate(()=>scrollY);console.log('Single-finger scroll:',{before,after});assert(Math.abs(after-before)>20,'One finger can scroll the page');await touch.evaluate(()=>pinchCleanup());await touch.close();
+ const after=await touch.evaluate(()=>document.getElementById('radar-scroll').scrollTop);console.log('Single-finger scroll:',{before,after});assert(Math.abs(after-before)>20,'One finger can scroll the surrounding container');await touch.evaluate(()=>pinchCleanup());await touch.close();
  assert.deepEqual(errors,[]);await browser.close();server.close();console.log('PASS radar: four widths, themes, model timeline, real two-finger pinch, page scrolling, centred marker and stable focus');
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});
