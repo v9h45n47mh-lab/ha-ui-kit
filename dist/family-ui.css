@@ -184,7 +184,7 @@ fieldset{border:0;padding:0;margin:0;min-width:0}legend,.field-label{font-size:1
 .fui-weather-condition{font-size:13px;line-height:1.45;min-height:57px;max-width:100%;margin:10px 0 16px;overflow-wrap:anywhere}
 .fui-weather-metrics{display:flex;flex-direction:column;gap:14px;margin:0;width:100%;font-size:13px;text-align:left}
 .fui-weather-metrics>div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;align-items:start}
-.fui-weather-metrics dt{display:flex;align-items:center;margin:0;min-width:0}
+.fui-weather-metrics dt{position:relative;display:flex;align-items:center;margin:0;min-width:0}
 .fui-weather-metrics dt span{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .fui-weather-metrics dd{margin:0;overflow-wrap:anywhere}
 .fui-weather-metrics dd small{display:block;font-size:11px;line-height:1.5}
