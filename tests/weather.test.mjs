@@ -26,3 +26,15 @@ test('vertical list includes current values once and escapes identifiers',()=>{
   assert.match(markup,/fui-weather-list/);assert.doesNotMatch(markup,/fui-weather-strip|tabindex|id="now" onclick/);
   assert.equal((markup.match(/>Jetzt</g)||[]).length,1);assert.match(markup,/id="now&quot; onclick=&quot;bad"/);
 });
+test('hourly detail is optional, collapsed by default, escaped and has one controlled toggle',()=>{
+  const hours=[0,1,2].map(i=>({time:`0${i}:00–0${i+1}:00`,temperature:'<img src=x>',kind:'actual',graphic:{kind:'thermometer'}}));
+  assert.throws(()=>weatherPeriod({hours}),/ID/);
+  assert.throws(()=>weatherPeriod({hours,detailsId:'bad id'}),/ID/);
+  const markup=weatherPeriod({time:'00–03',kind:'actual',hours,detailsId:'hours<test>'});
+  assert.match(markup,/aria-expanded="false" aria-controls="hours&lt;test&gt;"/);
+  assert.match(markup,/id="hours&lt;test&gt;" hidden/);
+  assert.equal((markup.match(/data-ui="collapse"/g)||[]).length,1);
+  assert.equal((markup.match(/data-weather-hour-kind="actual"/g)||[]).length,3);
+  assert.doesNotMatch(markup,/<img/);
+  assert.match(weatherPeriod({hours,detailsId:'open',expanded:true}),/aria-expanded="true"/);
+});

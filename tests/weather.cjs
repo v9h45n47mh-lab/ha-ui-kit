@@ -26,6 +26,15 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
   const report=await list.evaluate(el=>{const rows=[...el.querySelectorAll('.fui-weather-period')].map(e=>e.getBoundingClientRect());const second=el.querySelectorAll('.fui-weather-period')[1],metrics=second.querySelector('dl').getBoundingClientRect(),temperature=second.querySelector('strong').getBoundingClientRect();return {width:el.clientWidth,overflow:el.scrollWidth>el.clientWidth,ordered:rows.every((r,i)=>!i||r.top>=rows[i-1].bottom-1),metricsBelow:metrics.top>=temperature.bottom,metricsRight:metrics.left>=temperature.right};});
   assert(report.ordered);assert(!report.overflow);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert(report.width<=620?report.metricsBelow:report.metricsRight,'Layout follows card width');
+  const toggle=vertical.locator('[aria-controls="gallery-hours-0"]'),details=vertical.locator('#gallery-hours-0');
+  assert.equal(await toggle.getAttribute('aria-expanded'),'false');await toggle.focus();await toggle.press('Enter');
+  assert(await details.isVisible());assert.equal(await details.locator('.fui-weather-hour').count(),3);
+  assert.deepEqual(await details.locator('.fui-weather-temperature strong').allTextContents(),['12,0 °C','13,0 °C','14,0 °C']);
+  const columns=await list.evaluate(el=>{const parent=el.querySelector('#gallery-period-0'),hour=el.querySelector('#gallery-hours-0 .fui-weather-hour'),x=e=>e.querySelector('dd').getBoundingClientRect().left;return [x(parent),x(hour)];});
+  assert(Math.abs(columns[0]-columns[1])<1,'Hourly wind aligns with parent wind');
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await vertical.screenshot({path:path.join(screens,`weather-hours-${width}-${dark?'dark':'light'}.png`)});
+  await toggle.press('Space');assert(!await details.isVisible());
   await vertical.screenshot({path:path.join(screens,`weather-list-${width}-${dark?'dark':'light'}.png`)});
  }
  // A narrow HA grid card must remain vertical even on a wide desktop.
@@ -45,6 +54,8 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:200,y:swipeY-i*25}]});
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(300);
  assert(await touch.evaluate(()=>scrollY)>beforeVertical,'Vertical weather uses page scrolling');
+ const touchToggle=touch.locator('family-ui-gallery').locator('[aria-controls="gallery-hours-0"]');await touchToggle.scrollIntoViewIfNeeded();await touchToggle.tap();
+ assert(await touch.locator('family-ui-gallery').locator('#gallery-hours-0').isVisible());
  await context.close();assert.deepEqual(errors,[]);console.log('PASS weather: original SVGs, four widths, light/dark, source colours, overflow, keyboard and touch scrolling');
  await browser.close();server.close();
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});

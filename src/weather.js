@@ -1,4 +1,5 @@
 import {escapeHtml} from './components.js';
+import {icon} from './icons.js';
 
 /** Original, local vector illustrations. WMO codes come from the host, never a network lookup. */
 export const WEATHER_GRAPHICS = Object.freeze(['clear','partly-cloudy','cloudy','fog','rain','showers','snow','sleet','thunder','hail','thermometer','unknown']);
@@ -56,11 +57,17 @@ function weatherMetrics(metrics) {
   return `<dl class="fui-weather-metrics">${metrics.map(m=>`<div><dt>${weatherMetricIcon(m.icon)}<span>${escapeHtml(m.label)}</span></dt><dd>${escapeHtml(m.value??'—')}${m.detail?`<small>${escapeHtml(m.detail)}</small>`:''}</dd></div>`).join('')}</dl>`;
 }
 /** Inputs are already formatted. No meteorology, aggregation or sample inference belongs to the kit. */
-export function weatherPeriod({id='',time,kind='forecast',temperature='—',temperatureLabel='',range='',condition='',graphic={},metrics=[],start,end}={}) {
+function renderWeatherPeriod({id='',time,kind='forecast',temperature='—',temperatureLabel='',range='',condition='',graphic={},metrics=[],start,end,hours=[],detailsId='',expanded=false}={},hour=false) {
   if(!['actual','forecast'].includes(kind))throw new TypeError('Unknown weather source');
+  if(!Array.isArray(hours))throw new TypeError('Weather hours must be an array');
+  const expandable=!hour&&hours.length>0;
+  if(expandable&&(!detailsId||/\s/.test(detailsId)))throw new TypeError('Hourly details require a unique nonempty ID without whitespace');
   const bounds=[['start',start],['end',end]].filter(([,v])=>Number.isFinite(v)).map(([k,v])=>` data-${k}="${v}"`).join('');
-  return `<li${id?` id="${escapeHtml(id)}"`:''} class="fui-weather-period is-${kind}" data-weather-kind="${kind}"${bounds}><div class="fui-weather-time">${escapeHtml(time)}</div><small class="fui-weather-source">${kind==='actual'?'Gemessen':'Vorhersage'}</small>${weatherGraphic(graphic)}<div class="fui-weather-temperature"><strong>${escapeHtml(temperature)}</strong></div><small class="fui-weather-temperature-label">${escapeHtml(temperatureLabel)}</small><div class="fui-weather-range">${escapeHtml(range)}</div><p class="fui-weather-condition">${escapeHtml(condition)}</p>${weatherMetrics(metrics)}</li>`;
+  const heading=expandable?`<button type="button" class="fui-weather-period-toggle" data-ui="collapse" aria-label="${escapeHtml(time)} · Stundenwerte" aria-expanded="${Boolean(expanded)}" aria-controls="${escapeHtml(detailsId)}">${icon('chevron',{expanded})}<span>${escapeHtml(time)}</span></button>`:escapeHtml(time);
+  const details=expandable?`<div class="fui-weather-hours" id="${escapeHtml(detailsId)}"${expanded?'':' hidden'}><p class="fui-weather-hours-label">Stundenwerte</p><ul class="fui-weather-hour-list">${hours.map(value=>renderWeatherPeriod(value,true)).join('')}</ul></div>`:'';
+  return `<li${id?` id="${escapeHtml(id)}"`:''} class="${hour?'fui-weather-hour':'fui-weather-period'} is-${kind}" data-weather-${hour?'hour-kind':'kind'}="${kind}"${bounds}><div class="fui-weather-time">${heading}</div><small class="fui-weather-source">${kind==='actual'?'Gemessen':'Vorhersage'}</small>${weatherGraphic(graphic)}<div class="fui-weather-temperature"><strong>${escapeHtml(temperature)}</strong></div><small class="fui-weather-temperature-label">${escapeHtml(temperatureLabel)}</small><div class="fui-weather-range">${escapeHtml(range)}</div><p class="fui-weather-condition">${escapeHtml(condition)}</p>${weatherMetrics(metrics)}${details}</li>`;
 }
+export function weatherPeriod(options={}) { return renderWeatherPeriod(options); }
 export function weatherStrip({items=[],label='Wetter im 3-Stunden-Takt'}={}) {
   return `<div class="fui-weather-strip" role="region" aria-label="${escapeHtml(label)}" tabindex="0"><ul class="fui-weather-periods">${items.map(weatherPeriod).join('')}</ul></div>`;
 }

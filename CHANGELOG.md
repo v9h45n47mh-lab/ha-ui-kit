@@ -1,3 +1,9 @@
+## 1.12.0 – 2026-11-19
+
+- Wetterzeiträume lassen sich mit dem gemeinsamen Faltpfeil in Stundenwerte aufklappen.
+- Stundenwerte verwenden dieselben Spalten, Farben und Wettersymbole, mit kompakter Darstellung und eigenständiger Kennzeichnung.
+- Optionale `hours`, `detailsId` und `expanded` in `weatherPeriod`/`weatherList`; vorhandene Ansichten ohne Stundenwerte bleiben erhalten.
+
 ## 1.11.0 – 2026-11-19
 
 - Neue gemeinsame Wetterliste: Zeiträume untereinander, aktuelle Messwerte als reguläre erste Zeile.
