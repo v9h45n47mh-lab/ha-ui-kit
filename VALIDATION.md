@@ -1,13 +1,11 @@
-# Prüfung 1.6.0
+# Prüfung 1.10.0
 
-Stand: 15.11.2026. Implementierungsstand `12ac13b8510e2a2098eb392de2b20952677ca995`.
+Stand: 19.11.2026. Wetterbausteine geprüft mit lokalem Build, Prüfsummen und 42 erfolgreichen Unit-Tests.
 
-- `npm run build`, `npm test` und `npm run check` bestanden; 29 Unit-Tests.
-- Alle sieben Browser-Suiten bestanden, einschließlich unveränderter Shutter-Referenz, bestehender Komponenten und neuer Benutzerzeilen.
-- Neue Benutzerzeilen bei 1100/430/390/375/320 px, hell/dunkel, mit langen Namen und Rollen sowie zugänglichen Bedienelementen geprüft.
-- Erfolgreicher CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/43711519587
+- Alle neun Browser-Suiten bestanden, einschließlich unveränderter Shutter-Referenz, Energieansichten und neuer Wetterdarstellung.
+- Neue Wetterbausteine bei 1100/768/390/320 px in hellen und dunklen Themes geprüft; Maus/Scrollen, Tastatur, echter Touch-Swipe, Quellenfarben, Symbolzuordnung und Seitenbreite geprüft.
+- Ansichten von Weather Analysis zusätzlich bei 1100/390/320 px hell/dunkel visuell geprüft, 35 Bildschirmaufnahmen ohne JavaScriptfehler.
+- Erfolgreicher UI-Kit-CI-Lauf: https://github.com/v9h45n47mh-lab/ha-ui-kit/actions/runs/44506465739
+- Erfolgreicher Weather-Analysis-CI-Lauf: https://github.com/v9h45n47mh-lab/weather-analysis/actions/runs/44506520490
 
-Der Main-Release prüft denselben Stand erneut vor dem Erstellen des Releases.
-
-
-1.9.1: 35 unit tests and deterministic build checked locally. Full browser and pinned Shutter reference verification run in GitHub Actions before release. New energy components are included in the gallery and PV Manager responsive interaction suite.
+Der Main-Release prüft Build, Unit-Tests und Browser erneut vor dem Erstellen des Releases.
