@@ -226,3 +226,7 @@ Mit `markerLabel` lässt sich die zugängliche Beschriftung für einen genauen S
 ## Blaue Radar-Skala · 1.15.0
 
 `radarBackground` verwendet immer Weiß, auch im dunklen Theme. Die gemeinsame Skala ordnet steigenden Niederschlagswerten zunehmend dunkleres Blau zu. `radar-scale.json` und `radarLegend()` müssen gemeinsam mit der Version übernommen werden; keine zusätzliche Transparenz auf das Niederschlagsbild anwenden.
+
+## Erweiterte Radarvorschau · 1.16.0
+
+`radarMap` und `updateRadarMap` akzeptieren `horizon` (1/12) und `horizonChoices` für die gemeinsame Vorschauauswahl. `radar-horizon` liefert `data-hours`. Frames mit `kind: model` sind als Modellvorhersage gekennzeichnet. Netzwerk, Zeitraster und Quellen bleiben im Host. `bindRadarGestures(root,onZoom,onActive)` bindet Zwei-Finger-Gesten, liefert ganze Zoomschritte und eine Aufräumfunktion. Während der Geste bleibt die Standortmitte fest. Ein Finger darf die Seite scrollen.

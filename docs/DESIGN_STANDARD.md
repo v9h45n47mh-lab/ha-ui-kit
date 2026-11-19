@@ -139,3 +139,7 @@ Regenradar: gemeinsame Kartenebenen und zentraler Standortmarker. Messung/Vorher
 Die reduzierte Radar-Karte zeigt höchstens vier Städtenamen, Flüsse und Landesgrenzen auf weißem Hintergrund, auch im dunklen Theme. Keine Straßen, Gebäude, Geländeprofile oder dichte Ortsbeschriftung. Der zentrale Standortmarker bleibt sichtbar. Niederschlag und Datenlücken verwenden die gemeinsame Skala; schraffierte Flächen kennzeichnen fehlende Daten.
 
 Ab 1.15.0 verwendet das Radar ausschließlich nach Regenstärke dunkler werdende Blautöne. Niederschlagsbilder werden ohne zusätzliche Deckkraftabschwächung dargestellt; trockene Flächen bleiben transparent auf Weiß.
+
+## Erweiterte Radarvorschau · 1.16.0
+
+`radarMap` und `updateRadarMap` akzeptieren `horizon` (1/12) und `horizonChoices` für die gemeinsame Vorschauauswahl. `radar-horizon` liefert `data-hours`. Frames mit `kind: model` sind als Modellvorhersage gekennzeichnet. Netzwerk, Zeitraster und Quellen bleiben im Host. `bindRadarGestures(root,onZoom,onActive)` bindet Zwei-Finger-Gesten, liefert ganze Zoomschritte und eine Aufräumfunktion. Während der Geste bleibt die Standortmitte fest. Ein Finger darf die Seite scrollen.

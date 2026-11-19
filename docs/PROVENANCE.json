@@ -223,6 +223,14 @@
         "background": "#ffffff",
         "precipitation": "monotonic blue intensity; shared with host renderer"
       }
+    },
+    "extendedForecast": {
+      "since": "1.16.0",
+      "source": "User requested one-hour/five-minute and twelve-hour/half-hour forecasts, centred location and two-finger zoom",
+      "components": [
+        "bindRadarGestures"
+      ],
+      "data": "Host-provided times and model flags; source decoding stays in integration"
     }
   }
 }

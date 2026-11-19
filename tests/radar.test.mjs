@@ -33,3 +33,9 @@ test('local legend and renderer share one strictly increasing scale',()=>{
 });
 
 test('cold loading shows a location-ready map without invented forecast labels',()=>{const html=radarMap({baseImage:radarBackground()});assert.match(html,/Radardaten laden/);assert.doesNotMatch(html,/>Vorhersage<|>Messung</);assert.match(html,/aria-label="Dein Standort"/);});
+
+test('long forecast uses actual frame positions and distinguishes model data',()=>{
+  const start=1795089600,frames=Array.from({length:49},(_,i)=>({time:i<=24?start+(i-24)*300:start+(i-24)*1800,kind:i<=24?'observation':'model'}));
+  const html=radarMap({frames,index:48,now:start,horizon:12,horizonChoices:true});
+  assert.match(html,/Modellvorhersage/);assert.match(html,/30-Minuten-Schritte/);assert.match(html,/data-hours="12" aria-pressed="true"/);assert.match(html,/left:50%">Jetzt/);assert.match(html,/\+12 Std\./);
+});

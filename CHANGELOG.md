@@ -1,3 +1,9 @@
+## 1.16.0 – 2026-11-19
+
+- Gemeinsame Radarvorschauauswahl für eine oder zwölf Stunden. Zeitmarken folgen den tatsächlichen Bildern, auch bei unterschiedlichen Schritten in Historie und Vorschau.
+- Modellvorhersagen erhalten eine eigene Quellenkennzeichnung.
+- `bindRadarGestures` unterstützt Zwei-Finger-Zoom um die Standortmitte mit visueller Vorschau. Ein Finger scrollt weiterhin die Seite; Zoom-Buttons bleiben erhalten.
+
 ## 1.15.0 – 2026-11-19
 
 - Radar-Karte bleibt auch im dunklen Theme weiß.

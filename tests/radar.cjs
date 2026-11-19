@@ -20,5 +20,17 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  const retained=await radar.evaluate(async root=>{const {updateRadarMap}=await import('/dist/family-ui.js');const slider=root.querySelector('input');const options={frames:[{time:1795089600,kind:'observation'},{time:1795089900,kind:'prediction'}],index:1,playing:true};updateRadarMap(root,options);return root.querySelector('input')===slider&&root.getRootNode().activeElement===slider;});
  assert(retained,'Frame changes preserve slider and keyboard focus');assert.match(await radar.locator('output').innerText(),/Vorhersage/);assert.equal(await radar.getByRole('button',{name:'Radar anhalten'}).count(),1);
  assert.equal(await radar.getByRole('button',{name:'Nächstes Radarbild'}).isDisabled(),true);
- assert.deepEqual(errors,[]);await browser.close();server.close();console.log('PASS radar: four widths, themes, images, accessible timeline and stable focus');
+ const touch=await browser.newPage({viewport:{width:390,height:850},isMobile:true,hasTouch:true});await touch.goto(`http://127.0.0.1:${server.address().port}/examples/gallery.html`);
+ const touchMap=touch.locator('family-ui-gallery').locator('#radar .fui-radar-map');await touchMap.scrollIntoViewIfNeeded();
+ await touchMap.evaluate(async map=>{const {bindRadarGestures}=await import('/dist/family-ui.js');window.pinchSteps=[];window.pinchCleanup=bindRadarGestures(map,step=>pinchSteps.push(step));});
+ const box=await touchMap.boundingBox(),cx=box.x+box.width/2,cy=box.y+box.height/2,cdp=await touch.context().newCDPSession(touch);
+ const points=spread=>[{x:cx-spread,y:cy,id:1},{x:cx+spread,y:cy,id:2}];
+ const pinch=async(from,to,cancel=false)=>{await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points(from)});for(let i=1;i<=5;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:points(from+(to-from)*i/5)});await cdp.send('Input.dispatchTouchEvent',{type:cancel?'touchCancel':'touchEnd',touchPoints:[]});};
+ const pageScale=await touch.evaluate(()=>visualViewport.scale);
+ await pinch(35,70);await pinch(70,35);await pinch(35,70,true);
+ assert.deepEqual(await touch.evaluate(()=>pinchSteps),[1,-1]);assert.equal(await touch.evaluate(()=>visualViewport.scale),pageScale,'Map gestures do not zoom the page');
+ const marker=await touch.locator('family-ui-gallery').locator('#radar .fui-radar-marker').boundingBox();assert(Math.abs(marker.x+marker.width/2-cx)<1&&Math.abs(marker.y+marker.height/2-cy)<1,'The location stays centred');
+ const before=await touch.evaluate(()=>scrollY);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:cx,y:cy,id:1}]});for(let i=1;i<=6;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:cx,y:cy+i*15,id:1}]});await touch.waitForTimeout(20);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(100);
+ assert((await touch.evaluate(()=>scrollY))<before-20,'One finger can scroll the page');await touch.evaluate(()=>pinchCleanup());await touch.close();
+ assert.deepEqual(errors,[]);await browser.close();server.close();console.log('PASS radar: four widths, themes, model timeline, real two-finger pinch, page scrolling, centred marker and stable focus');
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});

@@ -225,3 +225,7 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 `radarBackground({lines,places})` erzeugt eine lokale, bewusst reduzierte SVG-Kartengrafik als Daten-URL. `radarLegend()` erzeugt die gemeinsame Niederschlagslegende. `RADAR_SCALE` und `dist/radar-scale.json` liefern dieselben Schwellenwerte und Farben für die Darstellung im Host.
 
 Ab 1.15.0: weiße Kartengrundlage und ausschließlich blaue, mit der Regenstärke dunkler werdende Niederschlagsskala.
+
+## Erweiterte Radarvorschau · 1.16.0
+
+`radarMap` und `updateRadarMap` akzeptieren `horizon` (1/12) und `horizonChoices` für die gemeinsame Vorschauauswahl. `radar-horizon` liefert `data-hours`. Frames mit `kind: model` sind als Modellvorhersage gekennzeichnet. Netzwerk, Zeitraster und Quellen bleiben im Host. `bindRadarGestures(root,onZoom,onActive)` bindet Zwei-Finger-Gesten, liefert ganze Zoomschritte und eine Aufräumfunktion. Während der Geste bleibt die Standortmitte fest. Ein Finger darf die Seite scrollen.
