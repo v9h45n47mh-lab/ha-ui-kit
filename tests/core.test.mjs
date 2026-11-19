@@ -18,7 +18,7 @@ test('untrusted labels, values and attributes cannot inject markup',()=>{
 });
 
 test('one canonical settings icon and accessible navigation',()=>{
-  assert.match(UI_VERSION,/^1\.9\.\d+$/);
+  assert.match(UI_VERSION,/^1\.10\.\d+$/);
   assert.throws(()=>icon('toString'));
   assert.throws(()=>iconButton({icon:'edit',action:'edit'}));
   const nav=navigation({label:'Card',items:[{id:'overview',label:'Overview'}],active:'settings'});

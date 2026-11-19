@@ -1,3 +1,9 @@
+## 1.10.0 – 2026-11-19
+
+- Neue lokale SVG-Wettergrafiken für Sonne, Wolken, Regen, Schauer, Schnee, Glätte, Gewitter, Hagel, Nebel, Nacht und gemessene Temperaturen.
+- Gemeinsame Wetterspalten mit großen Temperaturen, Zeiträumen und Symbolzeilen für Niederschlag, Wind/Böen, gefühlte Temperatur, Luftfeuchte, Luftdruck und Helligkeit.
+- Horizontal bedienbare 3-Stunden-Übersicht für Maus, Tastatur und Touch; Messungen blau und Vorhersagen schwarz auf weißer Lesefläche, auch im dunklen Theme.
+
 ## 1.9.4 – Whole number chart ticks
 
 ## 1.9.6 – 2026-11-18

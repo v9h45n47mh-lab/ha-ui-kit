@@ -42,8 +42,8 @@
   "sourceTextControls": {
     "programAddButton": "+ Programm",
     "programOrderButtons": [
-      "\u2191",
-      "\u2193"
+      "↑",
+      "↓"
     ],
     "sourceStyles": [
       ".page-actions button",
@@ -149,7 +149,7 @@
   },
   "energyDisplays": {
     "version": "1.9.0",
-    "source": "pv-manager 1.0.0 \u2013 user-supplied energy flow reference",
+    "source": "pv-manager 1.0.0 – user-supplied energy flow reference",
     "components": [
       "energyFlow",
       "seriesChart",
@@ -161,5 +161,18 @@
       "energy-home",
       "energy-battery"
     ]
+  },
+  "weatherDisplays": {
+    "since": "1.10.0",
+    "source": "Original shared vector illustrations and period layout requested for Weather Analysis, inspired by the user weather overview reference; no third-party graphics copied.",
+    "components": [
+      "weatherGraphic",
+      "weatherMetricIcon",
+      "weatherPeriod",
+      "weatherStrip",
+      "weatherNow"
+    ],
+    "colours": "Explicit user request: measured values blue and forecasts black on a white weather surface, in both themes.",
+    "data": "Host supplied only; no network requests or weather inference."
   }
 }

@@ -1,0 +1,31 @@
+/* Weather Analysis: explicit blue measurements / black forecast on a white reading surface. */
+.fui-weather-strip{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;border-radius:var(--ha-card-border-radius,12px);background:#fff;color:#000;color-scheme:light;scrollbar-color:#aebfc9 #eff4f7;scrollbar-width:thin;padding:16px 0 12px}
+.fui-weather-strip:focus-visible{outline:2px solid var(--primary-color,#03a9f4);outline-offset:2px}
+.fui-weather-periods{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(172px,1fr);list-style:none;margin:0;padding:0;min-width:100%;align-items:stretch}
+.fui-weather-period{display:flex;flex-direction:column;align-items:center;padding:0 16px 12px;min-width:0;scroll-snap-align:start;border-right:1px solid #dbe4e9;line-height:1.45;text-align:center}
+.fui-weather-period:last-child{border-right:0}
+.fui-weather-period.is-actual,.fui-weather-now.is-actual{color:#0277bd}
+.fui-weather-period.is-forecast{color:#000}
+.fui-weather-period small,.fui-weather-now small{color:inherit}
+.fui-weather-time{font-size:14px;font-weight:500;white-space:nowrap}
+.fui-weather-source{font-size:11px;margin:4px 0 8px}
+.fui-weather-graphic{display:block;width:96px;height:80px;flex-shrink:0;margin:4px auto 10px}
+.fui-weather-temperature{font-size:32px;line-height:1.2;white-space:nowrap;font-variant-numeric:tabular-nums}
+.fui-weather-temperature strong{font-weight:400}
+.fui-weather-temperature-label{font-size:11px;min-height:17px;margin-top:2px}
+.fui-weather-range{font-size:12px;min-height:20px;line-height:1.5}
+.fui-weather-condition{font-size:13px;line-height:1.45;min-height:57px;max-width:100%;margin:10px 0 16px;overflow-wrap:anywhere}
+.fui-weather-metrics{display:flex;flex-direction:column;gap:14px;margin:0;width:100%;font-size:13px;text-align:left}
+.fui-weather-metrics>div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;align-items:start}
+.fui-weather-metrics dt{display:flex;align-items:center;margin:0;min-width:0}
+.fui-weather-metrics dt span{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.fui-weather-metrics dd{margin:0;overflow-wrap:anywhere}
+.fui-weather-metrics dd small{display:block;font-size:11px;line-height:1.5}
+.fui-weather-metric-icon{width:18px;height:18px;display:block;flex-shrink:0}
+.fui-weather-now{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;padding:16px;background:#fff;border-radius:var(--ha-card-border-radius,12px);color-scheme:light}
+.fui-weather-now>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fui-weather-now>div>span{font-size:13px;font-weight:500}
+.fui-weather-now>div>strong{font-size:40px;line-height:1.15;font-weight:400;font-variant-numeric:tabular-nums}
+.fui-weather-now .fui-weather-metrics{width:auto;flex:1;min-width:140px;gap:10px}
+@media(max-width:600px){.fui-weather-periods{grid-auto-columns:minmax(152px,1fr)}.fui-weather-period{padding-right:12px;padding-left:12px}.fui-weather-strip{padding-top:12px}.fui-weather-temperature{font-size:30px}.fui-weather-now{padding:12px;gap:12px 24px}}
+@media(prefers-reduced-motion:reduce){.fui-weather-strip{scroll-behavior:auto;scroll-snap-type:none}}

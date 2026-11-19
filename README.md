@@ -78,3 +78,6 @@ Die SVG- und Layoutvorlage ist mit Version, Commit und Datei in [PROVENANCE.json
 Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, visuell versteckte Beschriftung; rechts steht das gemeinsame Zahnrad. Player-Tasten sind auch beim Hover kreisrund (48 × 48 px, Play/Pause 56 × 56 px). Favoritenkacheln zeigen ausschließlich Symbole oder Cover; `aria-label` und Tooltip erhalten den Namen. Schrift, Farben, Größen und Abstände stammen vollständig aus dem Kit. Der Host liefert Inhalte und entscheidet, welche Tasten und Einstellungen verfügbar sind.
 
 `rangeControl({max:50, ...})` nutzt weiterhin die gesamte Reglerbreite: 0 links, 25 in der Mitte, 50 rechts. Die Obergrenze ist eine fachliche Entscheidung des Hosts. Musikdialoge übernehmen die vorhandene mobile Player-Anordnung zentral; normale Kit-Dialoge und bestehende Integrationen ändern sich nicht. Keine lokale CSS-Kopie oder Überschreibung dieser Komponenten verwenden.
+
+
+Wetterdarstellung ab **1.10.0**: originale lokale SVG-Wettermotive sowie gemeinsame 3-Stunden-Spalten mit großen Temperaturen und Messsymbolen; in der [Galerie](gallery.html) und im [Bausteinkatalog](docs/COMPONENTS.md).

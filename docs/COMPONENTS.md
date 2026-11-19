@@ -190,3 +190,12 @@ Since 1.9.2, bars are sized to the closest timestamps and placed within the plot
 Since 1.9.3, pass `legendAction` and stable `series[].id` values for a selectable legend. `bindUI` forwards the action with `data.series`. The host updates `series[].hidden` and renders again. Optional `series[].legendValue` is displayed and announced with the toggle. Swatches and bars use the same semantic UI Kit colours.
 
 Set `integerTicks: true` for whole-number ticks on the value axis. `formatValue` still controls individual readings.
+
+
+## Wetterbausteine ab 1.10.0
+
+`weatherGraphic({code,isDay,windy,kind,label})` enthält originale lokale SVGs für WMO-Wettercodes, Tag/Nacht und Wind. `kind:'thermometer'` kennzeichnet native Sensormessungen ohne erfundene Bewölkung oder Niederschläge; unbekannte Wetterlagen erhalten ein neutrales Fragezeichen. `WEATHER_GRAPHICS` nennt die verfügbaren Motive. `weatherMetricIcon(name)` liefert gemeinsame Symbole für rain, wind, feels, humidity, pressure, light und temperature.
+
+`weatherStrip({label,items})` zeigt horizontal scrollbar je ein `weatherPeriod` pro Zeitraum. Ein Item enthält `time`, `kind:'actual'|'forecast'`, formatierte `temperature`, `temperatureLabel`, `range`, `condition`, `graphic` und `metrics:[{icon,label,value,detail}]`; optionale numerische `start`/`end` bewahren die Zeitgrenzen. `weatherNow({id,label,temperature,range,metrics})` zeigt aktuelle Messwerte ohne Kontokacheln. Alle Inhalte werden escaped, weder API-Aufrufe noch Aggregationen gehören ins Kit. Fehlende Werte formatiert die Integration als Gedankenstrich.
+
+Quelle: neue Weather-Analysis-Darstellung nach Nutzerreferenz einer Wetterübersicht, keine kopierten Wettergrafiken. Auf ausdrücklichen Wunsch bleiben Messwerte #0277bd und Vorhersagen #000; dafür hat ausschließlich die Wetterlesefläche einen weißen Hintergrund in beiden Themes. Keine lokalen CSS-Abwandlungen. Große Symbole (96 × 80 px) und Temperaturen; Zeitspalten mindestens 172 px, mobil 152 px. Quellen auch mit Text unterscheidbar. Region mit Tastaturfokus, natives horizontales Scrollen/Touch-Wischen, kein automatisches Weiterspringen.
