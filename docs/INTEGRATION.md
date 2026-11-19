@@ -222,3 +222,7 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 Radar: `radarBackground` akzeptiert projizierte 512×512-Pixelkoordinaten; `kind` ist river/border. Die Integration liefert echte geografische Geometrien und höchstens vier Ortsnamen. Das Ergebnis wird als `baseImage` an `radarMap`/`updateRadarMap` übergeben, `radarLegend()` als `legendImage`. Die Datenerzeugung und Georeferenzierung bleiben im Host. `radar-scale.json` wird unverändert mit ausgeliefert und darf serverseitig zum Einfärben verwendet werden.
 
 Mit `markerLabel` lässt sich die zugängliche Beschriftung für einen genauen Standort oder einen gekennzeichneten Ersatzort setzen.
+
+## Blaue Radar-Skala · 1.15.0
+
+`radarBackground` verwendet immer Weiß, auch im dunklen Theme. Die gemeinsame Skala ordnet steigenden Niederschlagswerten zunehmend dunkleres Blau zu. `radar-scale.json` und `radarLegend()` müssen gemeinsam mit der Version übernommen werden; keine zusätzliche Transparenz auf das Niederschlagsbild anwenden.

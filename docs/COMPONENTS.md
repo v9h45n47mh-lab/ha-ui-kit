@@ -223,3 +223,5 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 ## Lokale Radar-Grafiken · 1.14.0
 
 `radarBackground({lines,places})` erzeugt eine lokale, bewusst reduzierte SVG-Kartengrafik als Daten-URL. `radarLegend()` erzeugt die gemeinsame Niederschlagslegende. `RADAR_SCALE` und `dist/radar-scale.json` liefern dieselben Schwellenwerte und Farben für die Darstellung im Host.
+
+Ab 1.15.0: weiße Kartengrundlage und ausschließlich blaue, mit der Regenstärke dunkler werdende Niederschlagsskala.

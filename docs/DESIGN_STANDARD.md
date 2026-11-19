@@ -131,9 +131,11 @@ Die Stundenwerte sind kompakter und dezent hinterlegt. Ihre Temperatur- und Mess
 
 ## Regenradar · 1.13.0
 
-Regenradar: gemeinsame Kartenebenen und zentraler Standortmarker. Messung/Vorhersage immer ausgeschrieben, genaue lokale Zeit, 2 Stunden Rückblick und 1 Stunde Vorschau. Fehlende Bilder klar kennzeichnen. Originalfarbskala des Datenanbieters erhalten. Icon-Reiter haben stets verständliche `aria-label` und Tooltip.
+Regenradar: gemeinsame Kartenebenen und zentraler Standortmarker. Messung/Vorhersage immer ausgeschrieben, genaue lokale Zeit, 2 Stunden Rückblick und 1 Stunde Vorschau. Fehlende Bilder klar kennzeichnen. Gemeinsame Niederschlagsskala für Radar und Legende verwenden. Icon-Reiter haben stets verständliche `aria-label` und Tooltip.
 
 
 ## Lokale Radar-Grafiken · 1.14.0
 
-Die reduzierte Radar-Karte zeigt höchstens vier Städtenamen, Flüsse und Landesgrenzen auf hellem Hintergrund. Keine Straßen, Gebäude, Geländeprofile oder dichte Ortsbeschriftung. Der zentrale Standortmarker bleibt sichtbar. Niederschlag und Datenlücken verwenden die gemeinsame Skala; schraffierte Flächen kennzeichnen fehlende Daten.
+Die reduzierte Radar-Karte zeigt höchstens vier Städtenamen, Flüsse und Landesgrenzen auf weißem Hintergrund, auch im dunklen Theme. Keine Straßen, Gebäude, Geländeprofile oder dichte Ortsbeschriftung. Der zentrale Standortmarker bleibt sichtbar. Niederschlag und Datenlücken verwenden die gemeinsame Skala; schraffierte Flächen kennzeichnen fehlende Daten.
+
+Ab 1.15.0 verwendet das Radar ausschließlich nach Regenstärke dunkler werdende Blautöne. Niederschlagsbilder werden ohne zusätzliche Deckkraftabschwächung dargestellt; trockene Flächen bleiben transparent auf Weiß.

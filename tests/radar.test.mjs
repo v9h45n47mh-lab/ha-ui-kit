@@ -22,12 +22,13 @@ test('weather tabs share local icons with readable labels and tooltips',()=>{
 const svg=src=>Buffer.from(src.split(',')[1],'base64').toString('utf8');
 test('local background is a small standalone image with capped escaped labels',()=>{
   const src=radarBackground({lines:[{kind:'river',points:[[0,0],[512,512]]}],places:Array.from({length:8},(_,i)=>({x:i*40,y:50,name:'Böhl <script>'+i}))});
-  const image=svg(src);assert.equal((image.match(/<text /g)||[]).length,4);assert.match(image,/Böhl &lt;script&gt;/);assert.doesNotMatch(image,/<script|href=|onload|foreignObject/);
+  const image=svg(src);assert.match(image,/<rect[^>]*fill="#ffffff"/);assert.equal((image.match(/<text /g)||[]).length,4);assert.match(image,/Böhl &lt;script&gt;/);assert.doesNotMatch(image,/<script|href=|onload|foreignObject/);
   assert(src.length<3000);assert.throws(()=>radarBackground({lines:[{kind:'river',points:[[NaN,0]]}]}));
   assert.match(radarMap({baseImage:src}),/src="data:image\/svg\+xml;base64,/);
 });
 test('local legend and renderer share one strictly increasing scale',()=>{
   assert(RADAR_SCALE.every((item,i)=>/^#[0-9a-f]{6}$/i.test(item.color)&&(!i||item.min>RADAR_SCALE[i-1].min)));
+  let previous=Infinity;for(const item of RADAR_SCALE){const [r,g,b]=item.color.slice(1).match(/../g).map(v=>parseInt(v,16));assert(b>g&&g>r,'Rain remains blue');const light=.2126*r+.7152*g+.0722*b;assert(light<previous,'Stronger rain gets darker');previous=light;}
   const image=svg(radarLegend());assert.equal((image.match(/mm\/h/g)||[]).length,RADAR_SCALE.length);assert.match(image,/keine Radardaten/);
 });
 

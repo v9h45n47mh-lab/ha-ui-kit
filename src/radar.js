@@ -54,7 +54,7 @@ export function radarBackground({lines=[],places=[]}={}) {
   const number=value=>{if(typeof value!=='number'||!Number.isFinite(value))throw new TypeError('Invalid map coordinate');return Math.round(value*10)/10;};
   const paths=lines.map(line=>{if(!['river','border'].includes(line.kind))throw new TypeError('Invalid map line');return `<path d="${line.points.map((p,i)=>(i?'L':'M')+number(p[0])+','+number(p[1])).join(' ')}" fill="none" stroke="${line.kind==='river'?'#bdd5e4':'#dce2e7'}" stroke-width="${line.kind==='river'?2:1.2}"/>`;}).join('');
   const labels=places.slice(0,4).map(place=>`<circle cx="${number(place.x)}" cy="${number(place.y)}" r="2" fill="#7b8790"/><text x="${number(place.x)+5}" y="${number(place.y)-5}" font-family="sans-serif" font-size="13" fill="#65747e">${escapeHtml(place.name)}</text>`).join('');
-  return radarSvgImage(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><rect width="512" height="512" fill="#f7fafc"/>${paths}${labels}</svg>`);
+  return radarSvgImage(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><rect width="512" height="512" fill="#ffffff"/>${paths}${labels}</svg>`);
 }
 /** Same scale as the host's renderer; this graphic never needs a network fetch. */
 export function radarLegend(){

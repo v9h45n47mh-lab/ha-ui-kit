@@ -216,7 +216,13 @@
         "radarLegend",
         "RADAR_SCALE"
       ],
-      "scale": "src/radar-scale.json"
+      "scale": "src/radar-scale.json",
+      "colourDesign": {
+        "since": "1.15.0",
+        "source": "User requested white map and darker blue for stronger rain",
+        "background": "#ffffff",
+        "precipitation": "monotonic blue intensity; shared with host renderer"
+      }
     }
   }
 }

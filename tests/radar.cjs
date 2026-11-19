@@ -11,6 +11,8 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
   assert.equal(await radar.getByRole('slider',{name:'Radarzeitpunkt'}).count(),1);
   assert.equal(await radar.locator('.fui-radar-marker').getAttribute('aria-label'),'Dein Standort');assert((await radar.locator('.fui-radar-base').getAttribute('src')).startsWith('data:image/svg+xml;base64,'));
   assert(await radar.locator('.fui-radar-overlay').evaluate(e=>e.complete&&e.naturalWidth>0));
+  assert.equal(await radar.locator('.fui-radar-map').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');
+  assert.equal(await radar.locator('.fui-radar-overlay').evaluate(e=>getComputedStyle(e).opacity),'1');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await radar.screenshot({path:path.join(screens,`radar-${width}-${dark?'dark':'light'}.png`)});
  }
