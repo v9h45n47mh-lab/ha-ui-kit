@@ -556,7 +556,7 @@ export function bindObjects(root,onAction) {
       if(initialized.has(el))continue;initialized.add(el);
       if(el.hasAttribute('data-ui-multi'))updateMulti(el);
       if(el.hasAttribute('data-ui-recurrence'))updateRecurrence(el);
-      l.hasAttribute('data-ui-range'))updateRange(el);
+      if(el.hasAttribute('data-ui-range'))updateRange(el);
     }
   };
   const click=event=>{

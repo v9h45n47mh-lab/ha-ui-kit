@@ -555,7 +555,7 @@ export function bindObjects(root,onAction) {
     const days=control.querySelector('[data-ui-checks]');days.hidden=!['weekly','monthly_nth'].includes(kind);
     const first=control.querySelector('[data-first-person]');if(first)first.hidden=!alternate?.checked;
     control.querySelectorAll('.recurrence-controls input,.recurrence-controls select').forEach(el=>{el.disabled=globalDisabled||!repeating.checked||Boolean(el.closest('[hidden]'));});
-    const rule={kind,interval:kind==='once'?1:Number(get('interval').value),start,end:kind==='once'?'':end.value,weekdays:[...days.querySelectorAll('input:checked')].map(el=>Number(el.value)),nth:Number(get('nth').value),alternating:Boolean(alternate?.chec,first_person:get('first_person')?.value||''};
+    const rule={kind,interval:kind==='once'?1:Number(get('interval').value),start,end:kind==='once'?'':end.value,weekdays:[...days.querySelectorAll('input:checked')].map(el=>Number(el.value)),nth:Number(get('nth').value),alternating:Boolean(alternate?.checked),first_person:get('first_person')?.value||''};
     const dayRequired=['weekly','monthly_nth'].includes(kind);const dayInput=days.querySelector('input');dayInput?.setCustomValidity(dayRequired&&!rule.weekdays.length?'Bitte mindestens einen Wochentag auswählen.':'');
     const valid=Boolean(start)&&Number.isInteger(rule.interval)&&rule.interval>=1&&rule.interval<=365&&(!rule.end||rule.end>=start)&&(!dayRequired||rule.weekdays.length>0);
     let text=valid?recurrenceSummary(rule):'Bitte Datum, Wiederholungsabstand und Wochentage prüfen.';
