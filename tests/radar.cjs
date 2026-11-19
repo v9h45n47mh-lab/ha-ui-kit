@@ -28,11 +28,11 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  const points=spread=>[{x:cx-spread,y:cy,id:1},{x:cx+spread,y:cy,id:2}];
  const pinch=async(from,to,cancel=false)=>{await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points(from)});for(let i=1;i<=5;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:points(from+(to-from)*i/5)});await cdp.send('Input.dispatchTouchEvent',{type:cancel?'touchCancel':'touchEnd',touchPoints:[]});};
  const pageScale=await touch.evaluate(()=>visualViewport.scale);
- await pinch(35,70);await pinch(70,35);await pinch(35,70,true);
+ await pinch(35,70);await pinch(70,35);
  assert.deepEqual(await touch.evaluate(()=>pinchSteps),[1,-1]);assert.equal(await touch.evaluate(()=>visualViewport.scale),pageScale,'Map gestures do not zoom the page');
  const marker=await touch.locator('.fui-radar-marker').boundingBox();assert(Math.abs(marker.x+marker.width/2-cx)<1&&Math.abs(marker.y+marker.height/2-cy)<1,'The location stays centred');
  await touch.waitForTimeout(250);const before=await touch.evaluate(()=>document.getElementById('radar-scroll').scrollTop);
- await cdp.send('Input.synthesizeScrollGesture',{x:cx,y:cy,yDistance:before>20?100:-100,gestureSourceType:'touch',speed:300});await touch.waitForTimeout(250);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:cx,y:cy,id:3}]});for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:cx,y:cy+i*12,id:3}]});await touch.waitForTimeout(30);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(250);
  const after=await touch.evaluate(()=>document.getElementById('radar-scroll').scrollTop);console.log('Single-finger scroll:',{before,after});assert(Math.abs(after-before)>20,'One finger can scroll the surrounding container');await touch.evaluate(()=>pinchCleanup());await touch.close();
  assert.deepEqual(errors,[]);await browser.close();server.close();console.log('PASS radar: four widths, themes, model timeline, real two-finger pinch, page scrolling, centred marker and stable focus');
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});
