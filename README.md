@@ -1,6 +1,6 @@
 # HA UI Kit
 
-Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.10.0**, visuelle Hauptvorlage: **Shutter Manager 1.5.2**.
+Gemeinsamer UI-Baukasten für unsere Home-Assistant-Integrationen. **Version 1.11.0**, visuelle Hauptvorlage: **Shutter Manager 1.5.2**.
 
 Der Baukasten legt Symbole, Farben, Schriftgrößen, Abstände, Navigation, kompakte Einstellungszeilen, Buttons, Schalter, Eingaben und Dialoge zentral fest. Jede Integration liefert dieselbe fest eingebundene Version mit. Es gibt keine zusätzliche HA-Integration, keinen CDN-Aufruf und keine Laufzeitabhängigkeit von diesem Repository.
 
@@ -34,10 +34,10 @@ node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/
 node scripts/vendor.mjs --target /pfad/zur/integration/custom_components/DOMAIN/frontend --check
 ```
 
-Das kopiert die Versionsdateien nach `frontend/family-ui/1.10.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
+Das kopiert die Versionsdateien nach `frontend/family-ui/1.11.0/` und schreibt `frontend/family-ui.lock.json`. Die Karte importiert lokal:
 
 ```js
-import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.10.0/family-ui.js';
+import {UI_CSS, UI_VERSION, navigation, row, iconButton, bindUI} from './family-ui/1.11.0/family-ui.js';
 ```
 
 Die Stile gelten innerhalb des **ShadowRoot der Karte**. Details, Einbindung der Ereignisse und Backend-Auslieferung: [INTEGRATION.md](docs/INTEGRATION.md).
@@ -81,3 +81,6 @@ Das Box-Dropdown steht links, ist 190 px breit und hat nur eine zugängliche, vi
 
 
 Wetterdarstellung ab **1.10.0**: originale lokale SVG-Wettermotive sowie gemeinsame 3-Stunden-Spalten mit großen Temperaturen und Messsymbolen; in der [Galerie](gallery.html) und im [Bausteinkatalog](docs/COMPONENTS.md).
+
+
+Ab 1.11.0 stellt `weatherList` Zeiträume und aktuelle Messwerte untereinander dar. Die Anordnung richtet sich nach der Kartenbreite; es entsteht keine zusätzliche horizontale Scrollfläche.

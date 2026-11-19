@@ -29,3 +29,22 @@
 .fui-weather-now .fui-weather-metrics{width:auto;flex:1;min-width:140px;gap:10px}
 @media(max-width:600px){.fui-weather-periods{grid-auto-columns:minmax(152px,1fr)}.fui-weather-period{padding-right:12px;padding-left:12px}.fui-weather-strip{padding-top:12px}.fui-weather-temperature{font-size:30px}.fui-weather-now{padding:12px;gap:12px 24px}}
 @media(prefers-reduced-motion:reduce){.fui-weather-strip{scroll-behavior:auto;scroll-snap-type:none}}
+
+/* Optional vertical layout; a narrow HA card uses the mobile layout even on desktop. */
+.fui-weather-list{container-type:inline-size;container-name:fui-weather-list;max-width:100%;border-radius:var(--ha-card-border-radius,12px);background:#fff;color:#000;color-scheme:light}
+.fui-weather-list-items{list-style:none;margin:0;padding:0}
+.fui-weather-list .fui-weather-period{display:grid;grid-template-columns:110px 80px minmax(100px,1fr) minmax(180px,1.5fr);grid-template-areas:"time graphic temperature metrics" "source graphic label metrics" ". graphic range metrics" ". . condition metrics";gap:2px 12px;align-items:center;text-align:left;padding:16px;border-right:0;border-bottom:1px solid #dbe4e9;scroll-snap-align:none}
+.fui-weather-list .fui-weather-period:last-child{border-bottom:0}
+.fui-weather-list .fui-weather-time{grid-area:time;white-space:normal;align-self:end}
+.fui-weather-list .fui-weather-source{grid-area:source;margin:0;align-self:start}
+.fui-weather-list .fui-weather-graphic{grid-area:graphic;width:80px;height:67px;margin:0}
+.fui-weather-list .fui-weather-temperature{grid-area:temperature;font-size:28px}
+.fui-weather-list .fui-weather-temperature-label{grid-area:label;min-height:0;margin:0}
+.fui-weather-list .fui-weather-range{grid-area:range;min-height:0}
+.fui-weather-list .fui-weather-condition{grid-area:condition;min-height:0;margin:4px 0 0}
+.fui-weather-list .fui-weather-metrics{grid-area:metrics;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;align-self:center}
+@container fui-weather-list (max-width:620px){
+  .fui-weather-list .fui-weather-period{grid-template-columns:80px minmax(0,1fr);grid-template-areas:"time time" "source source" "graphic temperature" "graphic label" "graphic range" "condition condition" "metrics metrics";gap:4px 12px;padding:12px}
+  .fui-weather-list .fui-weather-source{margin-bottom:4px}
+  .fui-weather-list .fui-weather-metrics{margin-top:8px}
+}

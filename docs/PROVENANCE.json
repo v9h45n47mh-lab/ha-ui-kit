@@ -173,6 +173,14 @@
       "weatherNow"
     ],
     "colours": "Explicit user request: measured values blue and forecasts black on a white weather surface, in both themes.",
-    "data": "Host supplied only; no network requests or weather inference."
+    "data": "Host supplied only; no network requests or weather inference.",
+    "verticalList": {
+      "since": "1.11.0",
+      "source": "Requested Weather Analysis vertical view with inline current values and a host-owned collapsible actual readings section.",
+      "components": [
+        "weatherList"
+      ],
+      "responsive": "Card-width container queries; normal page scrolling."
+    }
   }
 }

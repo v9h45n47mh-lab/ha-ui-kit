@@ -196,3 +196,10 @@ Set `integerTicks: true` for whole-number ticks on the value axis. `formatValue`
 `weatherStrip({label,items})` zeigt horizontal scrollbar je ein `weatherPeriod` pro Zeitraum. Ein Item enthält `time`, `kind:'actual'|'forecast'`, formatierte `temperature`, `temperatureLabel`, `range`, `condition`, `graphic` und `metrics:[{icon,label,value,detail}]`; optionale numerische `start`/`end` bewahren die Zeitgrenzen. `weatherNow({id,label,temperature,range,metrics})` zeigt aktuelle Messwerte ohne Kontokacheln. Alle Inhalte werden escaped, weder API-Aufrufe noch Aggregationen gehören ins Kit. Fehlende Werte formatiert die Integration als Gedankenstrich.
 
 Quelle: neue Weather-Analysis-Darstellung nach Nutzerreferenz einer Wetterübersicht, keine kopierten Wettergrafiken. Auf ausdrücklichen Wunsch bleiben Messwerte #0277bd und Vorhersagen #000; dafür hat ausschließlich die Wetterlesefläche einen weißen Hintergrund in beiden Themes. Keine lokalen CSS-Abwandlungen. Große Symbole (96 × 80 px) und Temperaturen; Zeitspalten mindestens 172 px, mobil 152 px. Quellen auch mit Text unterscheidbar. Region mit Tastaturfokus, natives horizontales Scrollen/Touch-Wischen, kein automatisches Weiterspringen.
+
+
+## Vertikale Wetterliste ab 1.11.0
+
+`weatherList({label,items})` nutzt dieselben Daten und originalen Wettersymbole wie `weatherStrip`, ordnet die Zeiträume jedoch untereinander an. Das aktuelle Messergebnis kann als erstes Item mit `time:'Jetzt'`, `kind:'actual'` und optionaler, escaped `id` eingebunden werden; keine zusätzliche Kachel darüber. Ein aufklappbarer Ist-Bereich entsteht über die gemeinsame `section` der Integration. Die Integration entscheidet über den Inhalt und merkt den Faltzustand.
+
+Die Liste scrollt gemeinsam mit der Seite. Desktopzeilen zeigen Zeit, Symbol, Temperatur und Messwerte nebeneinander; bei einer tatsächlichen Kartenbreite bis 620 px erscheinen die Messwerte in zwei Spalten darunter. Container Queries berücksichtigen auch schmale Karten auf großen Bildschirmen. Messwerte blau und Vorhersagen schwarz auf der gemeinsamen weißen Lesefläche. Keine lokale CSS-Kopie ergänzen.

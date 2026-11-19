@@ -1,3 +1,9 @@
+## 1.11.0 – 2026-11-19
+
+- Neue gemeinsame Wetterliste: Zeiträume untereinander, aktuelle Messwerte als reguläre erste Zeile.
+- Kompakte Zeilen mit Wettersymbol, Temperatur und Messwerten, automatische Anordnung nach tatsächlicher Kartenbreite, auch bei schmalen Desktop-Karten.
+- Vorhandene horizontale Wetteransicht bleibt als eigenständige Variante verfügbar.
+
 ## 1.10.0 – 2026-11-19
 
 - Neue lokale SVG-Wettergrafiken für Sonne, Wolken, Regen, Schauer, Schnee, Glätte, Gewitter, Hagel, Nebel, Nacht und gemessene Temperaturen.

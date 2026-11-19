@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {weatherGraphic,weatherMetricIcon,weatherPeriod,weatherStrip,weatherNow,WEATHER_GRAPHICS} from '../dist/family-ui.js';
+import {weatherGraphic,weatherMetricIcon,weatherPeriod,weatherStrip,weatherNow,weatherList,WEATHER_GRAPHICS} from '../dist/family-ui.js';
 
 test('weather symbols cover all WMO groups, nights, wind and missing conditions',()=>{
   for(const [code,kind] of [[0,'clear'],[2,'partly-cloudy'],[3,'cloudy'],[48,'fog'],[61,'rain'],[82,'showers'],[75,'snow'],[67,'sleet'],[95,'thunder'],[99,'hail'],[null,'unknown']])
@@ -20,4 +20,9 @@ test('measurements and forecast stay identifiable without colour, with exact tim
   assert.match(measured,/Gemessen/);assert.match(measured,/data-start="12" data-end="20"/);assert.match(measured,/data-weather-graphic="thermometer"/);
   assert.match(weatherPeriod(),/Vorhersage/);assert.throws(()=>weatherPeriod({kind:'both'}));
   assert.match(weatherStrip(),/role="region".*tabindex="0"/);
+});
+test('vertical list includes current values once and escapes identifiers',()=>{
+  const markup=weatherList({label:'<Heute>',items:[{id:'now" onclick="bad',time:'Jetzt',kind:'actual',temperature:'12 °C',graphic:{kind:'thermometer'}},{time:'12–15 Uhr',temperature:'14 °C',graphic:{code:0}}]});
+  assert.match(markup,/fui-weather-list/);assert.doesNotMatch(markup,/fui-weather-strip|tabindex|id="now" onclick/);
+  assert.equal((markup.match(/>Jetzt</g)||[]).length,1);assert.match(markup,/id="now&quot; onclick=&quot;bad"/);
 });

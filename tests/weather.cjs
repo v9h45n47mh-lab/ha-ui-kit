@@ -19,6 +19,18 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
   await strip.focus();await page.keyboard.press('End');await strip.evaluate(e=>e.scrollLeft=e.scrollWidth);assert(await strip.evaluate(e=>e.scrollLeft>0));
   assert(await weather.locator('.fui-weather-period').last().getByText('1.013 hPa').isVisible());
  }
+ const vertical=gallery.locator('#weather-list'),list=vertical.locator('.fui-weather-list');
+ for(const width of [320,390,768,1100])for(const dark of [false,true]){
+  await page.setViewportSize({width,height:1000});await page.evaluate(d=>document.documentElement.classList.toggle('dark',d),dark);
+  assert.equal(await vertical.locator('#gallery-weather-current').count(),1);
+  const report=await list.evaluate(el=>{const rows=[...el.querySelectorAll('.fui-weather-period')].map(e=>e.getBoundingClientRect());const second=el.querySelectorAll('.fui-weather-period')[1],metrics=second.querySelector('dl').getBoundingClientRect(),temperature=second.querySelector('strong').getBoundingClientRect();return {width:el.clientWidth,overflow:el.scrollWidth>el.clientWidth,ordered:rows.every((r,i)=>!i||r.top>=rows[i-1].bottom-1),metricsBelow:metrics.top>=temperature.bottom,metricsRight:metrics.left>=temperature.right};});
+  assert(report.ordered);assert(!report.overflow);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  assert(report.width<=620?report.metricsBelow:report.metricsRight,'Layout follows card width');
+  await vertical.screenshot({path:path.join(screens,`weather-list-${width}-${dark?'dark':'light'}.png`)});
+ }
+ // A narrow HA grid card must remain vertical even on a wide desktop.
+ await page.setViewportSize({width:1100,height:1000});await vertical.evaluate(e=>e.style.width='300px');
+ assert(await list.evaluate(e=>e.scrollWidth<=e.clientWidth));await vertical.evaluate(e=>e.style.width='');
  const context=await browser.newContext({viewport:{width:390,height:900},isMobile:true,hasTouch:true}),touch=await context.newPage();
  await touch.goto(`http://127.0.0.1:${server.address().port}/examples/gallery.html`);
  const touchStrip=touch.locator('family-ui-gallery').locator('#weather .fui-weather-strip');await touchStrip.scrollIntoViewIfNeeded();
@@ -26,6 +38,13 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+new 
  for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:box.x+box.width-20-i*30,y:box.y+100}]});
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(300);
  assert(await touchStrip.evaluate(e=>e.scrollLeft>0),'Touch swipe reveals later periods');
+ await touch.locator('family-ui-gallery').locator('#gallery-weather-current').scrollIntoViewIfNeeded();
+ const beforeVertical=await touch.evaluate(()=>scrollY),touchList=touch.locator('family-ui-gallery').locator('#weather-list');
+ const vbox=await touchList.boundingBox(),swipeY=Math.min(750,Math.max(350,vbox.y+250));
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:200,y:swipeY}]});
+ for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:200,y:swipeY-i*25}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(300);
+ assert(await touch.evaluate(()=>scrollY)>beforeVertical,'Vertical weather uses page scrolling');
  await context.close();assert.deepEqual(errors,[]);console.log('PASS weather: original SVGs, four widths, light/dark, source colours, overflow, keyboard and touch scrolling');
  await browser.close();server.close();
 })().catch(async e=>{console.error(e);await browser?.close();server.close();process.exitCode=1;});

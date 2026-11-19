@@ -56,13 +56,17 @@ function weatherMetrics(metrics) {
   return `<dl class="fui-weather-metrics">${metrics.map(m=>`<div><dt>${weatherMetricIcon(m.icon)}<span>${escapeHtml(m.label)}</span></dt><dd>${escapeHtml(m.value??'—')}${m.detail?`<small>${escapeHtml(m.detail)}</small>`:''}</dd></div>`).join('')}</dl>`;
 }
 /** Inputs are already formatted. No meteorology, aggregation or sample inference belongs to the kit. */
-export function weatherPeriod({time,kind='forecast',temperature='—',temperatureLabel='',range='',condition='',graphic={},metrics=[],start,end}={}) {
+export function weatherPeriod({id='',time,kind='forecast',temperature='—',temperatureLabel='',range='',condition='',graphic={},metrics=[],start,end}={}) {
   if(!['actual','forecast'].includes(kind))throw new TypeError('Unknown weather source');
   const bounds=[['start',start],['end',end]].filter(([,v])=>Number.isFinite(v)).map(([k,v])=>` data-${k}="${v}"`).join('');
-  return `<li class="fui-weather-period is-${kind}" data-weather-kind="${kind}"${bounds}><div class="fui-weather-time">${escapeHtml(time)}</div><small class="fui-weather-source">${kind==='actual'?'Gemessen':'Vorhersage'}</small>${weatherGraphic(graphic)}<div class="fui-weather-temperature"><strong>${escapeHtml(temperature)}</strong></div><small class="fui-weather-temperature-label">${escapeHtml(temperatureLabel)}</small><div class="fui-weather-range">${escapeHtml(range)}</div><p class="fui-weather-condition">${escapeHtml(condition)}</p>${weatherMetrics(metrics)}</li>`;
+  return `<li${id?` id="${escapeHtml(id)}"`:''} class="fui-weather-period is-${kind}" data-weather-kind="${kind}"${bounds}><div class="fui-weather-time">${escapeHtml(time)}</div><small class="fui-weather-source">${kind==='actual'?'Gemessen':'Vorhersage'}</small>${weatherGraphic(graphic)}<div class="fui-weather-temperature"><strong>${escapeHtml(temperature)}</strong></div><small class="fui-weather-temperature-label">${escapeHtml(temperatureLabel)}</small><div class="fui-weather-range">${escapeHtml(range)}</div><p class="fui-weather-condition">${escapeHtml(condition)}</p>${weatherMetrics(metrics)}</li>`;
 }
 export function weatherStrip({items=[],label='Wetter im 3-Stunden-Takt'}={}) {
   return `<div class="fui-weather-strip" role="region" aria-label="${escapeHtml(label)}" tabindex="0"><ul class="fui-weather-periods">${items.map(weatherPeriod).join('')}</ul></div>`;
+}
+/** Natural page scrolling, including current readings as a regular item. No nested scroll surface. */
+export function weatherList({items=[],label='Wetter im 3-Stunden-Takt'}={}) {
+  return `<div class="fui-weather-list" role="region" aria-label="${escapeHtml(label)}"><ul class="fui-weather-list-items">${items.map(weatherPeriod).join('')}</ul></div>`;
 }
 export function weatherNow({id='',label='Jetzt',temperature='—',range='',metrics=[]}={}) {
   return `<div${id?` id="${escapeHtml(id)}"`:''} class="fui-weather-now is-actual" data-weather-kind="actual"><div><span>${escapeHtml(label)}</span><strong>${escapeHtml(temperature)}</strong><small>${escapeHtml(range)}</small></div>${weatherMetrics(metrics)}</div>`;
